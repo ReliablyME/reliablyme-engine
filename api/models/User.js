@@ -14,7 +14,7 @@ module.exports = {
 
     emailAddress: {
       type: 'string',
-      required: true,
+      //required: true,
       unique: true,
       isEmail: true,
       maxLength: 200,
@@ -23,7 +23,7 @@ module.exports = {
 
     password: {
       type: 'string',
-      required: true,
+      //required: true,
       description: 'Securely hashed representation of the user\'s login password.',
       protect: true,
       example: '2$28a8eabna301089103-13948134nad'
@@ -31,10 +31,33 @@ module.exports = {
 
     fullName: {
       type: 'string',
-      required: true,
+      //required: true,
       description: 'Full representation of the user\'s name',
       maxLength: 120,
       example: 'Lisa Microwave van der Jenny'
+    },
+
+    firstName: {
+      type: 'string',
+      required: true,
+      description: 'Just the user\'s first name',
+      maxLength: 120,
+      example: 'Lisa'
+    },
+
+    lastName: {
+      type: 'string',
+      required: true,
+      description: 'Just the user\'s last name',
+      maxLength: 120,
+      example: 'Lisa'
+    },
+
+    messengerUserId: {
+      type: 'string',
+      protect: true,
+      description: 'The id of the user as returned from Messenger.',
+      extendedDescription: 'This should be a unique ID from Facebook.  We should be able to extract an email from this at some point.'
     },
 
     isSuperAdmin: {
