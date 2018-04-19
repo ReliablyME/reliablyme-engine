@@ -1,23 +1,13 @@
 module.exports = {
 
 
-  friendlyName: 'Register facebook messenger user',
+  friendlyName: 'Set the messenger user as a helper',
 
-  description: 'Take registration from ChatFuel and create user',
+  description: 'Look up a user based on messenger id and set them as a helper',
 
   extendedDescription: '',
 
   inputs: {
-      firstname: {
-        description: 'First name of user',
-        type: 'string',
-        required: true
-      },
-      lastname: {
-        description: 'First name of user',
-        type: 'string',
-        required: true
-      },
       messengeruserid: {
         description: 'Unique ID of messenger user',
         type: 'string',
@@ -29,7 +19,7 @@ module.exports = {
   exits: {
 
     success: {
-      description: 'The user has been created in model.',
+      description: 'The user has been set as a helper.',
       responseType: 'ok'
     }
 
@@ -44,15 +34,7 @@ module.exports = {
 	// Need to create a new user from this info
 	// user = Individual.new(source: source, sourceID: sourceID, firstName: firstName, lastName: lastName, email:email, isHelper: 0, isEntreprenuer: 0)
 
-    await User.create(
-    	{
-    		firstName: inputs.firstname,
-      		lastName: inputs.lastname,
-      		fullName: inputs.firstname + " " + inputs.lastname,
-      		messengerUserId: inputs.messengeruserid,
-		}
-	);
-
+    await User.update({messengerUserId: inputs.messengeruserid}).set({isHelper: true});
     return exits.success();
   },
 
