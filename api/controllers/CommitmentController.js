@@ -32,7 +32,7 @@ module.exports = {
 	      		fullName: req.param("first name") + " " + req.param("last name"),
 	      		messengerUserId: req.param("messenger user id"),
 			}, function (err, user) {
-	    		return res.ok('User created');
+	    		return res.ok('Pass');
 	    	}
 	    );
 	},
