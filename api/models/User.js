@@ -15,7 +15,7 @@ module.exports = {
     emailAddress: {
       type: 'string',
       //required: true,
-      unique: true,
+      //unique: true,
       isEmail: true,
       maxLength: 200,
       example: 'carol.reyna@microsoft.com'
@@ -58,6 +58,16 @@ module.exports = {
       protect: true,
       description: 'The id of the user as returned from Messenger.',
       extendedDescription: 'This should be a unique ID from Facebook.  We should be able to extract an email from this at some point.'
+    },
+
+    isHelper: {
+      type: 'boolean',
+      description: 'Whether this user is a helper available for commitments'
+    },
+
+    isEntreprenuer : {
+      type: 'boolean',
+      description: 'Whether this user can accept commitments'
     },
 
     isSuperAdmin: {

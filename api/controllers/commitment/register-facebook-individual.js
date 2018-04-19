@@ -1,19 +1,37 @@
 module.exports = {
 
 
-  friendlyName: 'register facebook messenger user',
+  friendlyName: 'Register facebook messenger user',
 
   description: 'Take registration from ChatFuel and create user',
 
   extendedDescription: '',
 
+  inputs: {
+      firstname: {
+        description: 'First name of user',
+        type: 'string',
+        required: true
+      },
+      lastname: {
+        description: 'First name of user',
+        type: 'string',
+        required: true
+      },
+      messengeruserid: {
+        description: 'Unique ID of messenger user',
+        type: 'string',
+        required: true
+      }
+
+  },
+
   exits: {
 
     success: {
-      description: 'The user has been created in model.'
-    },
-
-    redirect: { }
+      description: 'The user has been created in model.',
+      responseType: 'ok'
+    }
 
   },
 
@@ -34,7 +52,7 @@ module.exports = {
 		}
 	);
 
-    return res.ok('Signup successful!');
+    return exits.success();
   },
 
 };
