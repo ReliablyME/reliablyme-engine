@@ -13,7 +13,7 @@ module.exports = {
 
 		// Need to create a new user from this info
 		// user = Individual.new(source: source, sourceID: sourceID, firstName: firstName, lastName: lastName, email:email, isHelper: 0, isEntreprenuer: 0)
-		console.log("Called registerFacebookIndividual");
+		console.log("Called registerFacebookIndividual", req.allParams());
 		/*
 	    var newuser = await User.create(
 	    	{
