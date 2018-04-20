@@ -68,7 +68,7 @@ module.exports = {
 		var entrepreneur = await User.find( {where: {fullName: req.param("input name"), isEntreprenuer: true}});
 		if(entrepreneur) {
 			console.log("Found IsValidEntrepreneur ", entrepreneur[0].fullName);
-			return res.ok( {"set_attributes":{"isValidEntrepreneur": "true"}});
+			return res.ok( {"set_attributes":{"isValidEntrepreneur": "true", "entrepreneurID": entrepreneur[0].id}});
 		}
 		else { 
     		return res.serverError("Entrepreneur not found");
@@ -78,18 +78,18 @@ module.exports = {
 	CreateCommitment: async function (req, res) {
 		console.log("Called CreateCommitment", req.allParams());
 		//com = Commitment.new(helper_id: ind.id, entreprenuer_id: entrepreneurID, commitmentOffer: commitmentOffer, commitmentDueDate: inputDate, commitmentStatus_id: cs.id)
-		await User.create(
+		newUser = await Commitment.create(
 			{
-	    		helper_id: req.param("messenger id"),
-	      		entreprenuer_id: req.param("entrepreneur id"),
-	      		commitmentOffer: req.param("commitment offer"),
-	      		commitmentDueDate: Date(req.param("input date")),
+	    		helper_id: req.param("messenger user id"),
+	      		entreprenuer_id: req.param("entrepreneurID"),
+	      		commitmentOffer: req.param("commitmentOffer"),
+	      		commitmentDueDate: Date(req.param("inputDate")),
 	      		commitmentStatus_id: 1
-			}, function (err, user) {
-	    		return res.ok('Pass');
-	    	}
+			}
 	    );
 
+		if(newUser) 
+			return res.ok({"set_attributes": {"commitmentID": newUser.id}});
 	},
 
 	ViewCommitments: async function (req, res) {
