@@ -67,8 +67,8 @@ module.exports = {
 		console.log("Called IsValidEntrepreneur", req.allParams());
 		var entrepreneur = await User.find( {where: {fullName: req.param("input name"), isEntreprenuer: true}});
 		if(entrepreneur) {
-			console.log("Found IsValidEntrepreneur ", entrepreneur, entrepreneur[0].fullName);
-			return res.ok( {"set_attributes":{"isValidEntrepreneur": "#true"}});
+			console.log("Found IsValidEntrepreneur ", entrepreneur[0].fullName);
+			return res.ok( {"set_attributes":{"isValidEntrepreneur": "true"}});
 		}
 		else { 
     		return res.serverError("Entrepreneur not found");
