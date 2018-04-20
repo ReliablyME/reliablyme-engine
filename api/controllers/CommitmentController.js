@@ -97,6 +97,7 @@ module.exports = {
 	},
 
 	ViewCommitments: function (req, res) {
+		console.log("Called ViewCommitments", req.allParams());
 
 	    Commitment.find({helper_id: req.param("messenger user id")}).exec(function(err, items){
 	      if(err) return res.ok({records: 0});
@@ -110,6 +111,7 @@ module.exports = {
 
 
 	isValidCommitmentDate: function (req, res) {
+		console.log("Called isValidCommitmentDate", req.allParams());
 		if(Date(req.param("input date"))>Now())
 			return res.ok("set_attributes": {"isValidDate": "#true"});
 		else
@@ -117,17 +119,37 @@ module.exports = {
 	},
 
 	PromptCommitmentComplete: function (req, res) {
+		console.log("Called PromptCommitmentComplete", req.allParams());
+  		return res.ok();
+	},
 
+	AcceptCommitmentOffer: function (req, res) {
+		console.log("Called AcceptCommitmentOffer", req.allParams());
+  		return res.ok();
+
+	},
+	RejectCommitmentOffer: function (req, res) {
+		console.log("Called RejectCommitmentOffer", req.allParams());
+  		return res.ok();
 
 	},
 
-	AcceptCommitmentOffer: function (req, res) {},
-	RejectCommitmentOffer: function (req, res) {},
+	AcceptCommitmentCompletion: function (req, res) {
+		console.log("Called AcceptCommitmentCompletion", req.allParams());
+  		return res.ok();
 
-	AcceptCommitmentCompletion: function (req, res) {},
-	RejectCommitmentCompletion: function (req, res) {},
+	},
+	RejectCommitmentCompletion: function (req, res) {
+		console.log("Called RejectCommitmentCompletion", req.allParams());
+  		return res.ok();
 
-	GetReliabilityRating: function (req, res) {},
+	},
+
+	GetReliabilityRating: function (req, res) {
+		console.log("Called GetReliabilityRating", req.allParams());
+  		return res.ok();
+
+	},
 
 };
 

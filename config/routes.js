@@ -49,10 +49,21 @@ module.exports.routes = {
   'POST  /api/v1/entrance/send-password-recovery-email': { action: 'entrance/send-password-recovery-email' },
   'POST  /api/v1/entrance/update-password-and-login':    { action: 'entrance/update-password-and-login' },
   'POST  /api/v1/deliver-contact-form-message':          { action: 'deliver-contact-form-message' },
+
   'POST  /registerFacebookIndividual': 'CommitmentController.registerFacebookIndividual' ,
-  'POST  /SetIndividualAsHelper':                     { action: 'commitment/set-individual-as-helper' },
-
-
+  'POST  /SetIndividualAsHelper': 'CommitmentController.SetIndividualAsHelper' ,
+  'POST  /SetIndividualAsEntrepreneur': 'CommitmentController.registerFacebookIndividual' ,
+  'POST  /CreateCommitment': 'CommitmentController.CreateCommitment' ,
+  'POST  /IsValidEntrepreneur': 'CommitmentController.IsValidEntrepreneur' ,
+  'POST  /ViewCommitments': 'CommitmentController.ViewCommitments' ,
+  'POST  /isValidCommitmentDate': 'CommitmentController.isValidCommitmentDate' ,
+  'POST  /PromptCommitmentComplete': 'CommitmentController.PromptCommitmentComplete' ,
+  'POST  /AcceptCommitmentOffer': 'CommitmentController.AcceptCommitmentOffer' ,
+  'POST  /RejectCommitmentOffer': 'CommitmentController.RejectCommitmentOffer' ,
+  'POST  /AcceptCommitmentCompletion': 'CommitmentController.AcceptCommitmentCompletion' ,
+  'POST  /RejectCommitmentCompletion': 'CommitmentController.RejectCommitmentCompletion' ,
+  'POST  /GetReliabilityRating': 'CommitmentController.GetReliabilityRating' ,
+  
 
   //  ╦ ╦╔═╗╔╗ ╦ ╦╔═╗╔═╗╦╔═╔═╗
   //  ║║║║╣ ╠╩╗╠═╣║ ║║ ║╠╩╗╚═╗
