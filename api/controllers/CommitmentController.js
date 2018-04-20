@@ -6,7 +6,7 @@
  */
 module.exports = {
 
-	registerFacebookIndividual: function (req, res) {
+	registerFacebookIndividual: async function (req, res) {
 		// This call initializes the individual
 		// Called from ChatFuel
 		// Expecting first name, last name, messenger user id
@@ -28,7 +28,7 @@ module.exports = {
 	},
 
 
-	SetIndividualAsHelper: function (req, res) {
+	SetIndividualAsHelper: async function (req, res) {
 		console.log("Called SetIndividualAsHelper", req.allParams());
 	    await User.update(
 	    	{
@@ -46,7 +46,7 @@ module.exports = {
 	},
 
 
-	SetIndividualAsEntrepreneur: function (req, res) {
+	SetIndividualAsEntrepreneur: async function (req, res) {
 		console.log("Called SetIndividualAsEntrepreneur", req.allParams());
 	    await User.update(
 	    	{
@@ -63,7 +63,7 @@ module.exports = {
 	},
 
 
-	IsValidEntrepreneur: function (req, res) {
+	IsValidEntrepreneur: async function (req, res) {
 		console.log("Called IsValidEntrepreneur", req.allParams());
 		await User.findOne(
 			{
@@ -79,7 +79,7 @@ module.exports = {
 	    };
 	},
 
-	CreateCommitment: function (req, res) {
+	CreateCommitment: async function (req, res) {
 		console.log("Called CreateCommitment", req.allParams());
 		//com = Commitment.new(helper_id: ind.id, entreprenuer_id: entrepreneurID, commitmentOffer: commitmentOffer, commitmentDueDate: inputDate, commitmentStatus_id: cs.id)
 		await User.create(
@@ -96,7 +96,7 @@ module.exports = {
 
 	},
 
-	ViewCommitments: function (req, res) {
+	ViewCommitments: async function (req, res) {
 		console.log("Called ViewCommitments", req.allParams());
 
 	    await Commitment.find({helper_id: req.param("messenger user id")}).exec(function(err, items){
@@ -110,7 +110,7 @@ module.exports = {
 	},
 
 
-	isValidCommitmentDate: function (req, res) {
+	isValidCommitmentDate: async function (req, res) {
 		console.log("Called isValidCommitmentDate", req.allParams());
 		if(Date(req.param("input date"))>Now())
 			return res.ok({"set_attributes": {"isValidDate": "#true"}});
@@ -118,34 +118,34 @@ module.exports = {
 			return res.ok({"set_attributes": {"isValidDate": "#false"}});
 	},
 
-	PromptCommitmentComplete: function (req, res) {
+	PromptCommitmentComplete: async function (req, res) {
 		console.log("Called PromptCommitmentComplete", req.allParams());
   		return res.ok();
 	},
 
-	AcceptCommitmentOffer: function (req, res) {
+	AcceptCommitmentOffer: async function (req, res) {
 		console.log("Called AcceptCommitmentOffer", req.allParams());
   		return res.ok();
 
 	},
-	RejectCommitmentOffer: function (req, res) {
+	RejectCommitmentOffer: async function (req, res) {
 		console.log("Called RejectCommitmentOffer", req.allParams());
   		return res.ok();
 
 	},
 
-	AcceptCommitmentCompletion: function (req, res) {
+	AcceptCommitmentCompletion: async function (req, res) {
 		console.log("Called AcceptCommitmentCompletion", req.allParams());
   		return res.ok();
 
 	},
-	RejectCommitmentCompletion: function (req, res) {
+	RejectCommitmentCompletion: async function (req, res) {
 		console.log("Called RejectCommitmentCompletion", req.allParams());
   		return res.ok();
 
 	},
 
-	GetReliabilityRating: function (req, res) {
+	GetReliabilityRating: async function (req, res) {
 		console.log("Called GetReliabilityRating", req.allParams());
   		return res.ok();
 
