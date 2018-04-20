@@ -86,7 +86,7 @@ module.exports = {
 	    		helper_id: req.param("messenger user id"),
 	      		entreprenuer_id: req.param("entrepreneurID"),
 	      		commitmentOffer: req.param("commitmentOffer"),
-	      		commitmentDueDate: inDate,
+	      		commitmentDueDate: inDate.toISOString(),
 	      		commitmentStatus_id: 1
 			}
 	    );
