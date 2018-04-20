@@ -107,15 +107,16 @@ module.exports = {
 
 
 	isValidCommitmentDate: async function (req, res) {
-		var inString = req.param("input date").split("/");
-		var inDate = new Date(from[2], from[1] - 1, from[0]);
 		console.log("Called isValidCommitmentDate", req.allParams());
-		console.log("Checking isValidCommitmentDate", inDate.getUTCDate());
+		if(req.param("inputDate")) {
+			var inArray = req.param("inputDate").split("/");
+			var inDate = new Date(inArray[2], inArray[1] - 1, inArray[0]);
+			console.log("Checking isValidCommitmentDate", inDate.getUTCDate());
 
-		if(inDate>Date.Now())
-			return res.ok({"set_attributes": {"isValidDate": "true"}});
-		else
-			return res.ok({"set_attributes": {"isValidDate": "false"}});
+			if(inDate>Date.Now())
+				return res.ok({"set_attributes": {"isValidDate": "true"}});
+		}
+		return res.ok({"set_attributes": {"isValidDate": "false"}});
 	},
 
 	PromptCommitmentComplete: async function (req, res) {
