@@ -15,7 +15,7 @@ module.exports = {
 		// user = Individual.new(source: source, sourceID: sourceID, firstName: firstName, lastName: lastName, email:email, isHelper: 0, isEntreprenuer: 0)
 		console.log("Called registerFacebookIndividual", req.allParams());
 
-		User.create(
+		await User.create(
 			{
 	    		firstName: req.param("first name"),
 	      		lastName: req.param("last name"),
@@ -30,7 +30,7 @@ module.exports = {
 
 	SetIndividualAsHelper: function (req, res) {
 		console.log("Called SetIndividualAsHelper", req.allParams());
-	    User.update(
+	    await User.update(
 	    	{
 	    		messengerUserId: req.param("messenger user id")
 	    	}
@@ -48,7 +48,7 @@ module.exports = {
 
 	SetIndividualAsEntrepreneur: function (req, res) {
 		console.log("Called SetIndividualAsEntrepreneur", req.allParams());
-	    User.update(
+	    await User.update(
 	    	{
 	    		messengerUserId: req.param("messenger user id")
 	    	}
@@ -65,7 +65,7 @@ module.exports = {
 
 	IsValidEntrepreneur: function (req, res) {
 		console.log("Called IsValidEntrepreneur", req.allParams());
-		User.findOne(
+		await User.findOne(
 			{
 				fullName: req.param("input name")
 			}
@@ -82,7 +82,7 @@ module.exports = {
 	CreateCommitment: function (req, res) {
 		console.log("Called CreateCommitment", req.allParams());
 		//com = Commitment.new(helper_id: ind.id, entreprenuer_id: entrepreneurID, commitmentOffer: commitmentOffer, commitmentDueDate: inputDate, commitmentStatus_id: cs.id)
-		User.create(
+		await User.create(
 			{
 	    		helper_id: req.param("messenger id"),
 	      		entreprenuer_id: req.param("entrepreneur id"),
@@ -99,7 +99,7 @@ module.exports = {
 	ViewCommitments: function (req, res) {
 		console.log("Called ViewCommitments", req.allParams());
 
-	    Commitment.find({helper_id: req.param("messenger user id")}).exec(function(err, items){
+	    await Commitment.find({helper_id: req.param("messenger user id")}).exec(function(err, items){
 	      if(err) return res.ok({records: 0});
 	      else {
 	        console.log("Found records: ", items.length);
