@@ -80,14 +80,14 @@ module.exports = {
 		//com = Commitment.new(helper_id: ind.id, entreprenuer_id: entrepreneurID, commitmentOffer: commitmentOffer, commitmentDueDate: inputDate, commitmentStatus_id: cs.id)
 		var inArray = req.param("inputDate").split("/");
 		var inDate = new Date(inArray[2], inArray[1] - 1, inArray[0]);
-		var inSQLDate = inArray.join("-");
-		
+		var inSQLDate = inArray.join("/");
+
 		newUser = await Commitment.create(
 			{
 	    		helper_id: req.param("messenger user id"),
 	      		entreprenuer_id: req.param("entrepreneurID"),
 	      		commitmentOffer: req.param("commitmentOffer"),
-	      		commitmentDueDate: req.param("inputDate"),
+	      		commitmentDueDate: inDate,
 	      		commitmentStatus_id: 1
 			}
 	    );
