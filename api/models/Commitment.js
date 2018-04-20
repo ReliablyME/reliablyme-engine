@@ -10,9 +10,9 @@ module.exports = {
   attributes: {
 
     helper_id: {
-      type: 'number',
+      type: 'string',
       //required: true,
-      description: 'user id of helper',
+      description: 'messenger user id of helper',
     },
 
     entreprenuer_id: {
