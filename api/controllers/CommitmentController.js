@@ -111,9 +111,9 @@ module.exports = {
 		if(req.param("inputDate")) {
 			var inArray = req.param("inputDate").split("/");
 			var inDate = new Date(inArray[2], inArray[1] - 1, inArray[0]);
-			console.log("Checking isValidCommitmentDate", inDate.getUTCDate());
-
-			if(inDate>Date.Now())
+			console.log("Checking isValidCommitmentDate", inDate.getUTCDate(), inArray);
+			var today = new Date();
+			if(inDate>=today)
 				return res.ok({"set_attributes": {"isValidDate": "true"}});
 		}
 		return res.ok({"set_attributes": {"isValidDate": "false"}});
