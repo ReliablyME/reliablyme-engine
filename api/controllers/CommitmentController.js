@@ -67,7 +67,7 @@ module.exports = {
 		console.log("Called IsValidEntrepreneur", req.allParams());
 		await User.findOne(
 			{
-				{where: {fullName: req.param("input name"), isEntreprenuer: true}}
+				where: {fullName: req.param("input name"), isEntreprenuer: true}
 			}
 			), function (err, user) {
 	    		if(!err) return res.ok( 
