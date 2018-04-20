@@ -70,11 +70,8 @@ module.exports = {
 				where: {fullName: req.param("input name"), isEntreprenuer: true}
 			}
 			), function (err, user) {
-	    		if(!err) return res.ok( 
-	    			{
-	    				"set_attributes": {"isValidEntrepreneur": "#"+user[0].isEntreprenuer, "entrepreneurID": "#"+ user[0].id}
-	    			}
-	    		);
+				console.log("Returnging IsValidEntrepreneur ", user[0].isEntreprenuer, " ", user[0].id);
+	    		if(!err) return res.ok( {"isValidEntrepreneur": user[0].isEntreprenuer});
 	    		else return res.serverError("Entrepreneur not found");
 	    };
 	},
