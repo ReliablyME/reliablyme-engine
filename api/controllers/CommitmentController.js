@@ -65,14 +65,14 @@ module.exports = {
 
 	IsValidEntrepreneur: async function (req, res) {
 		console.log("Called IsValidEntrepreneur", req.allParams());
-		await User.findOne(
+		await User.find(
 			{
 				where: {fullName: req.param("input name"), isEntreprenuer: true}
 			}
 			), function (err, user) {
 	    		if(!err) return res.ok( 
 	    			{
-	    				"set_attributes": {"isValidEntrepreneur": "#"+User.isEntreprenuer, "entrepreneurID": "#"+ User.id}
+	    				"set_attributes": {"isValidEntrepreneur": "#"+user[0].isEntreprenuer, "entrepreneurID": "#"+ user[0].id}
 	    			}
 	    		);
 	    		else return res.serverError("Entrepreneur not found");
