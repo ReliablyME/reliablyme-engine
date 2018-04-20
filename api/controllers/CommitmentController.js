@@ -72,7 +72,7 @@ module.exports = {
 			), function (err, user) {
 	    		if(!err) return res.ok( 
 	    			{
-	    				"set_attributes": {"isValidEntrepreneur": "#"+user.isEntreprenuer, "entrepreneurID": "#"+ user.id}
+	    				"set_attributes": {"isValidEntrepreneur": "#"+User.isEntreprenuer, "entrepreneurID": "#"+ User.id}
 	    			}
 	    		);
 	    		else return res.serverError("Entrepreneur not found");
@@ -113,9 +113,9 @@ module.exports = {
 	isValidCommitmentDate: function (req, res) {
 		console.log("Called isValidCommitmentDate", req.allParams());
 		if(Date(req.param("input date"))>Now())
-			return res.ok("set_attributes": {"isValidDate": "#true"});
+			return res.ok({"set_attributes": {"isValidDate": "#true"}});
 		else
-			return res.ok("set_attributes": {"isValidDate": "#false"});
+			return res.ok({"set_attributes": {"isValidDate": "#false"}});
 	},
 
 	PromptCommitmentComplete: function (req, res) {
