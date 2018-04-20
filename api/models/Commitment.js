@@ -28,8 +28,9 @@ module.exports = {
     },
 
     commitmentDueDate: {
-      type: 'datetime',
+      type: 'string',
       description: 'Date to commit to',
+      columnType: 'datetime',
     },
 
     commitmentStatus_id: {
