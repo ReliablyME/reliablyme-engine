@@ -9,6 +9,34 @@ module.exports = {
 
   attributes: {
 
+    helper_id: {
+      type: 'number',
+      //required: true,
+      description: 'user id of helper',
+    },
+
+    entreprenuer_id: {
+      type: 'number',
+      //required: true,
+      description: 'user id of entrepreneur',
+    },
+
+    commitmentOffer: {
+      type: 'string',
+      //required: true,
+      description: 'Text description of commitment offer',
+    },
+
+    commitmentDueDate: {
+      type: 'datetime',
+      description: 'Date to commit to',
+    },
+
+    commitmentStatus_id: {
+      type: 'number',
+      description: 'id of status of commmitment',
+    },
+
   }
 };
 
