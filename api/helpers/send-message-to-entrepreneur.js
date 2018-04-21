@@ -42,7 +42,7 @@ module.exports = {
   exits: {
 
     success: {
-      outputFriendlyName: 'Chate message sent',
+      outputFriendlyName: 'Chat message sent',
 	  responseType: 'ok'
     }
 
@@ -69,6 +69,7 @@ module.exports = {
 
     console.log('ReceiveHelperOffer :',restResponse);
 
+    return exits.success();
   },
 
 };
