@@ -152,8 +152,10 @@ module.exports = {
 		console.log("Called AcceptCommitmentOffer", req.allParams());
 		// Update status on commitment to 2 - offerAccepted
 		await Commitment.update({id:req.param("commitmentID")}).set({commitmentStatus_id:2});
+		console.log("updated commitmentStatus_id:2");
 		// Find entrepreneur record for name
 		var entrepreneur = await User.find({where: {messengerUserId: req.param("messenger user id")}});
+		console.log("Found entrepreneur", entrepreneur[0].fullName);
 		// Message user that offer accepted
 		await sails.helpers.SendCommitmentAcceptanceToHelper.with(
 			{
