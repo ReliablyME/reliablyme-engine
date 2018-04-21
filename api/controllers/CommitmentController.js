@@ -150,11 +150,27 @@ module.exports = {
 
 	AcceptCommitmentOffer: async function (req, res) {
 		console.log("Called AcceptCommitmentOffer", req.allParams());
+		// Update status on commitment to 2 - offerAccepted
+		await Commitment.update({id:req.param("commitmentID")}).set({commitmentStatus_id:2});
+		// Find entrepreneur record for name
+		var entrepreneur = await User.find({where: {messengerUserId: req.param("messenger user id")}});
+		// Message user that offer accepted
+		await sails.helpers.SendCommitmentAcceptanceToHelper.with(
+			{
+				entName: entrepreneur[0].fullName,
+				comID: req.param("commitmentID"),
+				helperID: req.param("messenger user id"),
+			}
+		);
+
   		return res.ok();
 
 	},
 	RejectCommitmentOffer: async function (req, res) {
 		console.log("Called RejectCommitmentOffer", req.allParams());
+		// Update status on commitment to 3 - offerRejected
+		await Commitment.update({id:req.param("commitmentID")}).set({commitmentStatus_id:3})
+
   		return res.ok();
 
 	},
