@@ -52,7 +52,7 @@ module.exports = {
     var options = {
 		helperName: input.helperName,
 		commitmentID: input.comID,
-		commitmentOffer: intpu.comOffer.
+		commitmentOffer: intput.comOffer,
         chatfuel_token: 'qwYLsCSz8hk4ytd6CPKP4C0oalstMnGdpDjF8YFHPHCieKNc0AfrnjVs91fGuH74',
         chatfuel_block_name:"ReceiveHelperOffer",
         port : 80,
