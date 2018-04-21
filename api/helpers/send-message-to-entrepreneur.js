@@ -87,7 +87,7 @@ module.exports = {
 		       // response available as `responseData` in `yourview`
 			    res.locals.requestData = JSON.parse(responseData);
 	  		} catch (e) {
-	  			console.log.warn('Could not parse response from options.hostname: ' + e);
+	  			console.log('Could not parse response from options.hostname: ' + e);
 	  		}
 	  		res.view('client');
 		}); 
