@@ -21,7 +21,7 @@ module.exports = {
 
     comID: {
       description: 'id of commitment record',
-      type: number
+      type: number,
       required: true
     },
 
