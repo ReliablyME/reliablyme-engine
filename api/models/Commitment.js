@@ -16,9 +16,9 @@ module.exports = {
     },
 
     entreprenuer_id: {
-      type: 'number',
+      type: 'string',
       //required: true,
-      description: 'user id of entrepreneur',
+      description: 'messenger user id of entrepreneur',
     },
 
     commitmentOffer: {

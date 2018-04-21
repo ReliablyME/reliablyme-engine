@@ -84,6 +84,7 @@ module.exports = {
 		var helper = await User.find({where: {messengerUserId: req.param("messenger user id")}});
 
 		if(helper) {
+			console.log("Found helper", helper[0].fullName);
 			// Create the commitment record
 			var newCommitment = await Commitment.create(
 				{
@@ -109,8 +110,10 @@ module.exports = {
 				);
 				return res.ok({"set_attributes": {"commitmentID": newCommitment.id}});
 			}
+			else return res.serverError("Commitment not created");
 		}
-   		return res.serverError("Commitment not saved");
+		else 
+   			return res.serverError("Commitment helper nout found");
 	},
 
 	ViewCommitments: async function (req, res) {

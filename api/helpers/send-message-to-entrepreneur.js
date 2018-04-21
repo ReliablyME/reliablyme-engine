@@ -50,6 +50,8 @@ module.exports = {
 
 
   fn: async function(inputs, exits) {
+	
+	console.log('sendMessageToEntrepreneur :',inputs);
 
     var options = {
 		helperName: input.helperName,
@@ -65,7 +67,7 @@ module.exports = {
 
     restResponse = await http.request(options);
 
-    consolelog('ReceiveHelperOffer :',restResponse);
+    console.log('ReceiveHelperOffer :',restResponse);
 
   },
 
