@@ -21,17 +21,19 @@ module.exports = {
 
     comID: {
       description: 'id of commitment record',
-      type: number,
+      type: 'number',
       required: true
     },
 
     comOffer: {
       description: 'Text of what is being offered.',
+      type: 'string',
       required: true
     },
 
     entID: {
       description: 'messenger id of entrepreneur.',
+      type: 'number',
       required: true
     }
   },
