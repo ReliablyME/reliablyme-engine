@@ -157,7 +157,7 @@ module.exports = {
 		var entrepreneur = await User.find({where: {messengerUserId: req.param("messenger user id")}});
 		console.log("Found entrepreneur", entrepreneur[0].fullName);
 		// Message user that offer accepted
-		await sails.helpers.SendCommitmentAcceptanceToHelper.with(
+		await sails.helpers.sendCommitmentAcceptanceToHelper.with(
 			{
 				entName: entrepreneur[0].fullName,
 				comID: req.param("commitmentID"),
