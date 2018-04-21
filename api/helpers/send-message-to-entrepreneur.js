@@ -59,7 +59,7 @@ module.exports = {
         chatfuel_block_name:"ReceiveHelperOffer",
         port : 443,
         host : "api.chatfuel.com",
-        path: path,
+        path: encodeURI(path),
         method: 'POST'
     };
 
