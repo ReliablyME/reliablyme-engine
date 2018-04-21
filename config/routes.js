@@ -52,7 +52,7 @@ module.exports.routes = {
 
   'POST  /registerFacebookIndividual': 'CommitmentController.registerFacebookIndividual' ,
   'POST  /SetIndividualAsHelper': 'CommitmentController.SetIndividualAsHelper' ,
-  'POST  /SetIndividualAsEntrepreneur': 'CommitmentController.registerFacebookIndividual' ,
+  'POST  /SetIndividualAsEntrepreneur': 'CommitmentController.SetIndividualAsEntrepreneur' ,
   'POST  /CreateCommitment': 'CommitmentController.CreateCommitment' ,
   'POST  /IsValidEntrepreneur': 'CommitmentController.IsValidEntrepreneur' ,
   'POST  /ViewCommitments': 'CommitmentController.ViewCommitments' ,
