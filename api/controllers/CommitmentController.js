@@ -68,7 +68,7 @@ module.exports = {
 		var entrepreneur = await User.find( {where: {fullName: req.param("input name"), isEntreprenuer: true}});
 		if(entrepreneur) {
 			console.log("Found IsValidEntrepreneur ", entrepreneur[0].fullName);
-			return res.ok( {"set_attributes":{"isValidEntrepreneur": "true", "entrepreneurID": entrepreneur[0].id}});
+			return res.ok( {"set_attributes":{"isValidEntrepreneur": "true", "entrepreneurID": entrepreneur[0].messengerUserId}});
 		}
 		else { 
     		return res.serverError("Entrepreneur not found");
@@ -77,23 +77,40 @@ module.exports = {
 
 	CreateCommitment: async function (req, res) {
 		console.log("Called CreateCommitment", req.allParams());
-		//com = Commitment.new(helper_id: ind.id, entreprenuer_id: entrepreneurID, commitmentOffer: commitmentOffer, commitmentDueDate: inputDate, commitmentStatus_id: cs.id)
 		var inArray = req.param("inputDate").split("/");
 		var inDate = new Date(inArray[2], inArray[1] - 1, inArray[0]);
-		var inSQLDate = inArray.join("/");
 
-		newUser = await Commitment.create(
-			{
-	    		helper_id: req.param("messenger user id"),
-	      		entreprenuer_id: req.param("entrepreneurID"),
-	      		commitmentOffer: req.param("commitmentOffer"),
-	      		commitmentDueDate: inDate,
-	      		commitmentStatus_id: 1
+		// Make sure person exists
+		var helper = await User.find({where {messengerUserId: req.param("messenger user id")}});
+
+		if(helper) {
+			// Create the commitment record
+			var newCommitment = await Commitment.create(
+				{
+		    		helper_id: req.param("messenger user id"),
+		      		entreprenuer_id: req.param("entrepreneurID"),
+		      		commitmentOffer: req.param("commitmentOffer"),
+		      		commitmentDueDate: inDate,
+		      		commitmentStatus_id: 1
+				}
+		    );
+
+			// Send a message to the entrepreneur about the commitment
+			if(newCommitment) {
+
+				// Send help offer to entrepreneur
+				sails.helpers.sendMessageToEntrepreneur.with(
+					{
+						helperName: helper[0].fullName,
+						comID: newCommitment.id,
+						comOffer: newCommitment.commitmentOffer,
+						entID: newCommitment.entreprenuer_id
+					}
+				);
+				return res.ok({"set_attributes": {"commitmentID": newCommitment.id}});
 			}
-	    );
-
-		if(newUser) 
-			return res.ok({"set_attributes": {"commitmentID": newUser.id}});
+		}
+   		return res.serverError("Commitment not saved");
 	},
 
 	ViewCommitments: async function (req, res) {
