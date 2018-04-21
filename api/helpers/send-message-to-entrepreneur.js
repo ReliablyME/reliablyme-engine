@@ -50,12 +50,13 @@ module.exports = {
 
 
   fn: async function(inputs, exits) {
+  	var fullpath='/bots/5a3437b6e4b01f197b941b94/users/'+inputs.entID+'/send?chatfuel_token=qwYLsCSz8hk4ytd6CPKP4C0oalstMnGdpDjF8YFHPHCieKNc0AfrnjVs91fGuH74&chatfuel_block_name=ReceiveHelperOffer&commitmentID='+inputs.comID+'&helperName='+encodeURI(inputs.helperName)+'&commitmentOffer='+encodeURI(inputs.comOffer);
 	var results = ""; 
 	var path = '/bots/5a3437b6e4b01f197b941b94/users/'+inputs.entID+'/send'; 
     var options = {
         port : 443,
         host : "api.chatfuel.com",
-        path: encodeURI(path),
+        path: fullpath,
         method: 'POST',
         headers: {
         	'chatfuel_token': 'qwYLsCSz8hk4ytd6CPKP4C0oalstMnGdpDjF8YFHPHCieKNc0AfrnjVs91fGuH74',
