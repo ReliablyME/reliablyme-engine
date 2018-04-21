@@ -67,10 +67,11 @@ module.exports = {
     };
 
 	console.log('sendMessageToEntrepreneur options=:', options);
-    var restResponse = await https.request(options);
+    await https.request(options, function(response) {
+    	console.log(response);
+    });
 
     console.log('ReceiveHelperOffer returned');
-
     return exits.success();
   },
 
