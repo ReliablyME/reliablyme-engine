@@ -67,7 +67,7 @@ module.exports = {
 
     var restResponse = await https.request(options);
 
-    console.log('ReceiveHelperOffer :',restResponse);
+    console.log('ReceiveHelperOffer returned');
 
     return exits.success();
   },
