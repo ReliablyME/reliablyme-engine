@@ -133,7 +133,7 @@ module.exports = {
 					blockElement += button;
 					curCommit++;
 				}
-				var returnBlocks= {"messages": [ {"attachment": {"payload": {"buttons": blockElement}}}]};
+				var returnBlocks= {"messages": [ {"attachment": {"payload": {"buttons": JSON.Stringify(blockElement)}}}]};
 				console.log("Block returned: ", returnBlocks)
 				return res.ok(returnBlocks);
 			}
