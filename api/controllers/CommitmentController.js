@@ -81,7 +81,7 @@ module.exports = {
 		var inDate = new Date(inArray[2], inArray[1] - 1, inArray[0]);
 
 		// Make sure person exists
-		var helper = await User.find({where {messengerUserId: req.param("messenger user id")}});
+		var helper = await User.find({where: {messengerUserId: req.param("messenger user id")}});
 
 		if(helper) {
 			// Create the commitment record
