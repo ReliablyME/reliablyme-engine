@@ -113,20 +113,30 @@ module.exports = {
 			else return res.serverError("Commitment not created");
 		}
 		else 
-   			return res.serverError("Commitment helper nout found");
+   			;return res.serverError("Commitment helper nout found")
 	},
 
 	ViewCommitments: async function (req, res) {
 		console.log("Called ViewCommitments", req.allParams());
-/*
-	    /await Commitment.find({helper_id: req.param("messenger user id"), commitmentStatus_id: }).exec(function(err, items){
-	      if(err) return res.ok({records: 0});
-	      else {
-	        console.log("Found records: ", items.length);
-	        return res.json({records: items});
-	      }
+
+	    await Commitment.find({helper_id: req.param("messenger user id"), commitmentStatus_id: [2,4,6]}).exec(function(err, items){
+			if(err) return res.ok({});
+			else {
+				console.log("Found records: ", items.length);
+				// Build up JSON to send back
+
+				var curCommit = 0;
+				var blockElement = {};
+				while(curCommit<items.length){
+					blockElement += {"type": "show_block", "block_names": ["AttemptToComplete"], "title":items[curCommit].commitmentOffer, "set_attributes": {"commitmentIDToComplete": items[curCommit].commitmentOffer}};
+					curCommit++;
+				}
+				var returnBlocks= {"messages": [ {"attachment": {"payload": {"buttons": [blockElement]}}}]};
+				console.log("Blaock returned: ", returnBlocks)
+				return res.ok(returnBlocks);
+			}
 	    });
-*/
+
 	},
 
 
