@@ -67,9 +67,32 @@ module.exports = {
     };
 
 	console.log('sendMessageToEntrepreneur options=:', options);
+
     await https.request(options, function(response) {
-    	console.log(response);
-    });
+    	console.log("inside request");
+		var responseData = '';
+    	response.setEncoding('utf8');
+		response.on('data', function(chunk){
+  			responseData += chunk;    	
+    	});
+
+		response.once('error', function(err){
+	  		// Some error handling here, e.g.:
+	    	console.log("response.once error");
+	  		res.serverError(err);
+		});
+
+		response.on('end', function(){
+	  		try {
+		       // response available as `responseData` in `yourview`
+			    res.locals.requestData = JSON.parse(responseData);
+	  		} catch (e) {
+	  			console.log.warn('Could not parse response from options.hostname: ' + e);
+	  		}
+	  		res.view('client');
+		}); 
+	}).end();
+
 
     console.log('ReceiveHelperOffer returned');
     return exits.success();
