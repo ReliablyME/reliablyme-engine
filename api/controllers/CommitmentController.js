@@ -118,15 +118,15 @@ module.exports = {
 
 	ViewCommitments: async function (req, res) {
 		console.log("Called ViewCommitments", req.allParams());
-
-	    await Commitment.find({helper_id: req.param("messenger user id"), commitmentStatus_id: }).exec(function(err, items){
+/*
+	    /await Commitment.find({helper_id: req.param("messenger user id"), commitmentStatus_id: }).exec(function(err, items){
 	      if(err) return res.ok({records: 0});
 	      else {
 	        console.log("Found records: ", items.length);
 	        return res.json({records: items});
 	      }
 	    });
-
+*/
 	},
 
 
