@@ -51,7 +51,7 @@ module.exports = {
 
   fn: async function(inputs, exits) {
 	
-	console.log('sendMessageToEntrepreneur :',inputs);
+	console.log('sendMessageToEntrepreneur :');
 
     var options = {
 		helperName: inputs.helperName,
@@ -65,7 +65,7 @@ module.exports = {
         method: 'POST'
     };
 
-    var restResponse = await http.request(options);
+    var restResponse = await https.request(options);
 
     console.log('ReceiveHelperOffer :',restResponse);
 
