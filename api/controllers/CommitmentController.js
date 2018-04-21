@@ -65,7 +65,7 @@ module.exports = {
 
 	IsValidEntrepreneur: async function (req, res) {
 		console.log("Called IsValidEntrepreneur", req.allParams());
-		var entrepreneur = await User.find( {where: {fullName: req.param("input name"), isEntreprenuer: true}});
+		var entrepreneur = await User.find( {where: {fullName: req.param("inputName"), isEntreprenuer: true}});
 		if(entrepreneur) {
 			console.log("Found IsValidEntrepreneur ", entrepreneur[0].fullName);
 			return res.ok( {"set_attributes":{"isValidEntrepreneur": "true", "entrepreneurID": entrepreneur[0].messengerUserId}});
@@ -119,7 +119,7 @@ module.exports = {
 	ViewCommitments: async function (req, res) {
 		console.log("Called ViewCommitments", req.allParams());
 
-	    await Commitment.find({helper_id: req.param("messenger user id")}).exec(function(err, items){
+	    await Commitment.find({helper_id: req.param("messenger user id"), commitmentStatus_id: }).exec(function(err, items){
 	      if(err) return res.ok({records: 0});
 	      else {
 	        console.log("Found records: ", items.length);
@@ -168,10 +168,23 @@ module.exports = {
   		return res.ok();
 
 	},
+
 	RejectCommitmentOffer: async function (req, res) {
 		console.log("Called RejectCommitmentOffer", req.allParams());
 		// Update status on commitment to 3 - offerRejected
 		await Commitment.update({id:req.param("commitmentID")}).set({commitmentStatus_id:3})
+		console.log("updated commitmentStatus_id:3");
+		// Find entrepreneur record for name
+		var entrepreneur = await User.find({where: {messengerUserId: req.param("messenger user id")}});
+		console.log("Found entrepreneur", entrepreneur[0].fullName);
+		// Message user that offer accepted
+		await sails.helpers.sendCommitmentRejectionToHelper.with(
+			{
+				entName: entrepreneur[0].fullName,
+				comID: req.param("commitmentID"),
+				helperID: req.param("messenger user id"),
+			}
+		);
 
   		return res.ok();
 
