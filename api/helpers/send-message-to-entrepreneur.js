@@ -50,7 +50,7 @@ module.exports = {
 
 
   fn: async function(inputs, exits) {
-	
+	var results = ""; 
 	var path = '/bots/5a3437b6e4b01f197b941b94/users/'+inputs.entID+'/send'; 
     var options = {
         port : 443,
@@ -71,6 +71,7 @@ module.exports = {
     await https.request(options, function(response) {
     	console.log("inside request");
 		var responseData = '';
+		var fullresponse = '';
     	response.setEncoding('utf8');
 		response.on('data', function(chunk){
   			responseData += chunk;    	
@@ -78,18 +79,18 @@ module.exports = {
 
 		response.once('error', function(err){
 	  		// Some error handling here, e.g.:
-	    	console.log("response.once error");
-	  		res.serverError(err);
+	    	console.log("response.once error", err);
+	  		//res.serverError(err);
 		});
 
 		response.on('end', function(){
 	  		try {
 		       // response available as `responseData` in `yourview`
-			    res.locals.requestData = JSON.parse(responseData);
+			    fullresponse = JSON.parse(responseData);
 	  		} catch (e) {
 	  			console.log('Could not parse response from options.hostname: ' + e);
 	  		}
-	  		res.view('client');
+		    console.log('ReceiveHelperOffer returned: ', fullresponse);
 		}); 
 	}).end();
 
