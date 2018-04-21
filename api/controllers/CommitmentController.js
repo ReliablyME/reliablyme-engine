@@ -126,12 +126,12 @@ module.exports = {
 				// Build up JSON to send back
 
 				var curCommit = 0;
-				var blockElement = {};
+				var blockElement = [];
 				while(curCommit<items.length){
 					blockElement += {"type": "show_block", "block_names": ["AttemptToComplete"], "title":items[curCommit].commitmentOffer, "set_attributes": {"commitmentIDToComplete": items[curCommit].commitmentOffer}};
 					curCommit++;
 				}
-				var returnBlocks= {"messages": [ {"attachment": {"payload": {"buttons": [blockElement]}}}]};
+				var returnBlocks= {"messages": [ {"attachment": {"payload": {"buttons": blockElement}}}]};
 				console.log("Blaock returned: ", returnBlocks)
 				return res.ok(returnBlocks);
 			}
