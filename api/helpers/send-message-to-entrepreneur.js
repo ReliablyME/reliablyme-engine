@@ -51,17 +51,15 @@ module.exports = {
 
   fn: async function(inputs, exits) {
 	
-	console.log('sendMessageToEntrepreneur :');
-
+	var path = '/bots/5a3437b6e4b01f197b941b94/users/'+inputs.entID+'/send?chatfuel_token=qwYLsCSz8hk4ytd6CPKP4C0oalstMnGdpDjF8YFHPHCieKNc0AfrnjVs91fGuH74'; 
+	path += '&chatfuel_block_name=ReceiveHelperOffer&helperName='+inputs.helperName+'&commitmentID='+inputs.comID+'&commitmentOffer='+inputs.comOffer;
+	console.log('sendMessageToEntrepreneur path=:', path);
     var options = {
-		helperName: inputs.helperName,
-		commitmentID: inputs.comID,
-		commitmentOffer: inputs.comOffer,
         chatfuel_token: 'qwYLsCSz8hk4ytd6CPKP4C0oalstMnGdpDjF8YFHPHCieKNc0AfrnjVs91fGuH74',
         chatfuel_block_name:"ReceiveHelperOffer",
         port : 443,
         host : "api.chatfuel.com",
-        path: '/bots/5a3437b6e4b01f197b941b94/users/'+inputs.entID+'/send',
+        path: path,
         method: 'POST'
     };
 
