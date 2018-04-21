@@ -130,7 +130,7 @@ module.exports = {
 				while(curCommit<items.length){
 					var button = {"type": "show_block", "block_names": ["AttemptToComplete"], "title":items[curCommit].commitmentOffer, "set_attributes": {"commitmentIDToComplete": items[curCommit].commitmentOffer}};
 					console.log("Button: ",curCommit, " ", button)
-					blockElement += JSON.Stringify(button);
+					blockElement += button;
 					curCommit++;
 				}
 				var returnBlocks= {"messages": [ {"attachment": {"payload": {"buttons": blockElement}}}]};
