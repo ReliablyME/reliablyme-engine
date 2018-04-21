@@ -59,13 +59,13 @@ module.exports = {
 		commitmentOffer: intput.comOffer,
         chatfuel_token: 'qwYLsCSz8hk4ytd6CPKP4C0oalstMnGdpDjF8YFHPHCieKNc0AfrnjVs91fGuH74',
         chatfuel_block_name:"ReceiveHelperOffer",
-        port : 80,
-        host : "https://api.chatfuel.com",
+        port : 443,
+        host : "api.chatfuel.com",
         path: '/bots/5a3437b6e4b01f197b941b94/users/'+input.entID+'/send',
         method: 'POST'
     };
 
-    restResponse = await http.request(options);
+    var restResponse = await http.request(options);
 
     console.log('ReceiveHelperOffer :',restResponse);
 

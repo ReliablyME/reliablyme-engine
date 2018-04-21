@@ -98,9 +98,9 @@ module.exports = {
 
 			// Send a message to the entrepreneur about the commitment
 			if(newCommitment) {
-
+				console.log("call helper to send message to Entrepreneur");
 				// Send help offer to entrepreneur
-				sails.helpers.sendMessageToEntrepreneur.with(
+				await sails.helpers.sendMessageToEntrepreneur.with(
 					{
 						helperName: helper[0].fullName,
 						comID: newCommitment.id,
