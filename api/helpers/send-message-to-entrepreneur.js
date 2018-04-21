@@ -54,14 +54,14 @@ module.exports = {
 	console.log('sendMessageToEntrepreneur :',inputs);
 
     var options = {
-		helperName: input.helperName,
-		commitmentID: input.comID,
-		commitmentOffer: intput.comOffer,
+		helperName: inputs.helperName,
+		commitmentID: inputs.comID,
+		commitmentOffer: inputs.comOffer,
         chatfuel_token: 'qwYLsCSz8hk4ytd6CPKP4C0oalstMnGdpDjF8YFHPHCieKNc0AfrnjVs91fGuH74',
         chatfuel_block_name:"ReceiveHelperOffer",
         port : 443,
         host : "api.chatfuel.com",
-        path: '/bots/5a3437b6e4b01f197b941b94/users/'+input.entID+'/send',
+        path: '/bots/5a3437b6e4b01f197b941b94/users/'+inputs.entID+'/send',
         method: 'POST'
     };
 
