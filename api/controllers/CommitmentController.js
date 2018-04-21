@@ -128,7 +128,9 @@ module.exports = {
 				var curCommit = 0;
 				var blockElement = [];
 				while(curCommit<items.length){
-					blockElement += {"type": "show_block", "block_names": ["AttemptToComplete"], "title":items[curCommit].commitmentOffer, "set_attributes": {"commitmentIDToComplete": items[curCommit].commitmentOffer}};
+					var button = {"type": "show_block", "block_names": ["AttemptToComplete"], "title":items[curCommit].commitmentOffer, "set_attributes": {"commitmentIDToComplete": items[curCommit].commitmentOffer}};
+					console.log("Button: ",curCommit, " ", button)
+					blockElement += button;
 					curCommit++;
 				}
 				var returnBlocks= {"messages": [ {"attachment": {"payload": {"buttons": blockElement}}}]};
