@@ -151,7 +151,7 @@ module.exports = {
 	AcceptCommitmentOffer: async function (req, res) {
 		console.log("Called AcceptCommitmentOffer", req.allParams());
 		// Update status on commitment to 2 - offerAccepted
-		await Commitment.update({id:req.param("commitmentID")}).set({commitmentStatus_id:2});
+		await Commitment.update({id:Number(req.param("commitmentID"))}).set({commitmentStatus_id:2});
 		console.log("updated commitmentStatus_id:2");
 		// Find entrepreneur record for name
 		var entrepreneur = await User.find({where: {messengerUserId: req.param("messenger user id")}});
