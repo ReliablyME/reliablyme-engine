@@ -94,7 +94,7 @@ module.exports = {
 		      		commitmentDueDate: inDate,
 		      		commitmentStatus_id: 1
 				}
-		    );
+		    ).fetch();
 
 			// Send a message to the entrepreneur about the commitment
 			if(newCommitment) {
