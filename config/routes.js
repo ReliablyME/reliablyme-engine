@@ -25,6 +25,7 @@ module.exports.routes = {
   'GET /signup':             { action: 'entrance/view-signup' },
   'GET /email/confirm':      { action: 'entrance/confirm-email' },
   'GET /email/confirmed':    { view:   'pages/entrance/confirmed-email' },
+  'GET /welcome/getusername':{ action: 'welcome/get-user-name' },
 
   'GET /login':              { action: 'entrance/view-login' },
   'GET /password/forgot':    { action: 'entrance/view-forgot-password' },

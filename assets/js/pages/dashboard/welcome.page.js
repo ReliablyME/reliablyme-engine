@@ -22,6 +22,11 @@ parasails.registerPage('welcome', {
   //  ╩╝╚╝ ╩ ╚═╝╩╚═╩ ╩╚═╝ ╩ ╩╚═╝╝╚╝╚═╝
   methods: {
 
+
+    //$http.post('/userlist').then(function(response) {
+    //    $scope.smartTableData=response.data.records;
+    //  })
+
     clickOpenDashboardModalButton: async function() {
       this.dashboardModalVisible = true;
     },
