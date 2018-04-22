@@ -12,6 +12,7 @@ parasails.registerPage('welcome', {
   beforeMount: function() {
     // Attach any initial data from the server.
     _.extend(this, SAILS_LOCALS);
+    this.fullName = this.me.fullName;
   },
   mounted: async function() {
     //…
