@@ -23,7 +23,7 @@ module.exports = {
     var commit = await Commitment.create( 
       {
         helper_id: this.req.session.me,
-        entreprenuer_id: 1,
+        entreprenuer_id: 118,
         commitmentOffer: "Attend Leveraging Financial Technology for Social Good Meetup",
         commitmentDueDate: new Date("2018-04-30"),
         commitmentStatus_id: 2
