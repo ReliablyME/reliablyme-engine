@@ -77,7 +77,7 @@ module.exports = {
 
 	CreateCommitment: async function (req, res) {
 		console.log("Called CreateCommitment", req.allParams());
-		var inArray = req.param("inputDate").split("/");
+		var inArray = req.param("inputDate").split("#");
 		var inDate = new Date(inArray[2], inArray[1] - 1, inArray[0]);
 
 		// Make sure person exists
