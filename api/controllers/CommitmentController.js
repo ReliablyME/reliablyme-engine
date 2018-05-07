@@ -78,8 +78,8 @@ module.exports = {
 	CreateCommitment: async function (req, res) {
 		console.log("Called CreateCommitment", req.allParams());
 		var inArray = req.param("inputDate").split("#");
-		console.log("Date=", inArray[2], inArray[1] - 1, inArray[0]);
-		var inDate = new Date(inArray[2], inArray[1] - 1, inArray[0]);
+		console.log("Date=", inArray[0], inArray[1] - 1, inArray[2]);
+		var inDate = new Date(inArray[0], inArray[1] - 1, inArray[2]);
 
 		// Make sure person exists
 		var helper = await User.find({where: {messengerUserId: req.param("messenger user id")}});
