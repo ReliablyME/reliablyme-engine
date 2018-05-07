@@ -93,7 +93,8 @@ module.exports = {
 		      		entreprenuer_id: req.param("entrepreneurID"),
 		      		commitmentOffer: req.param("commitmentOffer"),
 		      		commitmentDueDate: inDate,
-		      		commitmentStatus_id: 1
+		      		commitmentStatus_id: 1,
+		      		event_id: req.param("eventID")
 				}
 		    ).fetch();
 

@@ -55,6 +55,7 @@ module.exports = {
 
     messengerUserId: {
       type: 'string',
+      unique: true,
       protect: true,
       description: 'The id of the user as returned from Messenger.',
       extendedDescription: 'This should be a unique ID from Facebook.  We should be able to extract an email from this at some point.'
