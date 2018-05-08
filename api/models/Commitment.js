@@ -38,6 +38,11 @@ module.exports = {
       description: 'id of status of commmitment',
     },
 
+    event_id: {
+      type: 'number',
+      description: 'id of the event this commitment is for',
+    },
+
   }
 };
 
