@@ -11,7 +11,8 @@
   /** @ngInject */
   function DashboardCtrl($scope) {
 
-  
+  	console.log("DashboardCtrl!");
+  	
     $scope.metricsTableData = [
       {
         image: 'app/browsers/chrome.svg',
