@@ -223,10 +223,16 @@ module.exports = {
 
 	CommittmentList: async function (req, res) {
 		console.log("Called CommittmentList", req.allParams());
-		var commitmentQuery = ''
+		var commitmentQuery = `
+			SELECT volunteer.fullName AS fullName, comStat.commitmentStatusName AS statusName, commit.commitmentOffer AS offer, events.eventName as eventName
+				FROM reliablyme.commitment AS commit 
+				JOIN reliablyme.user AS volunteer ON commit.helper_id=volunteer.messengerUserId 
+			    JOIN reliablyme.commitmentstatus AS comStat ON comStat.id=commit.commitmentStatus_id
+			    JOIN reliablyme.event AS events ON events.id=commit.event_id; `;
+		
 		var params = [];
 
-		datastore.sendNativeQuery(commitmentQuery, params).exec(function(err, items) {
+		sails.sendNativeQuery(commitmentQuery, params).exec(function(err, items) {
 			if(err) return res.ok({});
 			else {
 				console.log("Found commitment records for: ", commitmentQuery, " total:", items.length);
