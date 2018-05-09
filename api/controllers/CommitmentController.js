@@ -223,10 +223,13 @@ module.exports = {
 
 	CommittmentList: async function (req, res) {
 		console.log("Called CommittmentList", req.allParams());
-	    await Commitment.find({event_id: req.param("eventID")}).exec(function(err, items){
+		var commitmentQuery = ''
+		var params = [];
+
+		datastore.sendNativeQuery(commitmentQuery, params).exec(function(err, items) {
 			if(err) return res.ok({});
 			else {
-				console.log("Found records: ", items.length);
+				console.log("Found commitment records for: ", commitmentQuery, " total:" items.length);
 				// Build up JSON to send back
 				return res.json({records: items});
 			}
