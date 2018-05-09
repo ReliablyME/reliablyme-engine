@@ -15,7 +15,7 @@
     $scope.committmentTableData = [];
 
     $scope.loadTableData = function() { 
-      $http.post(APP_DNS+'/CommittmentList').then(function(response) {
+      $http.post('/CommittmentList').then(function(response) {
         $scope.committmentTableData=response.data.records;
       })
     };
