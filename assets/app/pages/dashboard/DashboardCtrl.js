@@ -8,7 +8,7 @@
   angular.module('reliablyMe.dashboard').controller('DashboardCtrl', DashboardCtrl);
 
   /** @ngInject */
-  function DashboardCtrl($scope) {
+  function DashboardCtrl($scope, $http) {
 
   	console.log("DashboardCtrl!");
 
