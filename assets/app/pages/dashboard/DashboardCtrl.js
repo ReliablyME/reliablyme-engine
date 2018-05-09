@@ -5,14 +5,13 @@
 (function () {
   'use strict';
 
-  angular.module('reliablyMe.dashboard')
-      .controller('DashboardCtrl', DashboardCtrl);
+  angular.module('reliablyMe.dashboard').controller('DashboardCtrl', DashboardCtrl);
 
   /** @ngInject */
   function DashboardCtrl($scope) {
 
   	console.log("DashboardCtrl!");
-  	
+
     $scope.metricsTableData = [
       {
         image: 'app/browsers/chrome.svg',
