@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  console.log("create codule reliablyMe.dashboard");
+  console.log("create module reliablyMe.dashboard");
   angular.module('reliablyMe.dashboard', []);
 
 })();
