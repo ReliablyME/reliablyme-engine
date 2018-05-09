@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  angular.module('reliablyMe')
+  angular.module('reliablyMe.dashboard')
       .factory('baPanel', baPanel);
 
   /** @ngInject */

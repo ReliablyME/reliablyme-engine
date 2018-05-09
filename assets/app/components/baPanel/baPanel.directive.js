@@ -8,7 +8,7 @@
   /**
    * Includes basic panel layout inside of current element.
    */
-  angular.module('reliablyMe')
+  angular.module('reliablyMe.dashboard')
       .directive('baPanel', baPanel);
 
   /** @ngInject */
