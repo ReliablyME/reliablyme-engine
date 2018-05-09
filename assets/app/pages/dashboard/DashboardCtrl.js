@@ -16,7 +16,7 @@
 
     $scope.loadTableData = function() { 
       $http.post(APP_DNS+'/CommittmentList').then(function(response) {
-        $scope.smartTableData=response.data.records;
+        $scope.committmentTableData=response.data.records;
       })
     };
 

@@ -2,16 +2,14 @@
   <table class="table table-bordered">
     <thead>
     <tr>
-      <th class="browser-icons"></th>
-      <th>Browser</th>
-      <th class="align-right">Visits</th>
-      <th class="align-right">Purchases</th>
-      <th class="align-right">%</th>
+      <th class="align-right">Helper</th>
+      <th class="align-right">Offer</th>
+      <th class="align-right">Status</th>
+      <th class="align-right">Event</th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="item in committmentTableData">
-      <td></td>
       <td ng-class="nowrap">{{item.helper_id}}</td>
       <td class="align-right">{{item.committmentOffer}}</td>
       <td class="align-right">{{item.commitmentStatus_id}}</td>
