@@ -229,7 +229,7 @@ module.exports = {
 		datastore.sendNativeQuery(commitmentQuery, params).exec(function(err, items) {
 			if(err) return res.ok({});
 			else {
-				console.log("Found commitment records for: ", commitmentQuery, " total:" items.length);
+				console.log("Found commitment records for: ", commitmentQuery, " total:", items.length);
 				// Build up JSON to send back
 				return res.json({records: items});
 			}
