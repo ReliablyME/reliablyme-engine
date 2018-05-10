@@ -241,6 +241,11 @@ module.exports = {
 						var jcommitments = JSON.stringify(commitments);
 						var jcompletes = JSON.stringify(completes);
 						console.log("here3");
+						var jcomarray = jcommitments.rows;
+						console.log("jcomarray", jcomarray);
+						var jtot= jcomarray[0].total;
+						console.log("jtot", jtot);
+
 						console.log("commitments "+ jcommitments.rows.total);
 						console.log("here4");
 						console.log("completes "+ jcompletes.rows.complete);
