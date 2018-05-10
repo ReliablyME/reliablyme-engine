@@ -34,8 +34,12 @@
       })
       // Reload table with updated status
       $scope.loadTableData(); 
-    }
+    };
 
+
+    $scope.refreshTable = function() {
+    	$scope.loadTableData();
+    };
   }
 
 })();
