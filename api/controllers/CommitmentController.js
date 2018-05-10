@@ -238,11 +238,9 @@ module.exports = {
 						console.log("completes "+completes);
 						return res.ok({"set_attributes": {"Reliabilityrating": 1000, "completedNumCommitments": 1}});
 					}
-				}
+				});
 			}
 	    });
-
-
 	},
 
 	CommittmentList: async function (req, res) {
