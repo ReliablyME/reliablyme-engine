@@ -231,11 +231,13 @@ module.exports = {
 		var params = [];
 
 		console.log("commitmentsCompleteQuery "+commitmentsCompleteQuery);
-		sails.sendNativeQuery(commitmentsQuery, params).exec(function(err, commitments) {
-			if(!err) {
+		sails.sendNativeQuery(commitmentsQuery, params).exec(function(err1, commitments) {
+			if(!err1) {
 				console.log("commitmentsQuery "+commitmentsQuery);
-				sails.sendNativeQuery(commitmentsCompleteQuery, params).exec(function(err, completes) {
-					if(!err) {
+				sails.sendNativeQuery(commitmentsCompleteQuery, params).exec(function(err2, completes) {
+					console.log("here");
+					if(!err2) {
+						console.log("here2");
 						var jcommitments = JSON.stringify(commitments);
 						var jcompletes = JSON.stringify(completes);
 						console.log("commitments "+ jcommitments.rows.total);
