@@ -6,6 +6,7 @@
       <th class="align-right">Offer</th>
       <th class="align-right">Status</th>
       <th class="align-right">Event</th>
+      <th class="align-right">Complete</th>
     </tr>
     </thead>
     <tbody>
@@ -14,6 +15,11 @@
       <td class="align-right">{{item.offer}}</td>
       <td class="align-right">{{item.statusName}}</td>
       <td class="align-right">{{item.eventName}}</td>
+      <td class="align-right">
+        <button type="button" class="btn btn-primary btn-with-icon save-profile" ng-click="completionAccepted({{item.commitment_id}})">
+          <i class="ion-android-checkmark-circle"></i>Commitment fulfilled
+        </button>
+      </td>
     </tr>
     </tbody>
   </table>
