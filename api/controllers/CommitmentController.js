@@ -230,7 +230,7 @@ module.exports = {
 		var commitmentsQuery = 'SELECT COUNT(*) AS total FROM reliablyme.commitment WHERE helper_id=' + req.param("messengeruserid") + ';';
 		var params = [];
 
-		sails.sendNativeQuery(commitmentQuery, params).exec(function(err, commitments) {
+		sails.sendNativeQuery(commitmentsQuery, params).exec(function(err, commitments) {
 			if(!err) {
 				sails.sendNativeQuery(commitmentsCompleteQuery, params).exec(function(err, completes) {
 					if(!err) {
