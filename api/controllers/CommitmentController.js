@@ -211,7 +211,7 @@ module.exports = {
 
 		await sails.helpers.AcceptCommitmentCompletion.with(
 			{
-				helperID: req.param("messenger user id"),
+				helperID: req.param("messengeruserid"),
 			}
 		);
 
