@@ -242,7 +242,7 @@ module.exports = {
 						var jtot= jcomarray[0].total;
 						var jcomp =jcompletes.rows;
 						var jcomps = jcomp[0].complete;
-						var rating = Number(jcomps)/Number(jtot)* 1000;
+						var rating = Math.round(Number(jcomps)/Number(jtot)* 1000);
 						var total = Number(jtot);
 						return res.ok({"set_attributes": {"Reliabilityrating": rating, "completedNumCommitments": total }});
 					}
