@@ -238,7 +238,7 @@ module.exports = {
 					console.log("here");
 					if(!err2) {
 						console.log("here2");
-						var jcommitments = JSON.stringify(commitments);
+						var jcommitments = JSON.parse(JSON.stringify(commitments));
 						var jcompletes = JSON.stringify(completes);
 						console.log("here3");
 						var jcomarray = jcommitments.rows;
