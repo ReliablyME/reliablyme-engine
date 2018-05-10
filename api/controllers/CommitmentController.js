@@ -238,10 +238,11 @@ module.exports = {
 					if(!err) {
 						var jcommitments = JSON.stringify(commitments);
 						var jcompletes = JSON.stringify(completes);
-						console.log("commitments "+ jcommitments.rows[0].total);
-						console.log("completes "+ jcompletes.rows[0].complete);
+						console.log("commitments "+ jcommitments.rows.total);
+						console.log("completes "+ jcompletes.rows.complete);
 						var rating = Number(jcompletes.rows[0].complete)/Number(jcommitments.rows[0].total)* 1000;
-						return res.ok({"set_attributes": {"Reliabilityrating": rating, "completedNumCommitments": jcommitments.rows[0].total}});
+						var total = Number(jcommitments.rows[0].total);
+						return res.ok({"set_attributes": {"Reliabilityrating": rating, "completedNumCommitments": total }});
 					}
 					else {
 						console.log("Error calling commitmentsCompleteQuery");
