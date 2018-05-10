@@ -212,13 +212,11 @@ module.exports = {
 	RejectCommitmentCompletion: async function (req, res) {
 		console.log("Called RejectCommitmentCompletion", req.allParams());
   		return res.ok();
-
 	},
 
 	GetReliabilityRating: async function (req, res) {
 		console.log("Called GetReliabilityRating", req.allParams());
   		return res.ok();
-
 	},
 
 	CommittmentList: async function (req, res) {
@@ -240,9 +238,10 @@ module.exports = {
 		sails.sendNativeQuery(commitmentQuery, params).exec(function(err, items) {
 			if(err) return res.ok({});
 			else {
-				console.log("Found commitment records for: ", commitmentQuery, " result:", JSON.parse(JSON.stringify(items)));
+				var convRaw = JSON.parse(JSON.stringify(items));
+				console.log("Found commitment records for: ", commitmentQuery, " result:", convRaw.rows);
 				// Build up JSON to send back
-				return res.json({records: JSON.parse(JSON.stringify(items))});
+				return res.json({records: JSON.parse(JSON.stringify(convRaw.rows))});
 			}
 	    });
 	},
