@@ -236,7 +236,7 @@ module.exports = {
 					if(!err) {
 						console.log("commitments "+commitments);
 						console.log("completes "+completes);
-						return res.ok({"set_attributes": {"Reliabilityrating": 1000, "completedNumCommitments": 1}});
+						return res.ok({"set_attributes": {"Reliabilityrating": "1000", "completedNumCommitments": "1"}});
 					}
 				});
 			}
