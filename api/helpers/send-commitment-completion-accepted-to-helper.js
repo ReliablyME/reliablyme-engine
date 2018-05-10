@@ -17,6 +17,11 @@ module.exports = {
       type: 'string',
       required: true
     },
+    eventName: {
+      description: 'Name of event to display.',
+      type: 'string',
+      required: true
+    },
 
   },
 
@@ -32,7 +37,7 @@ module.exports = {
 
 
   fn: async function(inputs, exits) {
-  	var fullpath='/bots/5a3437b6e4b01f197b941b94/users/'+inputs.helperID+'/send?chatfuel_token=qwYLsCSz8hk4ytd6CPKP4C0oalstMnGdpDjF8YFHPHCieKNc0AfrnjVs91fGuH74&chatfuel_block_name=CommitmentOfferAccepted&commitmentID='+inputs.comID+'&entrepreneurName='+encodeURI(inputs.entName);
+  	var fullpath='/bots/5a3437b6e4b01f197b941b94/users/'+inputs.helperID+'/send?chatfuel_token=qwYLsCSz8hk4ytd6CPKP4C0oalstMnGdpDjF8YFHPHCieKNc0AfrnjVs91fGuH74&chatfuel_block_name=CompletionAccepted&eventName='+encodeURI(inputs.eventName);
 	var results = ""; 
 	var path = '/bots/5a3437b6e4b01f197b941b94/users/'+inputs.helperID+'/send'; 
     var options = {
@@ -43,6 +48,7 @@ module.exports = {
         headers: {
         	'chatfuel_token': 'qwYLsCSz8hk4ytd6CPKP4C0oalstMnGdpDjF8YFHPHCieKNc0AfrnjVs91fGuH74',
         	'chatfuel_block_name': 'CompletionAccepted',
+        	'eventName': encodeURI(inputs.eventName),
         }
     };
 
