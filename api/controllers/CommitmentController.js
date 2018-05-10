@@ -30,7 +30,7 @@ module.exports = {
 
 	SetIndividualAsHelper: async function (req, res) {
 		console.log("Called SetIndividualAsHelper", req.allParams());
-	    await User.update(
+	    User.update(
 	    	{
 	    		messengerUserId: req.param("messenger user id")
 	    	}
@@ -48,7 +48,7 @@ module.exports = {
 
 	SetIndividualAsEntrepreneur: async function (req, res) {
 		console.log("Called SetIndividualAsEntrepreneur", req.allParams());
-	    await User.update(
+	    User.update(
 	    	{
 	    		messengerUserId: req.param("messenger user id")
 	    	}
