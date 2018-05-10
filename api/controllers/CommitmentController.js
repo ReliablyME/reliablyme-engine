@@ -235,23 +235,15 @@ module.exports = {
 			if(!err1) {
 				console.log("commitmentsQuery "+commitmentsQuery);
 				sails.sendNativeQuery(commitmentsCompleteQuery, params).exec(function(err2, completes) {
-					console.log("here");
 					if(!err2) {
-						console.log("here2");
 						var jcommitments = JSON.parse(JSON.stringify(commitments));
-						var jcompletes = JSON.stringify(completes);
-						console.log("here3");
+						var jcompletes = JSON.parse(JSON.stringify(completes));
 						var jcomarray = jcommitments.rows;
-						console.log("jcomarray", jcomarray);
 						var jtot= jcomarray[0].total;
-						console.log("jtot", jtot);
-
-						console.log("commitments "+ jcommitments.rows.total);
-						console.log("here4");
-						console.log("completes "+ jcompletes.rows.complete);
-						console.log("here5");
-						var rating = Number(jcompletes.rows[0].complete)/Number(jcommitments.rows[0].total)* 1000;
-						var total = Number(jcommitments.rows[0].total);
+						var jcomp =jcompletes.rows;
+						var jcomps = jcomp[0].complete;
+						var rating = Number(jcomps)/Number(jtot)* 1000;
+						var total = Number(jtot);
 						return res.ok({"set_attributes": {"Reliabilityrating": rating, "completedNumCommitments": total }});
 					}
 					else {
