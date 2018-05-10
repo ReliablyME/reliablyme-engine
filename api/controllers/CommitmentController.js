@@ -209,7 +209,7 @@ module.exports = {
 		await Commitment.update({id:req.param("commitmentID")}).set({commitmentStatus_id:5})
 		console.log("updated commitmentStatus_id:3");
 
-		await sails.helpers.AcceptCommitmentCompletion.with(
+		await sails.helpers.sendCommitmentCompletionAcceptedToHelper.with(
 			{
 				helperID: req.param("messengeruserid"),
 			}
