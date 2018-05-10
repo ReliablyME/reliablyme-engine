@@ -240,8 +240,11 @@ module.exports = {
 						console.log("here2");
 						var jcommitments = JSON.stringify(commitments);
 						var jcompletes = JSON.stringify(completes);
+						console.log("here3");
 						console.log("commitments "+ jcommitments.rows.total);
+						console.log("here4");
 						console.log("completes "+ jcompletes.rows.complete);
+						console.log("here5");
 						var rating = Number(jcompletes.rows[0].complete)/Number(jcommitments.rows[0].total)* 1000;
 						var total = Number(jcommitments.rows[0].total);
 						return res.ok({"set_attributes": {"Reliabilityrating": rating, "completedNumCommitments": total }});
