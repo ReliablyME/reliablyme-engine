@@ -17,7 +17,7 @@
       <td class="align-right">{{item.eventName}}</td>
       <td class="align-right">
         <button type="button" class="btn btn-primary btn-with-icon save-profile" 
-                ng-click="completionAccepted({{item.commitmentStatus_id}},{{item.messengerUserId}})">
+                ng-click="completionAccepted(item.comStat_id,item.messenger_id)">
           Commitment fulfilled
         </button>
       </td>
