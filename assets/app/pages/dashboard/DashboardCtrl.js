@@ -24,9 +24,11 @@
 
     $scope.completionAccepted = function(commitment_id) {
     	// Call REST to close off commitment
-      $http.post('/AcceptCommitmentCompletion').then(function(response) {
+      await $http.post('/AcceptCommitmentCompletion?commitmentID=' + commitment_id).then(function(response) {
       	console.log("Commitment updated to completionAccepted");
       })
+      // Reload table with updated status
+      $scope.loadTableData(); 
     }
 
   }

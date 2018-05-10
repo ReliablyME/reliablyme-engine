@@ -206,6 +206,8 @@ module.exports = {
 
 	AcceptCommitmentCompletion: async function (req, res) {
 		console.log("Called AcceptCommitmentCompletion", req.allParams());
+		await Commitment.update({id:req.param("commitmentID")}).set({commitmentStatus_id:5})
+		console.log("updated commitmentStatus_id:3");
   		return res.ok();
 
 	},
