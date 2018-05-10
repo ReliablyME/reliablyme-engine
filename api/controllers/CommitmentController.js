@@ -236,9 +236,12 @@ module.exports = {
 				console.log("commitmentsQuery "+commitmentsQuery);
 				sails.sendNativeQuery(commitmentsCompleteQuery, params).exec(function(err, completes) {
 					if(!err) {
-						console.log("commitments "+JSON.stringify(commitments));
-						console.log("completes "+JSON.stringify(completes));
-						return res.ok({"set_attributes": {"Reliabilityrating": "1000", "completedNumCommitments": "1"}});
+						var jcommitments = JSON.stringify(commitments);
+						var jcompletes = JSON.stringify(completes);
+						console.log("commitments "+ jcommitments.rows[0].total);
+						console.log("completes "+ jcompletes.rows[0].complete);
+						var rating = Number(jcompletes.rows[0].complete)/Number(jcommitments.rows[0].total)* 1000;
+						return res.ok({"set_attributes": {"Reliabilityrating": rating, "completedNumCommitments": jcommitments.rows[0].total}});
 					}
 					else {
 						console.log("Error calling commitmentsCompleteQuery");
