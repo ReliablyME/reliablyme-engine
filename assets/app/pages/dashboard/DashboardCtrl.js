@@ -22,6 +22,13 @@
 
     $scope.loadTableData();
 
+    $scope.completionAccepted = function(commitment_id) {
+    	// Call REST to close off commitment
+      $http.post('/AcceptCommitmentCompletion').then(function(response) {
+      	console.log("Commitment updated to completionAccepted");
+      })
+    }
+
   }
 
 })();
