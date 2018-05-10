@@ -224,7 +224,12 @@ module.exports = {
 	CommittmentList: async function (req, res) {
 		console.log("Called CommittmentList", req.allParams());
 		var commitmentQuery = `
-			SELECT volunteer.fullName AS fullName, comStat.commitmentStatusName AS statusName, commit.commitmentOffer AS offer, events.eventName as eventName
+			SELECT 	commit.id AS commitment_id, 
+					volunteer.fullName AS fullName, 
+					volunteer.messengerUserId AS messenger_id, 
+					comStat.commitmentStatusName AS statusName, 
+					commit.commitmentOffer AS offer, 
+					events.eventName AS eventName
 				FROM reliablyme.commitment AS commit 
 				JOIN reliablyme.user AS volunteer ON commit.helper_id=volunteer.messengerUserId 
 			    JOIN reliablyme.commitmentstatus AS comStat ON comStat.id=commit.commitmentStatus_id
