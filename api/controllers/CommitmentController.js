@@ -240,9 +240,9 @@ module.exports = {
 		sails.sendNativeQuery(commitmentQuery, params).exec(function(err, items) {
 			if(err) return res.ok({});
 			else {
-				console.log("Found commitment records for: ", commitmentQuery, " raw result:", items);
+				console.log("Found commitment records for: ", commitmentQuery, " result:", JSON.parse(JSON.stringify(items)));
 				// Build up JSON to send back
-				return res.json({records: items});
+				return res.json({records: JSON.parse(JSON.stringify(items))});
 			}
 	    });
 	},
