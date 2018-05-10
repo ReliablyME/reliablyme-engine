@@ -27,7 +27,7 @@
     	// Call REST to close off commitment
       var commitmentRow = $scope.committmentTableData[index];
       var commitment_id = commitmentRow.commitment_id;
-      var messengeruser_id = commitmentRow.messenger_id;
+      var messenger_id = commitmentRow.messenger_id;
       var eventName = commitmentRow.eventName;
       $http.post('/AcceptCommitmentCompletion?commitmentID=' + commitment_id + "&messengeruserid="+ messenger_id + "&eventName=" + eventName).then(function(response) {
       	console.log("Commitment updated to completionAccepted");
