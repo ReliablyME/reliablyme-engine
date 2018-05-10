@@ -238,7 +238,13 @@ module.exports = {
 						console.log("completes "+completes);
 						return res.ok({"set_attributes": {"Reliabilityrating": "1000", "completedNumCommitments": "1"}});
 					}
+					else {
+						console.log("Error calling commitmentsCompleteQuery");
+					}
 				});
+			}
+			else {
+				console.log("Error calling commitmentsQuery");
 			}
 	    });
 	},
