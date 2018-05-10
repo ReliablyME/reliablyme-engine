@@ -226,12 +226,14 @@ module.exports = {
 
 	GetReliabilityRating: async function (req, res) {
 		console.log("Called GetReliabilityRating", req.allParams());
-		var commitmentsCompleteQuery = 'SELECT COUNT(*) AS complete FROM reliablyme.commitment WHERE helper_id=' + req.param("messengeruserid") +' AND commitmentStatus_id=5;';
-		var commitmentsQuery = 'SELECT COUNT(*) AS total FROM reliablyme.commitment WHERE helper_id=' + req.param("messengeruserid") + ';';
+		var commitmentsCompleteQuery = 'SELECT COUNT(*) AS complete FROM reliablyme.commitment WHERE helper_id=\'' + req.param("messengeruserid") +'\' AND commitmentStatus_id=5;';
+		var commitmentsQuery = 'SELECT COUNT(*) AS total FROM reliablyme.commitment WHERE helper_id=\'' + req.param("messengeruserid") + '\';';
 		var params = [];
 
+		console.log("commitmentsCompleteQuery "+commitmentsCompleteQuery);
 		sails.sendNativeQuery(commitmentsQuery, params).exec(function(err, commitments) {
 			if(!err) {
+				console.log("commitmentsQuery "+commitmentsQuery);
 				sails.sendNativeQuery(commitmentsCompleteQuery, params).exec(function(err, completes) {
 					if(!err) {
 						console.log("commitments "+commitments);
