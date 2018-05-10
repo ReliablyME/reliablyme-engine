@@ -22,9 +22,9 @@
 
     $scope.loadTableData();
 
-    $scope.completionAccepted = function(commitment_id, messengeruser_id, eventName) {
+    $scope.completionAccepted = function(index) {
     	// Call REST to close off commitment
-      $http.post('/AcceptCommitmentCompletion?commitmentID=' + commitment_id + "&messengeruserid="+ messengeruser_id + "&eventName=" + eventName).then(function(response) {
+      $http.post('/AcceptCommitmentCompletion?commitmentID=' + $scope.committmentTableData[index].commitment_id + "&messengeruserid="+ $scope.committmentTableData[index].messengeruser_id + "&eventName=" + $scope.committmentTableData[index].eventName).then(function(response) {
       	console.log("Commitment updated to completionAccepted");
       })
       // Reload table with updated status
