@@ -77,16 +77,10 @@ module.exports = {
 
 	CheckRegistrationStatus: async function (req, res) {
 		console.log("Called CheckRegistrationStatus", req.allParams());
-		var commitment = await Commitment.find( {where: {helper_id: req.param("messenger user id"), event_id: req.param("eventID")}});
-		if(commitment) {
-			console.log("Found CheckRegistrationStatus ", commitment[0].helper_id);
-			return res.ok( {"set_attributes":{"IsRegistered": "true"}});
-		}
-		else { 
-			return res.ok( {"set_attributes":{"IsRegistered": "false"}});
+	    await Commitment.find({helper_id: req.param("messenger user id"), event_id: req.param("eventID")}).exec(function(err, items){
+			if(err) return res.ok({{"set_attributes":{"IsRegistered": "false"}}});
+			else return res.ok({{"set_attributes":{"IsRegistered": "false"}}});
 	    };
-
-
 	},
 
 	CreateCommitment: async function (req, res) {
