@@ -80,7 +80,7 @@ module.exports = {
 	    await Commitment.find({helper_id: req.param("messenger user id"), event_id: req.param("eventID")}).exec(function(err, items){
 			if(err) return res.ok({"set_attributes":{"IsRegistered": "false"}});
 			else return res.ok({"set_attributes":{"IsRegistered": "false"}});
-	    };
+	    });
 	},
 
 	CreateCommitment: async function (req, res) {
