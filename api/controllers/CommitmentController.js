@@ -39,7 +39,7 @@ module.exports = {
 	    	{
 	    		isHelper: true
 	    	}
-	    ), function (err, user) {
+	    ), function (err) {
 			console.log("Returning from SetIndividualAsHelper");
 	    	if(!err) return res.ok();
 	    	else return res.serverError("Individual not found");
