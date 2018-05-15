@@ -78,8 +78,8 @@ module.exports = {
 	CheckRegistrationStatus: async function (req, res) {
 		console.log("Called CheckRegistrationStatus", req.allParams());
 	    await Commitment.find({helper_id: req.param("messenger user id"), event_id: req.param("eventID")}).exec(function(err, items){
-			if(err) return res.ok({{"set_attributes":{"IsRegistered": "false"}}});
-			else return res.ok({{"set_attributes":{"IsRegistered": "false"}}});
+			if(err) return res.ok({"set_attributes":{"IsRegistered": "false"}});
+			else return res.ok({"set_attributes":{"IsRegistered": "false"}});
 	    };
 	},
 
