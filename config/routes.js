@@ -66,6 +66,9 @@ module.exports.routes = {
   'POST  /RejectCommitmentCompletion': 'CommitmentController.RejectCommitmentCompletion' ,
   'POST  /GetReliabilityRating': 'CommitmentController.GetReliabilityRating' ,
   'POST  /CommittmentList': 'CommitmentController.CommittmentList' ,
+  'POST  /CheckRegistrationStatus': 'CommitmentController.CheckRegistrationStatus' ,
+
+  
   
 
   //  ╦ ╦╔═╗╔╗ ╦ ╦╔═╗╔═╗╦╔═╔═╗

@@ -75,6 +75,20 @@ module.exports = {
 	    };
 	},
 
+	CheckRegistrationStatus: async function (req, res) {
+		console.log("Called CheckRegistrationStatus", req.allParams());
+		var commitment = await Commitment.find( {where: {helper_id: req.param("messenger user id"), event_id: req.param("eventID")}});
+		if(commitment) {
+			console.log("Found CheckRegistrationStatus ", commitment[0].fullName);
+			return res.ok( {"set_attributes":{"IsRegistered": "true"}});
+		}
+		else { 
+			return res.ok( {"set_attributes":{"IsRegistered": "false"}});
+	    };
+
+
+	},
+
 	CreateCommitment: async function (req, res) {
 		console.log("Called CreateCommitment", req.allParams());
 		var inArray = req.param("inputDate").split("#");
