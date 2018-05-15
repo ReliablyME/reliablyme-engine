@@ -82,7 +82,7 @@ module.exports = {
 			else {
 				console.log("Found records: ", items.length);
 				if(items.length>0) return res.ok({"set_attributes":{"IsRegistered": "true"}});
-				else return res.ok({"set_attributes":{"IsRegistered": "true"}});
+				else return res.ok({"set_attributes":{"IsRegistered": "false"}});
 			}
 	    });
 	},
