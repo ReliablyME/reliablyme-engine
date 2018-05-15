@@ -22,6 +22,7 @@ module.exports = {
 	      		fullName: req.param("first name") + " " + req.param("last name"),
 	      		messengerUserId: req.param("messenger user id"),
 			}, function (err, user) {
+				console.log("Returning from registerFacebookIndividual");
 	    		return res.ok('Pass');
 	    	}
 	    );
@@ -39,6 +40,7 @@ module.exports = {
 	    		isHelper: true
 	    	}
 	    ), function (err, user) {
+			console.log("Returning from SetIndividualAsHelper");
 	    	if(!err) return res.ok();
 	    	else return res.serverError("Individual not found");
 	    };
@@ -78,6 +80,7 @@ module.exports = {
 	CheckRegistrationStatus: async function (req, res) {
 		console.log("Called CheckRegistrationStatus", req.allParams());
 	    await Commitment.find({helper_id: req.param("messenger user id"), event_id: req.param("eventID")}).exec(function(err, items){
+			console.log("Returning from CheckRegistrationStatus");
 			if(err) return res.ok({"set_attributes":{"IsRegistered": "false"}});
 			else {
 				console.log("Found records: ", items.length);
