@@ -237,7 +237,7 @@ module.exports = {
 			{
 				helperID: req.param("messengeruserid"),
 				eventName: req.param("eventName"),
-				botID: event.botID,
+				botID: event[0].botID,
 			}
 		);
 
