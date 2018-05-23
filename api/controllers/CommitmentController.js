@@ -301,5 +301,11 @@ module.exports = {
 			}
 	    });
 	},
+
+	blockchainRecord: async function (req, res) {
+		console.log("Called blockchainRecord", req.allParams());
+  		return res.ok();
+	},
+
 };
 
