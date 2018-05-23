@@ -229,7 +229,8 @@ module.exports = {
 
 	AcceptCommitmentCompletion: async function (req, res) {
 		console.log("Called AcceptCommitmentCompletion", req.allParams());
-		var commitment = await Commitment.update({id:req.param("commitmentID")}).set({commitmentStatus_id:5}).fetch();
+		await Commitment.update({id:req.param("commitmentID")}).set({commitmentStatus_id:5});
+		var commitment = await Commitment.find({where: {id:req.param("commitmentID")}});
 		var event = await Event.find({where: {id:commitment.event_id}});
 		console.log("updated commitmentStatus_id:3");
 
