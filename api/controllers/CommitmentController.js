@@ -115,6 +115,7 @@ module.exports = {
 
 			var event = await Event.find({where: {id: req.param("eventID")}});
 
+
 			// Send a message to the entrepreneur about the commitment
 			if(newCommitment) {
 				console.log("call helper to send message to Entrepreneur");
@@ -125,7 +126,7 @@ module.exports = {
 						comID: newCommitment.id,
 						comOffer: newCommitment.commitmentOffer,
 						entID: newCommitment.entreprenuer_id,
-						botID: event.botID,
+						botID: event[0].botID,
 					}
 				);
 				return res.ok({"set_attributes": {"commitmentID": newCommitment.id}});
