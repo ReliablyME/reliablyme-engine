@@ -35,7 +35,7 @@ module.exports = {
       description: 'messenger id of entrepreneur.',
       type: 'number',
       required: true
-    }
+    },
 
     botID: {
       description: 'ChatFuel ID of bot.',
