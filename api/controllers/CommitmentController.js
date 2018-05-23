@@ -231,7 +231,7 @@ module.exports = {
 		console.log("Called AcceptCommitmentCompletion", req.allParams());
 		await Commitment.update({id:req.param("commitmentID")}).set({commitmentStatus_id:5});
 		var commitment = await Commitment.find({where: {id:req.param("commitmentID")}});
-		var event = await Event.find({where: {id:commitment.event_id}});
+		var event = await Event.find({where: {id:commitment[0].event_id}});
 		console.log("updated commitmentStatus_id:3");
 
 		await sails.helpers.sendCommitmentCompletionAcceptedToHelper.with(
