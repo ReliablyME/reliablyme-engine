@@ -33,6 +33,11 @@ module.exports = {
       columnType: 'datetime',
     },
 
+    botID: {
+      type: 'string',
+      description: 'ChatFuel bot instance id',
+    },
+
   }
 };
 

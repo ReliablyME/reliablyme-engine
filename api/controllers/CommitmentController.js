@@ -113,6 +113,8 @@ module.exports = {
 				}
 		    ).fetch();
 
+			var event = await Event.find({where: {id: req.param("eventID")}});
+
 			// Send a message to the entrepreneur about the commitment
 			if(newCommitment) {
 				console.log("call helper to send message to Entrepreneur");
@@ -122,7 +124,8 @@ module.exports = {
 						helperName: helper[0].fullName,
 						comID: newCommitment.id,
 						comOffer: newCommitment.commitmentOffer,
-						entID: newCommitment.entreprenuer_id
+						entID: newCommitment.entreprenuer_id,
+						botID: event.botID,
 					}
 				);
 				return res.ok({"set_attributes": {"commitmentID": newCommitment.id}});
@@ -184,6 +187,7 @@ module.exports = {
 		console.log("updated commitmentStatus_id:2");
 		// Find entrepreneur record for name
 		var entrepreneur = await User.find({where: {messengerUserId: req.param("messenger user id")}});
+		var event = await Event.find({where: {id: req.param("eventID")}});
 		console.log("Found entrepreneur", entrepreneur[0].fullName);
 		// Message user that offer accepted
 		await sails.helpers.sendCommitmentAcceptanceToHelper.with(
@@ -191,6 +195,7 @@ module.exports = {
 				entName: entrepreneur[0].fullName,
 				comID: req.param("commitmentID"),
 				helperID: req.param("messenger user id"),
+				botID: event.botID,
 			}
 		);
 
@@ -205,6 +210,7 @@ module.exports = {
 		console.log("updated commitmentStatus_id:3");
 		// Find entrepreneur record for name
 		var entrepreneur = await User.find({where: {messengerUserId: req.param("messenger user id")}});
+		var event = await Event.find({where: {id: req.param("eventID")}});
 		console.log("Found entrepreneur", entrepreneur[0].fullName);
 		// Message user that offer accepted
 		await sails.helpers.sendCommitmentRejectionToHelper.with(
@@ -212,6 +218,7 @@ module.exports = {
 				entName: entrepreneur[0].fullName,
 				comID: req.param("commitmentID"),
 				helperID: req.param("messenger user id"),
+				botID: event.botID,
 			}
 		);
 
@@ -221,13 +228,15 @@ module.exports = {
 
 	AcceptCommitmentCompletion: async function (req, res) {
 		console.log("Called AcceptCommitmentCompletion", req.allParams());
-		await Commitment.update({id:req.param("commitmentID")}).set({commitmentStatus_id:5})
+		var commitment = await Commitment.update({id:req.param("commitmentID")}).set({commitmentStatus_id:5}).fetch();
+		var event = await Event.find({where: {id:commitment.event_id}});
 		console.log("updated commitmentStatus_id:3");
 
 		await sails.helpers.sendCommitmentCompletionAcceptedToHelper.with(
 			{
 				helperID: req.param("messengeruserid"),
 				eventName: req.param("eventName"),
+				botID: event.botID,
 			}
 		);
 
@@ -304,6 +313,202 @@ module.exports = {
 
 	blockchainRecord: async function (req, res) {
 		console.log("Called blockchainRecord", req.allParams());
+
+	    var commitment = await Commitment.findOne({id: req.param("commitmentId")});
+
+	    if (!commitment) {
+  			return res.notFound('Could not find Finn, sorry.');
+		}
+
+		var ABI = [
+				{
+					"constant": true,
+					"inputs": [
+						{
+							"name": "",
+							"type": "uint256"
+						},
+						{
+							"name": "",
+							"type": "uint256"
+						}
+					],
+					"name": "byPerson",
+					"outputs": [
+						{
+							"name": "offerDate",
+							"type": "uint256"
+						},
+						{
+							"name": "completeDate",
+							"type": "uint256"
+						}
+					],
+					"payable": false,
+					"stateMutability": "view",
+					"type": "function"
+				},
+				{
+					"constant": true,
+					"inputs": [
+						{
+							"name": "userId",
+							"type": "uint256"
+						},
+						{
+							"name": "eventId",
+							"type": "uint256"
+						}
+					],
+					"name": "getOffer",
+					"outputs": [
+						{
+							"name": "offerDate",
+							"type": "uint256"
+						}
+					],
+					"payable": false,
+					"stateMutability": "view",
+					"type": "function"
+				},
+				{
+					"constant": true,
+					"inputs": [
+						{
+							"name": "userId",
+							"type": "uint256"
+						},
+						{
+							"name": "eventId",
+							"type": "uint256"
+						}
+					],
+					"name": "getCommitment",
+					"outputs": [
+						{
+							"name": "offerDate",
+							"type": "uint256"
+						},
+						{
+							"name": "completeDate",
+							"type": "uint256"
+						}
+					],
+					"payable": false,
+					"stateMutability": "view",
+					"type": "function"
+				},
+				{
+					"constant": true,
+					"inputs": [],
+					"name": "owner",
+					"outputs": [
+						{
+							"name": "",
+							"type": "address"
+						}
+					],
+					"payable": false,
+					"stateMutability": "view",
+					"type": "function"
+				},
+				{
+					"constant": false,
+					"inputs": [
+						{
+							"name": "userId",
+							"type": "uint256"
+						},
+						{
+							"name": "eventId",
+							"type": "uint256"
+						}
+					],
+					"name": "setOffer",
+					"outputs": [],
+					"payable": false,
+					"stateMutability": "nonpayable",
+					"type": "function"
+				},
+				{
+					"constant": true,
+					"inputs": [
+						{
+							"name": "userId",
+							"type": "uint256"
+						},
+						{
+							"name": "eventId",
+							"type": "uint256"
+						}
+					],
+					"name": "getComplete",
+					"outputs": [
+						{
+							"name": "completeDate",
+							"type": "uint256"
+						}
+					],
+					"payable": false,
+					"stateMutability": "view",
+					"type": "function"
+				},
+				{
+					"constant": false,
+					"inputs": [
+						{
+							"name": "userId",
+							"type": "uint256"
+						},
+						{
+							"name": "eventId",
+							"type": "uint256"
+						}
+					],
+					"name": "setComplete",
+					"outputs": [],
+					"payable": false,
+					"stateMutability": "nonpayable",
+					"type": "function"
+				},
+				{
+					"inputs": [],
+					"payable": false,
+					"stateMutability": "nonpayable",
+					"type": "constructor"
+				}
+			];
+
+		const Web3 = require('web3');
+		//console.log('Web3=', Web3);
+		const Web3Interface = new Web3(new Web3.providers.HttpProvider('https://rinkeby.infura.io/Oi8SElNW8FHvmOFIzVUs'));
+		console.log('Does web3Interface have an web3 interface? '+typeof(Web3Interface));
+		console.log('Does web3Interface have an eth interface? '+typeof(Web3Interface.eth));
+		console.log('Web3 version = )', Web3Interface.version);
+		console.log('Web3 currentProvider = )', Web3Interface.currentProvider);
+
+		var ReliablyMEcommitments = new Web3Interface.eth.Contract(ABI);
+		ReliablyMEcommitments.options.address = '0x44a4faebf4bf0e3a467c84eaf68dd0065d20b23d';
+		ReliablyMEcommitments.options.from = '0x5aB5E52245Fd4974499aa625709EE1F5A81c8157';
+		ReliablyMEcommitments.options.gas = 5000000;
+		ReliablyMEcommitments.options.gasPrice = '20000000000000';
+
+		ReliablyMEcommitments.methods.getOffer(1,1).call().then(console.log);
+		console.log('Called getOffer');
+
+		ReliablyMEcommitments.methods.setOffer(1,1).send()
+			.on('transactionHash', function(hash){
+				console.log('TX hash=', hash);
+			})
+			.on('confirmation', function(confirmationNumber, receipt){
+				console.log('Confirmation=', confirmationNumber);
+			})
+			.on('receipt', function(receipt){
+				console.log('receipt=',receipt);
+			})
+			.on('error', console.error); 
+		console.log('Called setOffer');
+
   		return res.ok();
 	},
 
