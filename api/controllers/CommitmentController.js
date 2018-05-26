@@ -183,13 +183,16 @@ module.exports = {
 
 	AcceptCommitmentOffer: async function (req, res) {
 		console.log("Called AcceptCommitmentOffer", req.allParams());
+
 		// Update status on commitment to 2 - offerAccepted
 		await Commitment.update({id:Number(req.param("commitmentID"))}).set({commitmentStatus_id:2});
 		console.log("updated commitmentStatus_id:2");
+
 		// Find entrepreneur record for name
 		var entrepreneur = await User.find({where: {messengerUserId: req.param("messenger user id")}});
 		var event = await Event.find({where: {id: req.param("eventID")}});
 		console.log("Found entrepreneur", entrepreneur[0].fullName);
+
 		// Message user that offer accepted
 		await sails.helpers.sendCommitmentAcceptanceToHelper.with(
 			{
@@ -197,6 +200,14 @@ module.exports = {
 				comID: req.param("commitmentID"),
 				helperID: req.param("messenger user id"),
 				botID: event.botID,
+			}
+		);
+
+		// Record into blockchain
+		await sails.helpers.sendCommitmentAcceptanceToHelper.with(
+			{
+				commitmentID: req.param("commitmentID"),
+				statusID: 2,
 			}
 		);
 
@@ -234,11 +245,20 @@ module.exports = {
 		var event = await Event.find({where: {id:commitment[0].event_id}});
 		console.log("updated commitmentStatus_id:3");
 
+		// Send back through ChatFuel
 		await sails.helpers.sendCommitmentCompletionAcceptedToHelper.with(
 			{
 				helperID: req.param("messengeruserid"),
 				eventName: req.param("eventName"),
 				botID: event[0].botID,
+			}
+		);
+
+		// Record into blockchain
+		await sails.helpers.sendCommitmentAcceptanceToHelper.with(
+			{
+				commitmentID: req.param("commitmentID"),
+				statusID: 2,
 			}
 		);
 
@@ -482,33 +502,50 @@ module.exports = {
 			];
 
 		const Web3 = require('web3');
+
 		//console.log('Web3=', Web3);
 		const Web3Interface = new Web3(new Web3.providers.HttpProvider('https://rinkeby.infura.io/Oi8SElNW8FHvmOFIzVUs'));
-		console.log('Does web3Interface have an web3 interface? '+typeof(Web3Interface));
-		console.log('Does web3Interface have an eth interface? '+typeof(Web3Interface.eth));
-		console.log('Web3 version = )', Web3Interface.version);
-		console.log('Web3 currentProvider = )', Web3Interface.currentProvider);
 
-		var ReliablyMEcommitments = new Web3Interface.eth.Contract(ABI);
-		ReliablyMEcommitments.options.address = '0x44a4faebf4bf0e3a467c84eaf68dd0065d20b23d';
-		ReliablyMEcommitments.options.from = '0x5aB5E52245Fd4974499aa625709EE1F5A81c8157';
-		ReliablyMEcommitments.options.gas = 5000000;
-		ReliablyMEcommitments.options.gasPrice = '20000000000000';
+		// Create the contract object
+		const ReliablyMEcommitments = new Web3Interface.eth.Contract(ABI,'0x44a4faebf4bf0e3a467c84eaf68dd0065d20b23d');
 
-		ReliablyMEcommitments.methods.getOffer(1,1).call().then(console.log);
-		console.log('Called getOffer');
+		// Get the private key from database
+		var settings = await Settings.find({});
+		console.log(settings[0].privKey);
 
-		ReliablyMEcommitments.methods.setOffer(1,1).send()
-			.on('transactionHash', function(hash){
-				console.log('TX hash=', hash);
-			})
-			.on('confirmation', function(confirmationNumber, receipt){
-				console.log('Confirmation=', confirmationNumber);
-			})
-			.on('receipt', function(receipt){
-				console.log('receipt=',receipt);
-			})
-			.on('error', console.error); 
+		// Create a transaction object of the contract setOffer method
+		const setOffer = ReliablyMEcommitments.methods.setOffer(1,1);
+
+		const encodedABI = setOffer.encodeABI();
+		const tx = {
+		  from: '0x5aB5E52245Fd4974499aa625709EE1F5A81c8157',
+		  to: '0x44a4faebf4bf0e3a467c84eaf68dd0065d20b23d',
+		  gas: 2000000,
+		  data: encodedABI,
+		};
+
+		const account = Web3Interface.eth.accounts.privateKeyToAccount(settings[0].privKey);
+		console.log(account);
+		Web3Interface.eth.getBalance('0x5aB5E52245Fd4974499aa625709EE1F5A81c8157').then(console.log);
+
+		// Signh the transaction and send it
+		Web3Interface.eth.accounts.signTransaction(tx, settings[0].privKey).then(signed => {
+			console.log("Signed=:", signed);
+		    const tran = Web3Interface.eth.sendSignedTransaction(signed.rawTransaction)
+		    .on('confirmation', (confirmationNumber, receipt) => {
+		      console.log('confirmation: ' + confirmationNumber);
+		    })
+		    .on('transactionHash', hash => {
+		      console.log('hash');
+		      console.log(hash);
+		    })
+		    .on('receipt', receipt => {
+		      console.log('reciept');
+		      console.log(receipt);
+		    })
+		    .on('error', console.error);
+		});
+
 		console.log('Called setOffer');
 
   		return res.ok();

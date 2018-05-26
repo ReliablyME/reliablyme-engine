@@ -43,6 +43,16 @@ module.exports = {
       description: 'id of the event this commitment is for',
     },
 
+    offerTransaction: {
+      type: 'string',
+      description: 'Blockchain tx hash for offer accepted transaction',
+    },
+
+    completionTransaction: {
+      type: 'string',
+      description: 'Blockchain tx hash for completion accepted transaction',
+    },
+
   }
 };
 
