@@ -108,7 +108,7 @@ module.exports = {
 		      		entreprenuer_id: req.param("entrepreneurID"),
 		      		commitmentOffer: req.param("commitmentOffer"),
 		      		commitmentDueDate: inDate,
-		      		commitmentStatus_id: 1,
+		      		commitmentStatus_id: 2,
 		      		event_id: req.param("eventID")
 				}
 		    ).fetch();
@@ -129,6 +129,15 @@ module.exports = {
 						botID: event[0].botID,
 					}
 				);
+
+				// Record into blockchain
+				await sails.helpers.sendCommitmentAcceptanceToHelper.with(
+					{
+						commitmentID: req.param("commitmentID"),
+						statusID: 2,
+					}
+				);
+
 				return res.ok({"set_attributes": {"commitmentID": newCommitment.id}});
 			}
 			else return res.serverError("Commitment not created");
