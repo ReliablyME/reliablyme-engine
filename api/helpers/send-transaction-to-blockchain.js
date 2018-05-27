@@ -275,11 +275,11 @@ module.exports = {
 		      // Save this tx hash to commitment table to display as proof
 		      if(inputs.statusID==2) {
 		      	// offer accepted
-	    	  	Commitment.update({id:req.param("commitmentID")}).set({offerTransaction:hash});	
+	    	  	Commitment.update({id:inputs.commitmentID}).set({offerTransaction:hash});	
 	    	  }
 	    	  else {
 	    	  	// completion accepted
-	    	  	Commitment.update({id:req.param("commitmentID")}).set({completionTransaction:hash}); 
+	    	  	Commitment.update({id:inputs.commitmentID}).set({completionTransaction:hash}); 
 	    	  }
 		    })
 		    .on('receipt', receipt => {
