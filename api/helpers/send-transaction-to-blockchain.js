@@ -50,7 +50,7 @@ module.exports = {
 		console.log("Called send-transaction-to-blockchain", inputs);
 
 		// Get the commitment record so we can get the user and event IDs
-	    var commitment = await Commitment.findOne({id: inputs.commitmentID});
+	    var commitment = await Commitment.find({where: {id: inputs.commitmentID}});
 
 	    if (!commitment) {
   			return exits.notFound();
