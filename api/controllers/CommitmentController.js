@@ -133,7 +133,7 @@ module.exports = {
 				// Record into blockchain
 				await sails.helpers.sendTransactionToBlockchain.with(
 					{
-						commitmentID: req.param("commitmentID"),
+						commitmentID: newCommitment.id,
 						statusID: 2,
 					}
 				);
