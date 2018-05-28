@@ -8,7 +8,7 @@
   angular.module('reliablyMe.rating').controller('RatingCtrl', RatingCtrl);
 
   /** @ngInject */
-  function RatingCtrl($scope, $http) {
+  function RatingCtrl($scope, $http, $location) {
 
   	console.log("RatingCtrl!");
 
