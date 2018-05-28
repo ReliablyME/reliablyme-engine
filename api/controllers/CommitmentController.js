@@ -383,7 +383,7 @@ module.exports = {
 					commit.id AS commitment_id, 
 					comStat.commitmentStatusName AS statusName, 
 					commit.commitmentOffer AS offer, 
-					commit.commitmentDueDate AS dueDate.
+					commit.commitmentDueDate AS dueDate,
 					commit.offerTransaction as TX
 				FROM reliablyme.commitment AS commit 
 			    JOIN reliablyme.commitmentstatus AS comStat ON comStat.id=commit.commitmentStatus_id
