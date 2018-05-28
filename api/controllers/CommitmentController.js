@@ -315,7 +315,7 @@ module.exports = {
 	GetReliabilityRatingUser: async function (req, res) {
 		console.log("Called GetReliabilityRatingUser", req.allParams());
 		var commitmentsCompleteQuery = 'SELECT COUNT(*) AS complete FROM reliablyme.commitment WHERE helper_id=\'' + req.param("userid") +'\' AND commitmentStatus_id=5;';
-		var commitmentsQuery = 'SELECT COUNT(*) AS total FROM reliablyme.commitment WHERE helper_id=\'' + req.param("messenger user id") + '\';';
+		var commitmentsQuery = 'SELECT COUNT(*) AS total FROM reliablyme.commitment WHERE helper_id=\'' + req.param("userid") + '\';';
 		var params = [];
 
 		console.log("commitmentsCompleteQuery "+commitmentsCompleteQuery);
