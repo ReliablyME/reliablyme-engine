@@ -356,7 +356,7 @@ module.exports = {
 					commit.completionTransation as TX
 				FROM reliablyme.commitment AS commit 
 			    JOIN reliablyme.commitmentstatus AS comStat ON comStat.id=commit.commitmentStatus_id
-			    WHERE commit.commitmentStatus_id=5 AND helper_id = '` + req.params('userid') + `'
+			    WHERE commit.commitmentStatus_id=5 AND helper_id = '` + req.param('userid') + `'
 			    ORDER BY commit.commitmentDueDate; `;
 		
 		var params = [];
@@ -383,7 +383,7 @@ module.exports = {
 					commit.offerTransation as TX
 				FROM reliablyme.commitment AS commit 
 			    JOIN reliablyme.commitmentstatus AS comStat ON comStat.id=commit.commitmentStatus_id
-			    WHERE commit.commitmentStatus_id=2 AND helper_id = '` + req.params('userid') + `'
+			    WHERE commit.commitmentStatus_id=2 AND helper_id = '` + req.param('userid') + `'
 			    ORDER BY commit.commitmentDueDate; `;
 		
 		var params = [];
