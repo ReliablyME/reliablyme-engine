@@ -18,7 +18,7 @@ module.exports.routes = {
   'GET /welcome':            { action: 'dashboard/view-welcome' },
   'GET /commit':             { action: 'dashboard/view-commit' },
 
-  'GET /rating':             { view:   'pages/rating/:userid' },
+  'GET /rating':             { view:   'pages/rating' },
   'GET /faq':                { view:   'pages/faq' },
   'GET /legal/terms':        { view:   'pages/legal/terms' },
   'GET /legal/privacy':      { view:   'pages/legal/privacy' },
