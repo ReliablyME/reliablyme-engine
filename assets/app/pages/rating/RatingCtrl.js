@@ -19,7 +19,7 @@
     $scope.loadTableData = function() { 
 	  var userId=$location.search().userid;
       $http.post('/GetReliabilityRatingUser?userid='+userId).then(function(response) {
-        $scope.Rating=response.data.Reliabilityrating;
+        $scope.Rating=response.data.set_attributes.Reliabilityrating;
       })
 
       $http.post('/GetCompleteUserList?userid='+userId).then(function(response) {
