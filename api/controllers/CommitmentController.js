@@ -353,7 +353,7 @@ module.exports = {
 					comStat.commitmentStatusName AS statusName, 
 					commit.commitmentOffer AS offer, 
 					commit.commitmentDueDate AS dueDate,
-					commit.completionTransation as TX
+					commit.completionTransaction as TX
 				FROM reliablyme.commitment AS commit 
 			    JOIN reliablyme.commitmentstatus AS comStat ON comStat.id=commit.commitmentStatus_id
 			    WHERE commit.commitmentStatus_id=5 AND helper_id = '` + req.param('userid') + `'
@@ -384,7 +384,7 @@ module.exports = {
 					comStat.commitmentStatusName AS statusName, 
 					commit.commitmentOffer AS offer, 
 					commit.commitmentDueDate AS dueDate.
-					commit.offerTransation as TX
+					commit.offerTransaction as TX
 				FROM reliablyme.commitment AS commit 
 			    JOIN reliablyme.commitmentstatus AS comStat ON comStat.id=commit.commitmentStatus_id
 			    WHERE commit.commitmentStatus_id=2 AND helper_id = '` + req.param('userid') + `'
