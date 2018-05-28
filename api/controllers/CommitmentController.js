@@ -358,11 +358,15 @@ module.exports = {
 			    JOIN reliablyme.commitmentstatus AS comStat ON comStat.id=commit.commitmentStatus_id
 			    WHERE commit.commitmentStatus_id=5 AND helper_id = '` + req.param('userid') + `'
 			    ORDER BY commit.commitmentDueDate; `;
-		
+
+		console.log(commitmentQuery);
 		var params = [];
 
 		sails.sendNativeQuery(commitmentQuery, params).exec(function(err, items) {
-			if(err) return res.ok({});
+			if(err) {
+				console.log(err);
+				return res.ok({});
+			}
 			else {
 				var convRaw = JSON.parse(JSON.stringify(items));
 				console.log("Found commitment records for: ", commitmentQuery, " result:", convRaw.rows);
