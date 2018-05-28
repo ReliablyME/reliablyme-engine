@@ -8,15 +8,15 @@
   /**
    * Includes basic panel layout inside of current element.
    */
-  angular.module('reliablyMe.rating').directive('baPanel', baPanel);
+  angular.module('reliablyMe.rating').directive('commitTable', commitTable);
 
   /** @ngInject */
-  function baPanel(baPanel) {
-    return angular.extend({}, baPanel, {
+  function commitTable(commitTable) {
+    return angular.extend({}, commitTable, {
       template: function(el, attrs) {
-        var res = '<div  class="panel ' + ' full-invisible ' + (attrs.baPanelClass || '');
+        var res = '<div  class="panel ' + ' full-invisible ' + (attrs.commitTableClass || '');
         res += '" zoom-in ' +  '>';
-        res += baPanel.template(el, attrs);
+        res += commitTable.template(el, attrs);
         res += '</div>';
         return res;
       }

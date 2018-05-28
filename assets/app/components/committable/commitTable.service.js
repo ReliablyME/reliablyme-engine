@@ -9,7 +9,7 @@
       .factory('commitTable', commitTable);
 
   /** @ngInject */
-  function baPanel() {
+  function commitTable() {
 
     /** Base baPanel directive */
     return {
