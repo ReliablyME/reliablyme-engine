@@ -247,12 +247,24 @@ module.exports = {
 		// Get the ABI
 	 	const encodedABI = methodCall.encodeABI();
 
+	 	// Find out the most recent nonce (nextr transaction number)
+	 	var nonceNext = 0;
+	 	var nonceComplete = Web3Interface.eth.getTransactionCount('0x5aB5E52245Fd4974499aa625709EE1F5A81c8157');
+	 	var noncePending = Web3Interface.eth.getTransactionCount('0x5aB5E52245Fd4974499aa625709EE1F5A81c8157', "pending");
+	 	if(noncePending>nonceComplete) {
+	 		nonceNext = noncePending + 1;
+	 	}
+	 	else {
+	 		nonceNext = nonceComplete + 1;
+	 	}
+
 		// Create the raw transaction
 		const tx = {
 		  from: '0x5aB5E52245Fd4974499aa625709EE1F5A81c8157', 	// This is the default wallet account to use
 		  to: '0x44a4faebf4bf0e3a467c84eaf68dd0065d20b23d',		// This is the contract instance
 		  gas: 2000000,
 		  data: encodedABI,
+		  nonce: nonceNext,
 		};
 
 		// Get the account object from the private key
