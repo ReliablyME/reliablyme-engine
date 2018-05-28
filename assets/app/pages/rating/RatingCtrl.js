@@ -19,7 +19,7 @@
 	  var userId=$location.search();
       var id=userId.userid;
 
-      $http.post('/GetCompleteUserList?userid='+id.).then(function(response) {
+      $http.post('/GetCompleteUserList?userid='+id).then(function(response) {
         $scope.completeTableData=response.data.records;
       })
       $http.post('/GetIncompleteUserList?userid='+id).then(function(response) {
