@@ -14,9 +14,13 @@
 
     $scope.completeTableData = [];
     $scope.incompleteTableData = [];
+    $scope.Rating="?";
 
     $scope.loadTableData = function() { 
 	  var userId=$location.search().userid;
+      $http.post('/GetReliabilityRatingUser?userid='+userId).then(function(response) {
+        $scope.Rating=response.data.records.Reliabilityrating;
+      })
 
       $http.post('/GetCompleteUserList?userid='+userId).then(function(response) {
         $scope.completeTableData=response.data.records;
