@@ -312,6 +312,93 @@ module.exports = {
 	    });
 	},
 
+	GetReliabilityRatingUser: async function (req, res) {
+		console.log("Called GetReliabilityRatingUser", req.allParams());
+		var commitmentsCompleteQuery = 'SELECT COUNT(*) AS complete FROM reliablyme.commitment WHERE helper_id=\'' + req.param("userid") +'\' AND commitmentStatus_id=5;';
+		var commitmentsQuery = 'SELECT COUNT(*) AS total FROM reliablyme.commitment WHERE helper_id=\'' + req.param("messenger user id") + '\';';
+		var params = [];
+
+		console.log("commitmentsCompleteQuery "+commitmentsCompleteQuery);
+		sails.sendNativeQuery(commitmentsQuery, params).exec(function(err1, commitments) {
+			if(!err1) {
+				console.log("commitmentsQuery "+commitmentsQuery);
+				sails.sendNativeQuery(commitmentsCompleteQuery, params).exec(function(err2, completes) {
+					if(!err2) {
+						var jcommitments = JSON.parse(JSON.stringify(commitments));
+						var jcompletes = JSON.parse(JSON.stringify(completes));
+						var jcomarray = jcommitments.rows;
+						var jtot= jcomarray[0].total;
+						var jcomp =jcompletes.rows;
+						var jcomps = jcomp[0].complete;
+						var rating = Math.round(Number(jcomps)/Number(jtot)* 1000);
+						var total = Number(jtot);
+						return res.ok({"set_attributes": {"Reliabilityrating": rating, "completedNumCommitments": total }});
+					}
+					else {
+						console.log("Error calling commitmentsCompleteQuery");
+					}
+				});
+			}
+			else {
+				console.log("Error calling commitmentsQuery");
+			}
+	    });
+	},
+
+	GetCompleteUserList: async function (req, res) {
+		console.log("Called GetCompleteUserList", req.allParams());
+		var commitmentQuery = `
+			SELECT 
+					commit.id AS commitment_id, 
+					comStat.commitmentStatusName AS statusName, 
+					commit.commitmentOffer AS offer, 
+					commit.commitmentDueDate AS dueDate,
+					commit.completionTransation as TX
+				FROM reliablyme.commitment AS commit 
+			    JOIN reliablyme.commitmentstatus AS comStat ON comStat.id=commit.commitmentStatus_id
+			    WHERE commit.commitmentStatus_id=5 AND helper_id = '` + req.params('userid') + `'
+			    ORDER BY commit.commitmentDueDate; `;
+		
+		var params = [];
+
+		sails.sendNativeQuery(commitmentQuery, params).exec(function(err, items) {
+			if(err) return res.ok({});
+			else {
+				var convRaw = JSON.parse(JSON.stringify(items));
+				console.log("Found commitment records for: ", commitmentQuery, " result:", convRaw.rows);
+				// Build up JSON to send back
+				return res.json({records: JSON.parse(JSON.stringify(convRaw.rows))});
+			}
+	    });
+	},
+
+	GetIncompleteUserList: async function (req, res) {
+		console.log("Called GetIncompleteUserList", req.allParams());
+		var commitmentQuery = `
+			SELECT 
+					commit.id AS commitment_id, 
+					comStat.commitmentStatusName AS statusName, 
+					commit.commitmentOffer AS offer, 
+					commit.commitmentDueDate AS dueDate.
+					commit.offerTransation as TX
+				FROM reliablyme.commitment AS commit 
+			    JOIN reliablyme.commitmentstatus AS comStat ON comStat.id=commit.commitmentStatus_id
+			    WHERE commit.commitmentStatus_id=2 AND helper_id = '` + req.params('userid') + `'
+			    ORDER BY commit.commitmentDueDate; `;
+		
+		var params = [];
+
+		sails.sendNativeQuery(commitmentQuery, params).exec(function(err, items) {
+			if(err) return res.ok({});
+			else {
+				var convRaw = JSON.parse(JSON.stringify(items));
+				console.log("Found commitment records for: ", commitmentQuery, " result:", convRaw.rows);
+				// Build up JSON to send back
+				return res.json({records: JSON.parse(JSON.stringify(convRaw.rows))});
+			}
+	    });
+	},
+
 	CommittmentList: async function (req, res) {
 		console.log("Called CommittmentList", req.allParams());
 		var commitmentQuery = `

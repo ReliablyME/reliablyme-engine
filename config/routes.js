@@ -18,7 +18,7 @@ module.exports.routes = {
   'GET /welcome':            { action: 'dashboard/view-welcome' },
   'GET /commit':             { action: 'dashboard/view-commit' },
 
-  'GET /rating':             { view:   'pages/rating' },
+  'GET /rating':             { view:   'pages/rating/:userid' },
   'GET /faq':                { view:   'pages/faq' },
   'GET /legal/terms':        { view:   'pages/legal/terms' },
   'GET /legal/privacy':      { view:   'pages/legal/privacy' },
@@ -69,6 +69,9 @@ module.exports.routes = {
   'POST  /CommittmentList': 'CommitmentController.CommittmentList' ,
   'POST  /CheckRegistrationStatus': 'CommitmentController.CheckRegistrationStatus' ,
   'POST  /BlockchainRecord': 'CommitmentController.blockchainRecord' ,
+  'POST  /GetReliabilityRatingUser': 'CommitmentController.GetReliabilityRatingUser' ,
+  'POST  /GetCompleteUserList': 'CommitmentController.GetCompleteUserList' ,
+  'POST  /GetIncompleteUserList': 'CommitmentController.GetIncompleteUserList' ,
 
   
   
