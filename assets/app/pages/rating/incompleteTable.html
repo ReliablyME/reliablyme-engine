@@ -1,0 +1,27 @@
+<div class="horizontal-scroll" ng-controller="DashboardCtrl">
+  <div>
+    <button type="button" class="btn btn-primary btn-with-icon save-profile" 
+            ng-click="refreshTable()">
+      Refresh table
+    </button>
+  </div>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th class="align-right">Helper</th>
+      <th class="align-right">Offer</th>
+      <th class="align-right">Status</th>
+      <th class="align-right">Event</th>
+      <th class="align-right">Complete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="item in committmentTableData">
+      <td ng-class="nowrap">{{item.fullName}}</td>
+      <td class="align-right">{{item.offer}}</td>
+      <td class="align-right">{{item.statusName}}</td>
+      <td class="align-right">{{item.eventName}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

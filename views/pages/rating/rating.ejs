@@ -1,0 +1,30 @@
+
+<script src="app/components/jquery/dist/jquery.js"></script>
+<script src="app/components/angular/angular.js"></script>
+<script src="app/pages/rating/rating.module.js"></script>
+<script src="app/components/baPanel/baPanel.directive.js"></script>
+<script src="app/components/baPanel/baPanel.service.js"></script>
+<script>
+  console.log("Starting app");
+  var app = angular.module("reliablyMe", ['reliablyMe.rating']); 
+</script>
+<script src="app/pages/rating/RatingCtrl.js"></script>
+
+<div ng-app="reliablyMe">
+  <div id="welcome">
+    <div class="container">
+      <h1>Attendance List</h1>
+      <hr/>
+      <p>Hi {{fullName}}!</p>
+      <p>Here is a list of the people who have committed to your event.  Click on commitment fullfiled beside the persons row to identify that they have fulfilled their commitment!!</p>
+      <p>
+      <div class="col-lg-6 col-md-12">
+        <div ba-panel ba-panel-title="Commitments" ba-panel-class="with-scroll table-panel">
+          <div ng-include="'/app/pages/rating/incompleteTable.html'"></div>
+        </div>
+      </div>
+    </p>
+    </div>
+  </div>
+</div>
+<%- /* Expose locals as `window.SAILS_LOCALS` :: */ exposeLocalsToBrowser() %>
