@@ -249,8 +249,8 @@ module.exports = {
 
 	 	// Find out the most recent nonce (nextr transaction number)
 	 	var nonceNext = 0;
-	 	var nonceComplete = Web3Interface.eth.getTransactionCount('0x5aB5E52245Fd4974499aa625709EE1F5A81c8157');
-	 	var noncePending = Web3Interface.eth.getTransactionCount('0x5aB5E52245Fd4974499aa625709EE1F5A81c8157', "pending");
+	 	var nonceComplete = await Web3Interface.eth.getTransactionCount('0x5aB5E52245Fd4974499aa625709EE1F5A81c8157');
+	 	var noncePending = await Web3Interface.eth.getTransactionCount('0x5aB5E52245Fd4974499aa625709EE1F5A81c8157', "pending");
 	 	if(noncePending>nonceComplete) {
 	 		nonceNext = noncePending + 1;
 	 	}
