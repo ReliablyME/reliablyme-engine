@@ -23,7 +23,7 @@ module.exports = {
 	      		messengerUserId: req.param("messenger user id"),
 			}, function (err, user) {
 				console.log("Returning from registerFacebookIndividual");
-	    		return res.ok('Pass');
+	    		return res.ok();
 	    	}
 	    );
 	},
@@ -369,7 +369,7 @@ module.exports = {
 			}
 			else {
 				var convRaw = JSON.parse(JSON.stringify(items));
-				console.log("Found commitment records for: ", commitmentQuery, " result:", convRaw.rows);
+				// console.log("Found commitment records for: ", commitmentQuery, " result:", convRaw.rows);
 				// Build up JSON to send back
 				return res.json({records: JSON.parse(JSON.stringify(convRaw.rows))});
 			}
@@ -396,7 +396,7 @@ module.exports = {
 			if(err) return res.ok({});
 			else {
 				var convRaw = JSON.parse(JSON.stringify(items));
-				//console.log("Found commitment records for: ", commitmentQuery, " result:", convRaw.rows);
+				// console.log("Found commitment records for: ", commitmentQuery, " result:", convRaw.rows);
 				// Build up JSON to send back
 				return res.json({records: JSON.parse(JSON.stringify(convRaw.rows))});
 			}
@@ -426,7 +426,7 @@ module.exports = {
 			if(err) return res.ok({});
 			else {
 				var convRaw = JSON.parse(JSON.stringify(items));
-				console.log("Found commitment records for: ", commitmentQuery, " result:", convRaw.rows);
+				// console.log("Found commitment records for: ", commitmentQuery, " result:", convRaw.rows);
 				// Build up JSON to send back
 				return res.json({records: JSON.parse(JSON.stringify(convRaw.rows))});
 			}
