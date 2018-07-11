@@ -17,7 +17,7 @@
     </thead>
     <tbody>
     <tr ng-repeat="item in incompleteTableData">
-      <td class="text-center" ng-class="nowrap">{{item.dueDate | date: 'yyyy-MM-dd'}}</td>
+      <td ng-class="nowrap">{{item.dueDate | date: 'yyyy-MM-dd'}}</td>
       <td class="align-right">{{item.offer}}</td>
       <td class="align-right">{{item.statusName}}</td>
       <td class="align-right"><a href="https://rinkeby.etherscan.io/tx/{{item.TX}}">{{item.TX}}</a></td>
