@@ -1,13 +1,14 @@
 <div class="horizontal-scroll" ng-controller="RatingCtrl">
  <div><h1>Your Reliability rating = {{Rating}}</h1></div>
   <div>
+     <h3>Completed Commitments</h3>
     <button type="button" class="btn btn-primary btn-with-icon save-profile" 
             ng-click="refreshTable()">
       Refresh table
     </button>
   </br>
   </div>
-  <table class="table table-bordered">
+  <table commit-table-title="Completed commitments" class="table table-bordered">
     <thead>
     <tr>
       <th class="text-center">Date</th>
