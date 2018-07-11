@@ -5,6 +5,7 @@
             ng-click="refreshTable()">
       Refresh table
     </button>
+  </br>
   </div>
   <table class="table table-bordered">
     <thead>
@@ -17,7 +18,7 @@
     </thead>
     <tbody>
     <tr ng-repeat="item in completeTableData">
-      <td ng-class="nowrap">{{item.dueDate}}</td>
+      <td ng-class="nowrap">{{item.dueDate | date: 'yyyy:MM:dd'}}</td>
       <td class="align-right">{{item.offer}}</td>
       <td class="align-right">{{item.statusName}}</td>
       <td class="align-right"><a href="https://rinkeby.etherscan.io/tx/{{item.TX}}">{{item.TX}}</a></td>
