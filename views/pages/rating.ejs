@@ -15,24 +15,26 @@
     <div class="container">
       <h1>Reliability Rating</h1>
       <hr/>
-      <p>The reliability rating meaures how well a person honours their commitments.  The highest rating is 1000.</p>
-      	hello
-      <p>All accepted commitment offers and completed commitments are tracked on the Ethereum blockchain.</p>
-      <p>The following is a list of commitments and a list of completed commitments.</p>
+
+      <p>The reliability rating meaures how well a person honours their commitments.  The highest rating is 1000. All commitments are tracked on the Ethereum blockchain.
+      </p>
+      	
       <p>
-      <div class="col-lg-6 col-md-12">
-        <div commit-table commit-table-title="Commitments in progress or not completed" commit-table-class="with-scroll table-panel">
-          <div ng-include="'/app/pages/rating/incompleteTable.html'"></div>
-        </div>
-      </div>
+	      <div class="col-lg-6 col-md-12">
+	        <div commit-table commit-table-title="Completed commitments" commit-table-class="with-scroll table-panel">
+	          <div ng-include="'/app/pages/rating/completeTable.html'"></div>
+	        </div>
+	      </div>
 	  </p>
-      <p>
-      <div class="col-lg-6 col-md-12">
-        <div commit-table commit-table-title="Completed commitments" commit-table-class="with-scroll table-panel">
-          <div ng-include="'/app/pages/rating/completeTable.html'"></div>
-        </div>
-      </div>
-	  </p>
+	  
+	   <p>
+	      <div class="col-lg-6 col-md-12">
+	        <div commit-table commit-table-title="UpComing Commitments" commit-table-class="with-scroll table-panel">
+	          <div ng-include="'/app/pages/rating/incompleteTable.html'"></div>
+	        </div>
+	      </div>
+	   </p>
+	  
     </div>
   </div>
 </div>
