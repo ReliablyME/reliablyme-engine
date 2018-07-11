@@ -9,15 +9,15 @@
   <table class="table table-bordered">
     <thead>
     <tr>
-      <th class="align-right">Due Date</th>
-      <th class="align-right">Offer</th>
-      <th class="align-right">Status</th>
-      <th class="align-right">Blockchain transaction</th>
+      <th class="text-center">Date</th>
+      <th class="text-center">Offer</th>
+      <th class="text-center">Status</th>
+      <th class="text-center">Blockchain transaction</th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="item in incompleteTableData">
-      <td width= "50px" ng-class="nowrap">{{item.dueDate | date: 'yyyy MM-dd' }}</td>
+      <td ng-class="nowrap">{{item.dueDate | date: 'yyyy-MM-dd' }}</td>
       <td class="align-right">{{item.offer}}</td>
       <td class="align-right">{{item.statusName}}</td>
       <td class="align-right"><a href="https://rinkeby.etherscan.io/tx/{{item.TX}}">{{item.TX}}</a></td>
