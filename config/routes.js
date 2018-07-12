@@ -54,6 +54,7 @@ module.exports.routes = {
   'POST  /api/v1/deliver-contact-form-message':          { action: 'deliver-contact-form-message' },
 
   'POST  /registerFacebookIndividual': 'CommitmentController.registerFacebookIndividual' ,
+  'POST  /captureEmail': 'CommitmentController.captureEmail',
   'POST  /SetIndividualAsHelper': 'CommitmentController.SetIndividualAsHelper' ,
   'POST  /SetIndividualAsEntrepreneur': 'CommitmentController.SetIndividualAsEntrepreneur' ,
   'POST  /CreateCommitment': 'CommitmentController.CreateCommitment' ,
