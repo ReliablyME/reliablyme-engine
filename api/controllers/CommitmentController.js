@@ -32,7 +32,7 @@ module.exports = {
 
 		await User.update(
 			{
-	      		messengerUserId: req.param("messenger user id"),
+	      		messengerUserId: req.param("messenger user id")
 			}
 			).set(
 			{
@@ -41,8 +41,23 @@ module.exports = {
 			),function(err){
 				console.log("Returning from captureEmail");
 				if(!err) return res.ok();
-				else return res.serverError("User not found")
+				else return res.serverError("User not found");
 			};
+	},
+	capturePhoneNumber: async function(req, res){
+		console.log("Called capturePhoneNumber", req.allParams());
+		await User.update(
+		{
+			messengerUserId: req.param("mesenger user id")
+		}
+		).set(
+		{
+			phoneNumber: req.param("phoneNumber")
+		}),function(err){
+			console.log("Returning from capturePhoneNumber");
+			if(!err) return res.ok();
+			else return res.serverError("User Not found");
+		};
 	},
 
 	SetIndividualAsHelper: async function (req, res) {

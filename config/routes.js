@@ -55,6 +55,7 @@ module.exports.routes = {
 
   'POST  /registerFacebookIndividual': 'CommitmentController.registerFacebookIndividual' ,
   'POST  /captureEmail': 'CommitmentController.captureEmail',
+  'POST  /capturePhoneNumber': 'CommitmentController.capturePhoneNumber',
   'POST  /SetIndividualAsHelper': 'CommitmentController.SetIndividualAsHelper' ,
   'POST  /SetIndividualAsEntrepreneur': 'CommitmentController.SetIndividualAsEntrepreneur' ,
   'POST  /CreateCommitment': 'CommitmentController.CreateCommitment' ,

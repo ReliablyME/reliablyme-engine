@@ -20,6 +20,12 @@ module.exports = {
       maxLength: 200,
       example: 'carol.reyna@microsoft.com'
     },
+    phoneNumber: {
+      type: 'string',
+      description: 'user phone number entered via chatbot',
+      maxLength: 100,
+      example: '1234567890'
+    }
 
     password: {
       type: 'string',
