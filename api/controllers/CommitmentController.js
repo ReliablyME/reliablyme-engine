@@ -159,7 +159,7 @@ module.exports = {
 			else return res.serverError("Commitment not created");
 		}
 		else 
-   			;return res.serverError("Commitment helper nout found")
+   			return res.serverError("Commitment helper nout found");
 	},
 
 	ViewCommitments: async function (req, res) {
