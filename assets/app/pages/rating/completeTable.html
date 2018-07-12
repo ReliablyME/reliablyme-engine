@@ -20,9 +20,9 @@
     <tbody>
     <tr ng-repeat="item in completeTableData">
       <td ng-class="nowrap">{{item.dueDate | date: 'yyyy-MM-dd'}}</td>
-      <td class="align-right">{{item.offer}}</td>
-      <td class="align-right">{{item.statusName}}</td>
-      <td class="align-right"><a href="https://rinkeby.etherscan.io/tx/{{item.TX}}">{{item.TX}}</a></td>
+      <td class="text-center">{{item.offer}}</td>
+      <td class="text-center">{{item.statusName}}</td>
+      <td class="text-center"><a href="https://rinkeby.etherscan.io/tx/{{item.TX}}">{{item.TX}}</a></td>
     </tr>
     </tbody>
   </table>
