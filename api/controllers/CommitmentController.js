@@ -27,7 +27,23 @@ module.exports = {
 	    	}
 	    );
 	},
+	captureEmail: async function (req, res) {
+		console.log("Called captureEmail", req.allParams());
 
+		await User.update(
+			{
+	      		messengerUserId: req.param("messenger user id"),
+			}
+			).set(
+			{
+				emailAddress: req.param("userEmail")
+			}
+			),function(err){
+				console.log("Returning from captureEmail");
+				if(!err) return res.ok();
+				else return res.serverError("User not found")
+			};
+	},
 
 	SetIndividualAsHelper: async function (req, res) {
 		console.log("Called SetIndividualAsHelper", req.allParams());
@@ -249,7 +265,11 @@ module.exports = {
 
 	AcceptCommitmentCompletion: async function (req, res) {
 		console.log("Called AcceptCommitmentCompletion", req.allParams());
-		await Commitment.update({id:req.param("commitmentID")}).set({commitmentStatus_id:5});
+			await Commitment.update({id:req.param("commitmentID")}).
+			set({
+				commitmentStatus_id:5
+			});
+
 		var commitment = await Commitment.find({where: {id:req.param("commitmentID")}});
 		var event = await Event.find({where: {id:commitment[0].event_id}});
 		console.log("updated commitmentStatus_id:3");
