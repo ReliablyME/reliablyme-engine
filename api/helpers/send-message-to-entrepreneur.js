@@ -58,7 +58,7 @@ module.exports = {
 
   fn: async function(inputs, exits) {
     console.log('sendMessageToEntrepreneur inputs=:',inputs);
-  	var fullpath='/bots/'+inputs.botID+'/users/'+inputs.entID+'/send?chatfuel_token=qwYLsCSz8hk4ytd6CPKP4C0oalstMnGdpDjF8YFHPHCieKNc0AfrnjVs91fGuH74&chatfuel_block_name=ReceiveHelperOffer&commitmentID='+inputs.comID+'&helperName='+encodeURI(inputs.helperName)+'&commitmentOffer='+encodeURI(inputs.comOffer);
+  	var fullpath='/bots/'+inputs.botID+'/users/'+inputs.entID+'/send?chatfuel_token=mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD&chatfuel_block_name=ReceiveHelperOffer&commitmentID='+inputs.comID+'&helperName='+encodeURI(inputs.helperName)+'&commitmentOffer='+encodeURI(inputs.comOffer);
 	  var results = ""; 
 	  var path = '/bots/'+inputs.botID+'/users/'+inputs.entID+'/send'; 
     var options = {
@@ -67,7 +67,7 @@ module.exports = {
         path: fullpath,
         method: 'POST',
         headers: {
-        	'chatfuel_token': 'qwYLsCSz8hk4ytd6CPKP4C0oalstMnGdpDjF8YFHPHCieKNc0AfrnjVs91fGuH74',
+        	'chatfuel_token': 'mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD',
         	'chatfuel_block_name': 'ReceiveHelperOffer',
         	'helperName': encodeURI(inputs.helperName),
         	'commitmentID': inputs.comID,
