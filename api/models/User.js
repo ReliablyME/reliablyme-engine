@@ -25,7 +25,7 @@ module.exports = {
       description: 'user phone number entered via chatbot',
       maxLength: 100,
       example: '1234567890'
-    }
+    },
 
     password: {
       type: 'string',
