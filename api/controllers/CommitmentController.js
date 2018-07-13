@@ -46,18 +46,24 @@ module.exports = {
 	},
 	capturePhoneNumber: async function(req, res){
 		console.log("Called capturePhoneNumber", req.allParams());
-		await User.update(
-		{
-			messengerUserId: req.param("mesenger user id")
+		var isValid = await User.find({where: {messengerUserId: req.param("messenger user id")}});
+		
+		if(isValid){
+			await User.update(
+			{
+				messengerUserId: req.param("mesenger user id")
+			}
+			).set(
+			{
+				phoneNumber: req.param("phoneNumber")
+			}),function(err){
+				console.log("Returning from capturePhoneNumber");
+				if(!err) return res.ok();
+				else return res.serverError("User Not found");
+			}else{
+				console.log("user doesn't found");
+			}
 		}
-		).set(
-		{
-			phoneNumber: req.param("phoneNumber")
-		}),function(err){
-			console.log("Returning from capturePhoneNumber");
-			if(!err) return res.ok();
-			else return res.serverError("User Not found");
-		};
 	},
 
 	SetIndividualAsHelper: async function (req, res) {
