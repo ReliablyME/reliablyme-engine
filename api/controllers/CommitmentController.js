@@ -48,10 +48,9 @@ module.exports = {
 		console.log("Called capturePhoneNumber", req.allParams());
 		await User.update(
 			{
-				messengerUserId: req.param("mesenger user id")
+				messengerUserId: req.param("messenger user id")
 			}
 			).set(
-			{
 				phoneNumber: req.param("phoneNumber")
 			}),function(err){
 				console.log("Returning from capturePhoneNumber");
