@@ -60,10 +60,10 @@ module.exports = {
 				console.log("Returning from capturePhoneNumber");
 				if(!err) return res.ok();
 				else return res.serverError("User Not found");
-			}else{
+			}
+		}else{
 				console.log("user doesn't found");
 			}
-		}
 	},
 
 	SetIndividualAsHelper: async function (req, res) {
