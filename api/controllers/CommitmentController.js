@@ -53,7 +53,7 @@ module.exports = {
 			).set(
 			{
 				phoneNumber: req.param("phoneNumber")
-			}
+			
 			}),function(err){
 				console.log("Returning from capturePhoneNumber");
 				if(!err) return res.ok();
