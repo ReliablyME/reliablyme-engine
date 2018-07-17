@@ -23,7 +23,7 @@ module.exports = {
 	      		messengerUserId: req.param("messenger user id"),
 			}, function (err, user) {
 				console.log("Returning from registerFacebookIndividual");
-	    		return res.ok({ "messages": [{"text": "Test to see if returned from registerFacebookIndividual call"}]});
+	    		return res.ok({ "messages": [{"text": ""}]});
 	    	}
 	    );
 	},
