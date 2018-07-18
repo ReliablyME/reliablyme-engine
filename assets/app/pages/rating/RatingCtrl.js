@@ -23,7 +23,7 @@
         $scope.Rating=response.data.set_attributes.Reliabilityrating;
       })
       $http.post('/CommittmentList?userid='+userId).then(function(response){
-        $scope.user=response.data.records;
+        $scope.user=response.data.records.fullName;
       })
 
       $http.post('/GetCompleteUserList?userid='+userId).then(function(response) {
