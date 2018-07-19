@@ -388,7 +388,7 @@ module.exports = {
 	// 	if(!printName){
 	// 		console.log("No record found");
 	// 	}else{
-	// 		return res.json({records: printName[0].fullName});
+	// 		return res.json(printName);
 	// 		console.log("User found", printName[0].fullName);
 	// 	}		
 	// },
