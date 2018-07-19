@@ -381,6 +381,19 @@ module.exports = {
 	    });
 	},
 
+	printUserName: async function(req, res){
+		console.log("Called printUserName", req.allParams());
+		//find the user with messenger user id
+		var printName = await User.find({where:{messengerUserId: req.param("messenger user id")}});
+		if(!printName){
+			console.log("No record found");
+		}else{
+			return res.json({records: printName[0].fullName});
+			
+			console.log("User found", printName[0].fullName);
+		}		
+	},
+
 	GetCompleteUserList: async function (req, res) {
 		console.log("Called GetCompleteUserList", req.allParams());
 		var commitmentQuery = `

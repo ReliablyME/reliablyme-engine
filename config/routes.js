@@ -68,6 +68,7 @@ module.exports.routes = {
   'POST  /AcceptCommitmentCompletion': 'CommitmentController.AcceptCommitmentCompletion' ,
   'POST  /RejectCommitmentCompletion': 'CommitmentController.RejectCommitmentCompletion' ,
   'POST  /GetReliabilityRating': 'CommitmentController.GetReliabilityRating' ,
+  'POST  /printUserName' : 'CommitmentController.printUserName',
   'POST  /CommittmentList': 'CommitmentController.CommittmentList' ,
   'POST  /CheckRegistrationStatus': 'CommitmentController.CheckRegistrationStatus' ,
   'POST  /BlockchainRecord': 'CommitmentController.blockchainRecord' ,
