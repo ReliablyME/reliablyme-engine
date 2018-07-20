@@ -261,7 +261,7 @@ module.exports = {
 		// Create the raw transaction
 		const tx = {
 		  from: '0x5aB5E52245Fd4974499aa625709EE1F5A81c8157', 	// This is the default wallet account to use
-		  to: '0x44a4faebf4bf0e3a467c84eaf68dd0065d20b23d',		// This is the contract instance
+		  to: '0x6d55e08464f3b82be7f86a8e2d56fd236ee0ac90',		// This is the contract instance
 		  gas: 2000000,
 		  data: encodedABI,
 		  nonce: nonceNext,
