@@ -454,15 +454,11 @@ module.exports = {
 		console.log("Called CommittmentList", req.allParams());
 		var commitmentQuery = `
 			SELECT 
-					commit.id AS commitment_id, 
 					volunteer.fullName AS fullName, 
 					volunteer.messengerUserId AS messenger_id, 
-					comStat.id AS comStat_id, 
-					comStat.commitmentStatusName AS statusName, 
-					commit.commitmentOffer AS offer, 
-					events.eventName as eventName
-				FROM reliablyme.commitment AS commit 
-				JOIN reliablyme.user AS volunteer ON commit.helper_id=volunteer.messengerUserId 
+					commit.id AS commitment_id, 
+				FROM reliablyme.user AS volunteer 
+				JOIN reliablyme.commitment AS commit ON commit.helper_id=volunteer.messengerUserId
 				
 				ORDER BY fullName; `;
 		
