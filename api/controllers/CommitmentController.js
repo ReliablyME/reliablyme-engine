@@ -442,7 +442,7 @@ module.exports = {
 	printUserName: async function (req, res) {
 		console.log("Called printUserName", req.allParams());
 		var printName = await User.find({where: {messengerUserId: req.param("userid")}});
-		res.json(printName);
+		res.json(printName[0].fullName);
 	   
 	},
 	CommittmentList: async function (req, res) {
