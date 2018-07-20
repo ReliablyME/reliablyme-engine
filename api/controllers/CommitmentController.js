@@ -457,9 +457,15 @@ module.exports = {
 					commit.id AS commitment_id, 
 					volunteer.fullName AS fullName, 
 					volunteer.messengerUserId AS messenger_id, 
+					comStat.id AS comStat_id, 
+					comStat.commitmentStatusName AS statusName, 
 					commit.commitmentOffer AS offer, 
+					events.eventName as eventName
 				FROM reliablyme.commitment AS commit 
-				JOIN reliablyme.user AS volunteer ON commit.helper_id=volunteer.messengerUserId
+				JOIN reliablyme.user AS volunteer ON commit.helper_id=volunteer.messengerUserId 
+			    JOIN reliablyme.commitmentstatus AS comStat ON comStat.id=commit.commitmentStatus_id
+			    JOIN reliablyme.event AS events ON events.id=commit.event_id
+			    ORDER BY comStat.id, fullName
 				WHERE commit.helper_id = '`+ req.param('messenger user id')+ `'
 				ORDER BY commit.commitmentDueDate; `;
 		
