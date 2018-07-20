@@ -381,17 +381,6 @@ module.exports = {
 	    });
 	},
 
-	// printUserName: async function(req, res){
-	// 	console.log("Called printUserName", req.allParams());
-	// 	//find the user with messenger user id
-	// 	var printName = await User.find({where:{messengerUserId: req.param("messenger user id")}});
-	// 	if(!printName){
-	// 		console.log("No record found");
-	// 	}else{
-	// 		return res.json(printName);
-	// 		console.log("User found", printName[0].fullName);
-	// 	}		
-	// },
 
 	GetCompleteUserList: async function (req, res) {
 		console.log("Called GetCompleteUserList", req.allParams());
@@ -451,11 +440,8 @@ module.exports = {
 	    });
 	},
 	printUserName: async function (req, res) {
-		console.log("Called CommittmentList", req.allParams());
-		var printName = await User.find({
-			WHERE: {messengerUserId: req.param("userid")},
-			SELECT: ['fullName']
-		});
+		console.log("Called printUserName", req.allParams());
+		var printName = await User.find({where: {messengerUserId: req.param("userid")}});
 		res.json(printName);
 	   
 	},
