@@ -452,25 +452,12 @@ module.exports = {
 	},
 	printUserName: async function (req, res) {
 		console.log("Called CommittmentList", req.allParams());
-		var printName = `
-			SELECT 
-					user.fullName, user.messengerUserId, commitment.helper_id 
-					FROM user 
-					INNER JOIN commitment ON user.messengerUserId=commitment.helper_id
-					WHERE messengerUserId = '`+ req.param('userid')+`'
-					ORDER BY fullName`;
-		
-		var params = [];
-
-		sails.sendNativeQuery(printName, params).exec(function(err, items) {
-			if(err) return res.ok({});
-			else {
-				var convRaw = JSON.parse(JSON.stringify(items));
-				// console.log("Found commitment records for: ", commitmentQuery, " result:", convRaw.rows);
-				// Build up JSON to send back
-				return res.json({fullname: JSON.parse(JSON.stringify(convRaw.rows))});
-			}
-	    });
+		var printName = await User.find({
+			WHERE: {messengerUserId: req.param("userid")},
+			SELECT: ['fullName']
+		});
+		res.json(printName);
+	   
 	},
 	CommittmentList: async function (req, res) {
 		console.log("Called CommittmentList", req.allParams());
