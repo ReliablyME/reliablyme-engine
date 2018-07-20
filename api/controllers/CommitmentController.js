@@ -458,10 +458,10 @@ module.exports = {
 					commit.id AS commitment_id, 
 					volunteer.fullName AS fullName, 
 					volunteer.messengerUserId AS messenger_id, 
-				FROM reliablyme.commitment AS commit 
-				JOIN reliablyme.user AS volunteer ON commit.helper_id=volunteer.messengerUserId 
+				FROM reliablyme.user AS volunteer 
+				JOIN reliablyme.commitment AS commit ON commit.helper_id=volunteer.messengerUserId 
 			    WHERE volunteer.messengerUserId = '`+req.param('userId')+`' 
-			    ORDER BY fullName; `;
+			    ORDER BY messengerUserId; `;
 		
 		var params = [];
 
