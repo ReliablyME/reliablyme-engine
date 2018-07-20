@@ -450,18 +450,44 @@ module.exports = {
 			}
 	    });
 	},
+	printUserName: async function (req, res) {
+		console.log("Called CommittmentList", req.allParams());
+		var printName = `
+			SELECT 
+					user.fullName, user.messengerUserId, commitment.helper_id 
+					FROM user 
+					INNER JOIN commitment ON user.messengerUserId=commitment.helper_id
+					WHERE messengerUserId = '`+ req.param('userid')+`'
+					ORDER BY fullName`;
+		
+		var params = [];
+
+		sails.sendNativeQuery(printName, params).exec(function(err, items) {
+			if(err) return res.ok({});
+			else {
+				var convRaw = JSON.parse(JSON.stringify(items));
+				// console.log("Found commitment records for: ", commitmentQuery, " result:", convRaw.rows);
+				// Build up JSON to send back
+				return res.json({fullname: JSON.parse(JSON.stringify(convRaw.rows))});
+			}
+	    });
+	},
 	CommittmentList: async function (req, res) {
 		console.log("Called CommittmentList", req.allParams());
 		var commitmentQuery = `
 			SELECT 
-
 					commit.id AS commitment_id, 
 					volunteer.fullName AS fullName, 
 					volunteer.messengerUserId AS messenger_id, 
-				FROM reliablyme.user AS volunteer 
-				JOIN reliablyme.commitment AS commit ON commit.helper_id=volunteer.messengerUserId 
-			    WHERE volunteer.messengerUserId = '`+req.param('userId')+`' 
-			    ORDER BY messengerUserId; `;
+					comStat.id AS comStat_id, 
+					comStat.commitmentStatusName AS statusName, 
+					commit.commitmentOffer AS offer, 
+					events.eventName as eventName
+				FROM reliablyme.commitment AS commit 
+				JOIN reliablyme.user AS volunteer ON commit.helper_id=volunteer.messengerUserId 
+			    JOIN reliablyme.commitmentstatus AS comStat ON comStat.id=commit.commitmentStatus_id
+			    JOIN reliablyme.event AS events ON events.id=commit.event_id
+			    ORDER BY comStat.id, fullName; `;
 		
 		var params = [];
 
