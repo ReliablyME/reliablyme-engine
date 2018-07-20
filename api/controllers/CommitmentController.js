@@ -450,7 +450,31 @@ module.exports = {
 			}
 	    });
 	},
+	printUserName: async function (req, res) {
+		console.log("Called CommittmentList", req.allParams());
+		var commitmentQuery = `
+			SELECT 
+					commit.id AS commitment_id, 
+					volunteer.fullName AS fullName, 
+					volunteer.messengerUserId AS messenger_id, 
+					commit.commitmentOffer AS offer, 
+				FROM reliablyme.commitment AS commit 
+				JOIN reliablyme.user AS volunteer ON commit.helper_id=volunteer.messengerUserId
+				WHERE commit.helper_id = '`+ req.param('messenger user id')+ `'
+				ORDER BY commit.commitmentDueDate; `;
+		
+		var params = [];
 
+		sails.sendNativeQuery(commitmentQuery, params).exec(function(err, items) {
+			if(err) return res.ok({});
+			else {
+				var convRaw = JSON.parse(JSON.stringify(items));
+				// console.log("Found commitment records for: ", commitmentQuery, " result:", convRaw.rows);
+				// Build up JSON to send back
+				return res.json({records: JSON.parse(JSON.stringify(convRaw.rows))});
+			}
+	    });
+	},
 	CommittmentList: async function (req, res) {
 		console.log("Called CommittmentList", req.allParams());
 		var commitmentQuery = `
@@ -480,6 +504,8 @@ module.exports = {
 			}
 	    });
 	},
+
+	
 
 	blockchainRecord: async function (req, res) {
 		console.log("Called blockchainRecord", req.allParams());
