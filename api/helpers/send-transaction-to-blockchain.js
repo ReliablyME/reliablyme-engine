@@ -250,9 +250,9 @@ module.exports = {
 	 	// Find out the most recent nonce (nextr transaction number)
 	 	var nonceNext = 0;
 	 	var nonceComplete = await Web3Interface.eth.getTransactionCount('0x5aB5E52245Fd4974499aa625709EE1F5A81c8157');
-	 			console.log("Called getTransactionCount")
-	 			Web3Interface.eth.getTransactionCount('0x5aB5E52245Fd4974499aa625709EE1F5A81c8157').then(console.log);
-	 			Web3Interface.eth.getTransactionCount('0x299d7629833a14eacc378848bbd7bd72b735bcb5').then(console.log);
+			console.log("Called getTransactionCount")
+			Web3Interface.eth.getTransactionCount('0x5aB5E52245Fd4974499aa625709EE1F5A81c8157').then(console.log);
+			Web3Interface.eth.getTransactionCount('0x299d7629833a14eacc378848bbd7bd72b735bcb5').then(console.log);
 	 	var noncePending = await Web3Interface.eth.getTransactionCount('0x5aB5E52245Fd4974499aa625709EE1F5A81c8157', "pending");
 	 	if(noncePending>nonceComplete) {
 	 		nonceNext = noncePending + 1;
@@ -265,7 +265,7 @@ module.exports = {
 		const tx = {
 		  from: '0x5aB5E52245Fd4974499aa625709EE1F5A81c8157', 	// This is the default wallet account to use
 		  to: '0x299d7629833a14eacc378848bbd7bd72b735bcb5',		// This is the contract instance
-		  gas: 2000000,
+		  gas: 3000000,
 		  data: encodedABI,
 		  nonce: nonceNext,
 		};
