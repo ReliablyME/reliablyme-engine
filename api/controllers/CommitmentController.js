@@ -27,6 +27,39 @@ module.exports = {
 	    	}
 	    );
 	},
+	captureFirstName: async function(req, res){
+		console.log("Called captureFirstName", req.allParams());
+		await User.update(
+			{
+				messengerUserId: req.param("messenger user id")
+			}
+			).set(
+			{
+				prefFirstName: req.param("firstName")
+			
+			}),function(err){
+				console.log("Returning from captureFirstName");
+				if(!err) return res.ok();
+				else return res.serverError("User Not found");
+			};
+	},
+	
+	captureLastName: async function(req, res){
+		console.log("Called captureLastName", req.allParams());
+		await User.update(
+			{
+				messengerUserId: req.param("messenger user id")
+			}
+			).set(
+			{
+				prefLastName: req.param("lastName")
+			
+			}),function(err){
+				console.log("Returning from captureLastName");
+				if(!err) return res.ok();
+				else return res.serverError("User Not found");
+			};
+	},
 	captureEmail: async function (req, res) {
 		console.log("Called captureEmail", req.allParams());
 
@@ -60,38 +93,8 @@ module.exports = {
 				else return res.serverError("User Not found");
 			};
 	},
-	captureFirstName: async function(req, res){
-		console.log("Called captureFirstName", req.allParams());
-		await User.update(
-			{
-				messengerUserId: req.param("messenger user id")
-			}
-			).set(
-			{
-				prefFirstName: req.param("firstName")
-			
-			}),function(err){
-				console.log("Returning from captureFirstName");
-				if(!err) return res.ok();
-				else return res.serverError("User Not found");
-			};
-	},
-	captureLastName: async function(req, res){
-		console.log("Called captureFirstName", req.allParams());
-		await User.update(
-			{
-				messengerUserId: req.param("messenger user id")
-			}
-			).set(
-			{
-				prefLastName: req.param("lastName")
-			
-			}),function(err){
-				console.log("Returning from captureLastName");
-				if(!err) return res.ok();
-				else return res.serverError("User Not found");
-			};
-	},
+
+
 
 	SetIndividualAsHelper: async function (req, res) {
 		console.log("Called SetIndividualAsHelper", req.allParams());

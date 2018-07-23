@@ -25,6 +25,13 @@ module.exports = {
       example: 'Todd'
     },
 
+     prefFullName: {
+      type: 'string',
+      description: 'Preffered Full Name of user',
+      maxLength: 120,
+      example: 'Alex Todd'
+    },
+
     emailAddress: {
       type: 'string',
       //required: true,
@@ -33,7 +40,7 @@ module.exports = {
       maxLength: 200,
       example: 'carol.reyna@microsoft.com'
     },
-    
+
     phoneNumber: {
       type: 'string',
       description: 'user phone number entered via chatbot',
