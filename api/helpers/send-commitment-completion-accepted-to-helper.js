@@ -44,7 +44,7 @@ module.exports = {
 
   fn: async function(inputs, exits) {
     console.log('SendCommitmentCompletionAcceptanceToHelper inputs=:',inputs);
-  	var fullpath='/bots/'+inputs.botID+'/users/'+inputs.helperID+'/send?chatfuel_token=qwYLsCSz8hk4ytd6CPKP4C0oalstMnGdpDjF8YFHPHCieKNc0AfrnjVs91fGuH74&chatfuel_block_name=CompletionAccepted&eventName='+encodeURI(inputs.eventName);
+  	var fullpath='/bots/'+inputs.botID+'/users/'+inputs.helperID+'/send?chatfuel_token=mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD&chatfuel_block_name=CompletionAccepted&eventName='+encodeURI(inputs.eventName);
 	  var results = ""; 
 	  var path = '/bots/'+inputs.botID+'/users/'+inputs.helperID+'/send'; 
     var options = {
@@ -53,7 +53,7 @@ module.exports = {
         path: fullpath,
         method: 'POST',
         headers: {
-        	'chatfuel_token': 'qwYLsCSz8hk4ytd6CPKP4C0oalstMnGdpDjF8YFHPHCieKNc0AfrnjVs91fGuH74',
+        	'chatfuel_token': 'mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD',
         	'chatfuel_block_name': 'CompletionAccepted',
         	'eventName': encodeURI(inputs.eventName),
         }
