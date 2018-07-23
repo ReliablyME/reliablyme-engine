@@ -266,7 +266,7 @@ module.exports = {
 		  from: '0x5aB5E52245Fd4974499aa625709EE1F5A81c8157', 	// This is the default wallet account to use
 		  to: '0x299d7629833a14eacc378848bbd7bd72b735bcb5',		// This is the contract instance
 		  gas: 3000000,
-		  gasPrice: 0x4A817C800,
+		  gasPrice: Web3Interface.utils.toHex(20000000000),
 		  data: encodedABI,
 		  nonce: nonceNext,
 		};
