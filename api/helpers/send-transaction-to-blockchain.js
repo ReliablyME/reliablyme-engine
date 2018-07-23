@@ -249,11 +249,10 @@ module.exports = {
 
 	 	// Find out the most recent nonce (nextr transaction number)
 	 	var nonceNext = 0;
-	 	var nonceComplete = await Web3Interface.eth.getTransactionCount('0x5aB5E52245Fd4974499aa625709EE1F5A81c8157');
-			console.log("Called getTransactionCount")
-			Web3Interface.eth.getTransactionCount('0x5aB5E52245Fd4974499aa625709EE1F5A81c8157').then(console.log);
-			Web3Interface.eth.getTransactionCount('0x299d7629833a14eacc378848bbd7bd72b735bcb5').then(console.log);
-	 	var noncePending = await Web3Interface.eth.getTransactionCount('0x5aB5E52245Fd4974499aa625709EE1F5A81c8157', "pending");
+	 	var nonceComplete = await Web3Interface.eth.getTransactionCount('0x299d7629833a14eacc378848bbd7bd72b735bcb5');
+			
+			
+	 	var noncePending = await Web3Interface.eth.getTransactionCount('0x299d7629833a14eacc378848bbd7bd72b735bcb5', "pending");
 	 	if(noncePending>nonceComplete) {
 	 		nonceNext = noncePending + 1;
 	 	}
@@ -263,8 +262,8 @@ module.exports = {
 
 		// Create the raw transaction
 		const tx = {
-		  from: '0x5aB5E52245Fd4974499aa625709EE1F5A81c8157', 	// This is the default wallet account to use
-		  to: '0x299d7629833a14eacc378848bbd7bd72b735bcb5',		// This is the contract instance
+		  from: '0x299d7629833a14eacc378848bbd7bd72b735bcb5', 	// This is the default wallet account to use
+		  to: ' 0x961b97a9d2acd9957183a0fac933ef1f475fcf48',		// This is the contract instance
 		  gas: 292448,
 		  gasPrice: Web3Interface.utils.toHex(20000000000),
 		  data: encodedABI,
@@ -276,7 +275,7 @@ module.exports = {
 		console.log(account);
 
 		// Check the current balance - more for debugging
-		Web3Interface.eth.getBalance('0x5aB5E52245Fd4974499aa625709EE1F5A81c8157').then(console.log);
+		Web3Interface.eth.getBalance('0x299d7629833a14eacc378848bbd7bd72b735bcb5').then(console.log);
 
 		// Sign the transaction and send it
 		Web3Interface.eth.accounts.signTransaction(tx, settings[0].privKey).then(signed => {
