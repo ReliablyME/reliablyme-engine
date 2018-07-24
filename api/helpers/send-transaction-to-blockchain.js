@@ -264,8 +264,8 @@ module.exports = {
 		const tx = {
 		  from: '0x299d7629833a14eacc378848bbd7bd72b735bcb5', 	// This is the default wallet account to use
 		  to: '0x8c3B6E001D932Ab7F9672e32fB4e3d296D0f5D6B',		// This is the contract instance
-		  gas: web3.utils.toHex(1000000), //1m, also tried string '1000000'
-    	  gasPrice: web3.utils.toHex(20000000000), //20gwei, also tried string '20000000000'
+		  gas: Web3Interface.utils.toHex(1000000), //1m, also tried string '1000000'
+    	  gasPrice: Web3Interface.utils.toHex(20000000000), //20gwei, also tried string '20000000000'
 		  data: encodedABI,
 		  nonce: nonceNext,
 		};
