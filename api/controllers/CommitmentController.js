@@ -492,6 +492,8 @@ module.exports = {
 			SELECT 
 					commit.id AS commitment_id, 
 					volunteer.fullName AS fullName, 
+					volunteer.prefFirstName AS prefFirstName,
+					volunteer.prefLastName AS prefFirstName,
 					volunteer.messengerUserId AS messenger_id, 
 					comStat.id AS comStat_id, 
 					comStat.commitmentStatusName AS statusName, 
@@ -501,7 +503,7 @@ module.exports = {
 				JOIN reliablyme.user AS volunteer ON commit.helper_id=volunteer.messengerUserId 
 			    JOIN reliablyme.commitmentstatus AS comStat ON comStat.id=commit.commitmentStatus_id
 			    JOIN reliablyme.event AS events ON events.id=commit.event_id
-			    ORDER BY comStat.id, fullName; `;
+			    ORDER BY comStat.id, prefFirstName; `;
 		
 		var params = [];
 
