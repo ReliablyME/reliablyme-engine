@@ -474,17 +474,18 @@ module.exports = {
 			}
 	    });
 	},
+
 	printUserName: async function (req, res) {
 		console.log("Called printUserName", req.allParams());
 		try {
 			var printName = await User.find({where: {messengerUserId: req.param("userid")}});
-			res.json(printName[0].fullName);
+			res.json(printName[0].prefFirstName+" "+printName[0].prefLastName);
 		} catch(err) {
 			console.log(err);
 			return res.serverError("Commitment not created")
-		}
-	   
+		}	   
 	},
+
 	CommittmentList: async function (req, res) {
 		console.log("Called CommittmentList", req.allParams());
 		var commitmentQuery = `
@@ -500,7 +501,7 @@ module.exports = {
 				JOIN reliablyme.user AS volunteer ON commit.helper_id=volunteer.messengerUserId 
 			    JOIN reliablyme.commitmentstatus AS comStat ON comStat.id=commit.commitmentStatus_id
 			    JOIN reliablyme.event AS events ON events.id=commit.event_id
-			    ORDER BY comStat.id, fullName; `;
+			    ORDER BY comStat.id, prefFirstName; `;
 		
 		var params = [];
 
