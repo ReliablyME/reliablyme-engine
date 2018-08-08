@@ -19,7 +19,7 @@ module.exports = {
 			{
 	    		firstName: req.param("first name"),
 	      		lastName: req.param("last name"),
-	      	//	fullName: req.param("firstName") + " " + req.param("lastName"),
+	      		fullName: req.param("first name") + " " + req.param("last name"),
 	      		messengerUserId: req.param("messenger user id"),
 			}, function (err, user) {
 				console.log("Returning from registerFacebookIndividual");
@@ -52,8 +52,7 @@ module.exports = {
 			}
 			).set(
 			{
-				prefLastName: req.param("lastName"),
-				fullName: req.param("firstName")+" "+req.param("lastName")
+				prefLastName: req.param("lastName")
 			
 			}),function(err){
 				console.log("Returning from captureLastName");
@@ -493,6 +492,8 @@ module.exports = {
 			SELECT 
 					commit.id AS commitment_id, 
 					volunteer.fullName AS fullName, 
+					volunteer.firstName As firstName,
+					volunteer.lastName As lastName,
 					volunteer.messengerUserId AS messenger_id, 
 					comStat.id AS comStat_id, 
 					comStat.commitmentStatusName AS statusName, 
