@@ -19,7 +19,7 @@ module.exports = {
 			{
 	    		firstName: req.param("first name"),
 	      		lastName: req.param("last name"),
-	      		fullName: req.param("first name") + " " + req.param("last name"),
+	      		fullName: req.param("firstName") + " " + req.param("lastName"),
 	      		messengerUserId: req.param("messenger user id"),
 			}, function (err, user) {
 				console.log("Returning from registerFacebookIndividual");
@@ -491,7 +491,7 @@ module.exports = {
 		var commitmentQuery = `
 			SELECT 
 					commit.id AS commitment_id, 
-					volunteer.prefFirstName AS fullName, 
+					volunteer.fullName AS fullName, 
 					volunteer.messengerUserId AS messenger_id, 
 					comStat.id AS comStat_id, 
 					comStat.commitmentStatusName AS statusName, 
