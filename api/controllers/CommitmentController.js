@@ -19,7 +19,7 @@ module.exports = {
 			{
 	    		firstName: req.param("first name"),
 	      		lastName: req.param("last name"),
-	      		fullName: req.param("firstName") + " " + req.param("lastName"),
+	      	//	fullName: req.param("firstName") + " " + req.param("lastName"),
 	      		messengerUserId: req.param("messenger user id"),
 			}, function (err, user) {
 				console.log("Returning from registerFacebookIndividual");
@@ -52,7 +52,8 @@ module.exports = {
 			}
 			).set(
 			{
-				prefLastName: req.param("lastName")
+				prefLastName: req.param("lastName"),
+				fullName: req.param("firstName")+" "+req.param("lastName")
 			
 			}),function(err){
 				console.log("Returning from captureLastName");
