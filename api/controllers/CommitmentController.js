@@ -492,8 +492,8 @@ module.exports = {
 			SELECT 
 					commit.id AS commitment_id, 
 					volunteer.fullName AS fullName, 
-					volunteer.firstName As firstName,
-					volunteer.lastName As lastName,
+					volunteer.prefFirstName AS prefFirstName,
+					volunteer.prefLastName AS prefLastName,
 					volunteer.messengerUserId AS messenger_id, 
 					comStat.id AS comStat_id, 
 					comStat.commitmentStatusName AS statusName, 

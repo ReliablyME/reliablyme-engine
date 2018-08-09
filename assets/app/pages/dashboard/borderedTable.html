@@ -17,7 +17,7 @@
     </thead>
     <tbody>
     <tr ng-repeat="item in committmentTableData">
-      <td ng-class="nowrap">{{item.firstName item.lastName}}</td>
+      <td ng-class="nowrap">{{item.prefFirstName item.prefLastName}} {{item.fullName}}</td>
       <td class="align-right">{{item.offer}}</td>
       <td class="align-right">{{item.statusName}}</td>
       <td class="align-right">{{item.eventName}}</td>
