@@ -501,7 +501,7 @@ module.exports = {
 				JOIN reliablyme.user AS volunteer ON commit.helper_id=volunteer.messengerUserId 
 			    JOIN reliablyme.commitmentstatus AS comStat ON comStat.id=commit.commitmentStatus_id
 			    JOIN reliablyme.event AS events ON events.id=commit.event_id
-			    WHERE commit.event_id = volunteer.'`+   this.req.me.defaultEventId +`'
+			    WHERE commit.event_id ='`+   this.req.me.defaultEventId +`'
 			    ORDER BY comStat.id, prefFirstName; `;
 		
 		var params = [];
