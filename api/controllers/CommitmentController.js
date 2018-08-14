@@ -385,7 +385,9 @@ module.exports = {
 
 	GetReliabilityRatingUser: async function (req, res) {
 		console.log("Called GetReliabilityRatingUser", req.allParams());
-		var commitmentsCompleteQuery = 'SELECT COUNT(*) AS complete FROM reliablyme.commitment WHERE helper_id=\'' + req.param("userid") +'\' AND commitmentStatus_id=5;';
+		var commitmentsCompleteQuery = 'SELECT COUNT(*) AS complete FROM reliablyme.commitment WHERE helper_id=\''+ req.param("userid")+'\' AND (commitmentDueDate < CURDATE() OR commitmentStatus_id=5);';
+		// SELECT COUNT(*) AS complete FROM reliablyme.commitment WHERE helper_id=\'' + req.param("userid") +'\' AND commitmentStatus_id=5;
+		
 		var commitmentsQuery = 'SELECT COUNT(*) AS total FROM reliablyme.commitment WHERE helper_id=\'' + req.param("userid") + '\';';
 		var params = [];
 
@@ -489,6 +491,7 @@ module.exports = {
 	CommittmentList: async function (req, res) {
 		console.log("Called CommittmentList", req.allParams());
 		var loggedInUser = await User.findOne({ id: req.session.userId});
+		console.log
 		var commitmentQuery = `
 			SELECT 
 					commit.id AS commitment_id, 
