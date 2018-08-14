@@ -488,7 +488,7 @@ module.exports = {
 
 	CommittmentList: async function (req, res) {
 		console.log("Called CommittmentList", req.allParams());
-		var loggedInUser = await User.find( {where: id: this.req.session.userId});
+		var loggedInUser = await User.findOne({ id: this.req.session.userId});
 		var commitmentQuery = `
 			SELECT 
 					commit.id AS commitment_id, 
