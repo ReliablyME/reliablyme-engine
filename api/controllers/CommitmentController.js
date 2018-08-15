@@ -1,3 +1,21 @@
+Skip to content
+ 
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+ @gillbalraj Sign out
+2
+0 0 Promulgare-Consulting/realiablyme-engine
+ Code  Issues 0  Pull requests 0  Projects 0  Wiki  Insights
+realiablyme-engine/api/controllers/CommitmentController.js
+d41a859  17 hours ago
+@balraj18 balraj18 changed format of date for comparison
+@dave-mckay @balraj18
+      
+760 lines (674 sloc)  22.6 KB
 /**
  * CommitmentController
  *
@@ -163,54 +181,69 @@ module.exports = {
 		console.log("Date=", inArray[0], inArray[1] - 1, inArray[2]);
 		var inDate = new Date(inArray[0], inArray[1] - 1, inArray[2]);
 
-		// Make sure person exists
-		var helper = await User.find({where: {messengerUserId: req.param("messenger user id")}});
+		var today = new Date();
+		
+		console.log("This is the Current Date: " + currentDate);
+		console.log("This is Due Date: "+ dueDate)
+		
+		//check if commitment date is valid
 
-		if(helper) {
-			console.log("Found helper", helper[0].fullName);
-			// Create the commitment record
-			var newCommitment = await Commitment.create(
-				{
-		    		helper_id: req.param("messenger user id"),
-		      		entreprenuer_id: req.param("entrepreneurID"),
-		      		commitmentOffer: req.param("commitmentOffer"),
-		      		commitmentDueDate: inDate,
-		      		commitmentStatus_id: 2,
-		      		event_id: req.param("eventID")
-				}
-		    ).fetch();
-
-			var event = await Event.find({where: {id: req.param("eventID")}});
-
-
-			// Send a message to the entrepreneur about the commitment
-			if(newCommitment) {
-				console.log("call helper to send message to Entrepreneur");
-				// Send help offer to entrepreneur
-				await sails.helpers.sendMessageToEntrepreneur.with(
-					{
-						helperName: helper[0].fullName,
-						comID: newCommitment.id,
-						comOffer: newCommitment.commitmentOffer,
-						entID: newCommitment.entreprenuer_id,
-						botID: event[0].botID,
-					}
-				);
-
-				// Record into blockchain
-				await sails.helpers.sendTransactionToBlockchain.with(
-					{
-						commitmentID: newCommitment.id,
-						statusID: 2,
-					}
-				);
-
-				return res.ok({"set_attributes": {"commitmentID": newCommitment.id}});
-			}
-			else return res.serverError("Commitment not created");
+		if(today > inDate){
+			return res.ok("Too late to commit.");
 		}
-		else 
-   			return res.serverError("Commitment helper nout found");
+		
+		else{
+			// Make sure person exists	
+			var helper = await User.find({where: {messengerUserId: req.param("messenger user id")}});
+
+			if(helper) {
+				console.log("Found helper", helper[0].fullName);
+				// Create the commitment record
+				var newCommitment = await Commitment.create(
+					{
+			    		helper_id: req.param("messenger user id"),
+			      		entreprenuer_id: req.param("entrepreneurID"),
+			      		commitmentOffer: req.param("commitmentOffer"),
+			      		commitmentDueDate: inDate,
+			      		commitmentStatus_id: 2,
+			      		event_id: req.param("eventID")
+					}
+			    ).fetch();
+
+				var event = await Event.find({where: {id: req.param("eventID")}});
+
+
+				// Send a message to the entrepreneur about the commitment
+				if(newCommitment) {
+					console.log("call helper to send message to Entrepreneur");
+					// Send help offer to entrepreneur
+					await sails.helpers.sendMessageToEntrepreneur.with(
+						{
+							helperName: helper[0].fullName,
+							comID: newCommitment.id,
+							comOffer: newCommitment.commitmentOffer,
+							entID: newCommitment.entreprenuer_id,
+							botID: event[0].botID,
+						}
+					);
+
+					// Record into blockchain
+					await sails.helpers.sendTransactionToBlockchain.with(
+						{
+							commitmentID: newCommitment.id,
+							statusID: 2,
+						}
+					);
+
+					return res.ok({"set_attributes": {"commitmentID": newCommitment.id}});
+				}
+				else return res.serverError("Commitment not created");
+			}
+			else 
+	   			return res.serverError("Commitment helper nout found");
+		  }
+		  console.log("This is a valid commitment date")
+			
 	},
 
 	ViewCommitments: async function (req, res) {
