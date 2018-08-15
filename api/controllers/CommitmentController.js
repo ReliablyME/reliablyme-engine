@@ -165,8 +165,8 @@ module.exports = {
 
 		var today = new Date();
 		
-		console.log("This is the Current Date: " + currentDate);
-		console.log("This is Due Date: "+ dueDate)
+		console.log("This is the Current Date: " + today);
+		console.log("This is Due Date: "+ inDate)
 		
 		//check if commitment date is valid
 
