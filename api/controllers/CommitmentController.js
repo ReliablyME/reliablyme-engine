@@ -161,16 +161,17 @@ module.exports = {
 		console.log("Called CreateCommitment", req.allParams());
 		var inArray = req.param("inputDate").split("#");
 		console.log("Date=", inArray[0], inArray[1] - 1, inArray[2]);
+		var dueDate = inArray[0], inArray[1] - 1, inArray[2];
 		var inDate = new Date(inArray[0], inArray[1] - 1, inArray[2]);
 
 		var date = new Date();
 		var currentDate = date.getFullYear()+" "+date.getMonth()+" "+date.getDate();
 		console.log("This is the Current Date: " + currentDate);
-		console.log("This is inDate: "+ inDate)
+		console.log("This is Due Date: "+ dueDate)
 		
 		//check if commitment date is valid
 
-		if(currentDate >= inDate){
+		if(currentDate >= dueDate){
 		// Make sure person exists	
 			var helper = await User.find({where: {messengerUserId: req.param("messenger user id")}});
 
