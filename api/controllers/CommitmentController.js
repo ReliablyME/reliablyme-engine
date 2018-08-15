@@ -164,7 +164,7 @@ module.exports = {
 		var inDate = new Date(inArray[0], inArray[1] - 1, inArray[2]);
 
 		var date = new Date();
-		var currentDate = date.getFullyear()+" "+date.getMonth()+" "+date.getDate();
+		var currentDate = date.getFullYear()+" "+date.getMonth()+" "+date.getDate();
 		console.log("This is the Current Date: " + setFormat);
 		console.log("This is inDate: "+ inDate)
 		
