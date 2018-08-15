@@ -165,7 +165,7 @@ module.exports = {
 
 		var date = new Date();
 		var currentDate = date.getFullYear()+" "+date.getMonth()+" "+date.getDate();
-		console.log("This is the Current Date: " + setFormat);
+		console.log("This is the Current Date: " + currentDate);
 		console.log("This is inDate: "+ inDate)
 		
 		//check if commitment date is valid
