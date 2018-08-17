@@ -368,13 +368,13 @@ module.exports = {
 	GetReliabilityRating: async function (req, res) {
 		console.log("Called GetReliabilityRating", req.allParams());
 		var commitmentsCompleteQuery = 'SELECT COUNT(*) AS complete FROM reliablyme.commitment WHERE helper_id=\'' + req.param("messenger user id") +'\' AND commitmentStatus_id=5;';
-		var commitmentsQuery = 'SELECT COUNT(*) AS total FROM reliablyme.commitment WHERE helper_id=\'' + req.param("messenger user id") + '\'AND (commitmentDueDate < CURDATE() OR commitmentStatus_id=5);';
+		var commitmentsQuery = 'SELECT COUNT(*) AS total FROM reliablyme.commitment WHERE helper_id=\'' + req.param("userid") + '\';';
 		var params = [];
 
-		console.log("commitmentsCompleteQuery: "+commitmentsCompleteQuery);
+		console.log("commitmentsCompleteQuery "+commitmentsCompleteQuery);
 		sails.sendNativeQuery(commitmentsQuery, params).exec(function(err1, commitments) {
 			if(!err1) {
-				console.log("commitmentsQuery: "+commitmentsQuery);
+				console.log("commitmentsQuery "+commitmentsQuery);
 				sails.sendNativeQuery(commitmentsCompleteQuery, params).exec(function(err2, completes) {
 					if(!err2) {
 						var jcommitments = JSON.parse(JSON.stringify(commitments));
@@ -400,10 +400,9 @@ module.exports = {
 
 	GetReliabilityRatingUser: async function (req, res) {
 		console.log("Called GetReliabilityRatingUser", req.allParams());
-		var commitmentsCompleteQuery = 'SELECT COUNT(*) AS complete FROM reliablyme.commitment WHERE helper_id=\''+ req.param("userid")+'\' AND (commitmentDueDate < CURDATE() OR commitmentStatus_id=5);';
+		var commitmentsCompleteQuery = 'SELECT COUNT(*) AS complete FROM reliablyme.commitment WHERE helper_id=\'' + req.param("messenger user id") +'\' AND commitmentStatus_id=5;';
 		// SELECT COUNT(*) AS complete FROM reliablyme.commitment WHERE helper_id=\'' + req.param("userid") +'\' AND commitmentStatus_id=5;
-		
-		var commitmentsQuery = 'SELECT COUNT(*) AS total FROM reliablyme.commitment WHERE helper_id=\'' + req.param("userid") + '\';';
+		var commitmentsQuery = 'SELECT COUNT(*) AS total FROM reliablyme.commitment WHERE helper_id=\'' + req.param("messenger user id") + '\'AND (commitmentDueDate < CURDATE() OR commitmentStatus_id=5);';
 		var params = [];
 
 		console.log("commitmentsCompleteQuery "+commitmentsCompleteQuery);
