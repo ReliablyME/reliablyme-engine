@@ -420,6 +420,8 @@ module.exports = {
 						var rating = Math.round(Number(jcomps)/Number(jtot)* 1000);
 						var total = Number(jtot);
 						return res.ok({"set_attributes": {"Reliabilityrating": rating, "completedNumCommitments": total }});
+						console.log("Rating: "+rating)
+						console.log("jcomp: "+jcomp+ "jtot: "+ jtot)
 					}
 					else {
 						console.log("Error calling commitmentsCompleteQuery");
