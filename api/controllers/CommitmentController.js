@@ -170,7 +170,8 @@ module.exports = {
 		
 		//check if commitment date is valid
 
-		if(today > inDate){
+		if(today >= inDate){
+			console.log("Time over");
 			return res.ok("Too late to commit.");
 		}
 		
