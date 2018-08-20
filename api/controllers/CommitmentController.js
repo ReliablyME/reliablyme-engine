@@ -402,7 +402,7 @@ module.exports = {
 		console.log("Called GetReliabilityRatingUser", req.allParams());
 		var commitmentsCompleteQuery = 'SELECT COUNT(*) AS complete FROM reliablyme.commitment WHERE helper_id=\'' + req.param("userid") +'\' AND commitmentStatus_id=5;';
 		// SELECT COUNT(*) AS complete FROM reliablyme.commitment WHERE helper_id=\'' + req.param("userid") +'\' AND commitmentStatus_id=5;
-		var commitmentsQuery = 'SELECT COUNT(*) AS total FROM reliablyme.commitment WHERE helper_id=\'' + req.param("userid") + '\'AND (commitmentDueDate < CURDATE() OR commitmentStatus_id=5);';
+		var commitmentsQuery = 'SELECT COUNT(*) AS total FROM reliablyme.commitment WHERE helper_id=\'' + req.param("userid") + '\'AND (commitmentDueDate <= CURDATE() OR commitmentStatus_id=5);';
 		var params = [];
 
 		console.log("commitmentsCompleteQuery "+commitmentsCompleteQuery);
