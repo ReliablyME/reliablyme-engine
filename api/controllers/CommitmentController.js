@@ -168,14 +168,7 @@ module.exports = {
 		console.log("This is the Current Date: " + today);
 		console.log("This is Due Date: "+ inDate)
 		
-		//check if commitment date is valid
-
-		if(today >= inDate){
-			console.log("Time over");
-			return res.ok("Too late to commit.");
-		}
 		
-		else{
 			// Make sure person exists	
 			var helper = await User.find({where: {messengerUserId: req.param("messenger user id")}});
 
@@ -224,8 +217,8 @@ module.exports = {
 			}
 			else 
 	   			return res.serverError("Commitment helper nout found");
-		  }
-		  console.log("This is a valid commitment date")
+		 
+		 
 			
 	},
 
