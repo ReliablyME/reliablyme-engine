@@ -161,14 +161,14 @@ module.exports = {
 		console.log("Called CreateCommitment", req.allParams());
 		var inArray = req.param("inputDate").split("#");
 		console.log("Date=", inArray[0], inArray[1] - 1, inArray[2]);
-		var inDate = new Date(inArray[0], inArray[1] - 1, inArray[2]);
+		var inDate = new Date(inArray[0], inArray[1] - 1, inArray[2], 23, 59);
 
 		var today = new Date();
 		
 		console.log("This is the Current Date: " + today);
 		console.log("This is Due Date: "+ inDate)
 		
-		
+		if(date <= inDate) {
 			// Make sure person exists	
 			var helper = await User.find({where: {messengerUserId: req.param("messenger user id")}});
 
@@ -217,9 +217,11 @@ module.exports = {
 			}
 			else 
 	   			return res.serverError("Commitment helper nout found");
-		 
-		 
-			
+		}
+		else {
+   			return res.serverError("Event date has passed, no new commitments allowed.");
+		}		 
+		
 	},
 
 	ViewCommitments: async function (req, res) {
