@@ -168,7 +168,7 @@ module.exports = {
 		console.log("This is the Current Date: " + today);
 		console.log("This is Due Date: "+ inDate)
 		
-		if(date <= inDate) {
+		if(today <= inDate) {
 			// Make sure person exists	
 			var helper = await User.find({where: {messengerUserId: req.param("messenger user id")}});
 
