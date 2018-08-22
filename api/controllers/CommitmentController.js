@@ -161,14 +161,14 @@ module.exports = {
 		console.log("Called CreateCommitment", req.allParams());
 		var inArray = req.param("inputDate").split("#");
 		console.log("Date=", inArray[0], inArray[1] - 1, inArray[2]);
-		var inDate = new Date(inArray[0], inArray[1] - 1, inArray[2], 23, 59);
+		var inDate = new Date(inArray[0], inArray[1] - 1, inArray[2]);
 
 		var today = new Date();
 		
 		console.log("This is the Current Date: " + today);
 		console.log("This is Due Date: "+ inDate)
 		
-		if(today <= inDate) {
+		
 			// Make sure person exists	
 			var helper = await User.find({where: {messengerUserId: req.param("messenger user id")}});
 
@@ -217,11 +217,9 @@ module.exports = {
 			}
 			else 
 	   			return res.serverError("Commitment helper nout found");
-		}
-		else {
-   			return res.serverError("Event date has passed, no new commitments allowed.");
-		}		 
-		
+		 
+		 
+			
 	},
 
 	ViewCommitments: async function (req, res) {
@@ -514,7 +512,7 @@ module.exports = {
 				JOIN reliablyme.user AS volunteer ON commit.helper_id=volunteer.messengerUserId 
 			    JOIN reliablyme.commitmentstatus AS comStat ON comStat.id=commit.commitmentStatus_id
 			    JOIN reliablyme.event AS events ON events.id=commit.event_id
-			    ORDER BY commit.id, comStat.commitmentStatusName DESC, volunteer.prefFirstName; `;
+			    ORDER BY commit.commitmentDueDate, comStat.commitmentStatusName DESC, volunteer.prefFirstName; `;
 		
 		var params = [];
 
