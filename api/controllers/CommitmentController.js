@@ -502,6 +502,7 @@ module.exports = {
 		var commitmentQuery = `
 			SELECT 
 					commit.id AS commitment_id, 
+					commit.commitmentDueDate AS dueDate, 
 					volunteer.prefFirstName AS firstName, 
 					volunteer.prefLastName AS lastName,
 					volunteer.messengerUserId AS messenger_id, 

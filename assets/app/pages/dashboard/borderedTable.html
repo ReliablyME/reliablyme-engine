@@ -11,8 +11,8 @@
       <th class="align-right">Helper</th>
       <th class="align-right">Offer</th>
       <th class="align-right">Status</th>
-      <th class="align-right">Event</th>
-      <!-- <th class="align-right">Date</th> -->
+      <th class="align-right">Event </th>
+      <th class="align-right">Date</th>
       <th class="align-right">Complete</th>
     </tr>
     </thead>
@@ -22,7 +22,7 @@
       <td class="align-right">{{item.offer}}</td>
       <td class="align-right">{{item.statusName}}</td>
       <td class="align-right">{{item.eventName}}</td>
-      <!-- <td class="align-right">{{item.eventName}}</td> -->
+      <td class="align-right">{{item.dueDate}}</td>
       <td class="align-right">
         <button type="button" class="btn btn-primary btn-with-icon save-profile" 
                 ng-click="completionAccepted($index)">
