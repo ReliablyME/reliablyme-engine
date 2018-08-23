@@ -503,6 +503,7 @@ module.exports = {
 			SELECT 
 					commit.id AS commitment_id, 
 					volunteer.prefFirstName AS firstName, 
+					volunteer.prefLastName AS lastName,
 					volunteer.messengerUserId AS messenger_id, 
 					comStat.id AS comStat_id, 
 					comStat.commitmentStatusName AS statusName, 
