@@ -22,7 +22,7 @@
       <td class="align-right">{{item.offer}}</td>
       <td class="align-right">{{item.statusName}}</td>
       <td class="align-right">{{item.eventName}}</td>
-      <td class="align-right">{{item.dueDate}}</td>
+      <td class="align-right">{{item.dueDate| date}}</td>
       <td class="align-right">
         <button type="button" class="btn btn-primary btn-with-icon save-profile" 
                 ng-click="completionAccepted($index)">
