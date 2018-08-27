@@ -499,6 +499,7 @@ module.exports = {
 
 	CommittmentList: async function (req, res) {
 		console.log("Called CommittmentList", req.allParams());
+		var loggedInUser = await User.findOne({ id: req.session.userId});
 		var commitmentQuery = `
 			SELECT 
 					commit.id AS commitment_id, 
@@ -514,6 +515,7 @@ module.exports = {
 				JOIN reliablyme.user AS volunteer ON commit.helper_id=volunteer.messengerUserId 
 			    JOIN reliablyme.commitmentstatus AS comStat ON comStat.id=commit.commitmentStatus_id
 			    JOIN reliablyme.event AS events ON events.id=commit.event_id
+			    WHERE commit.event_id =`+  loggedInUser.defaultEventId +`
 			    ORDER BY commit.commitmentDueDate, comStat.commitmentStatusName DESC, volunteer.prefFirstName; `;
 		
 		var params = [];
