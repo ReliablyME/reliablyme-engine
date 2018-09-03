@@ -13,11 +13,36 @@
   	console.log("DashboardCtrl!");
 
     $scope.committmentTableData = [];
+    $scope.filter = 0;
+    $scope.eventList = [];
 
     $scope.loadTableData = function() { 
       $http.post('/CommittmentList').then(function(response) {
-        $scope.committmentTableData=response.data.records;
+        // Create the list of event_ids 
+        for( i=0; i++; i<response.data.records.length) {
+          if($scope.eventList.indexOf(response.data.records.event_id)==-1) {
+            $scope.eventList.push(response.data.records.event_id);
+          }
+        }
+        // Check to see if a filter is set
+        if($scope.filter>0) {
+          // Only return the table rows that match the event_id filter
+          $scope.committmentTableData=response.data.records.tableFilter();  
+        }
+        else {
+          // No filter, show all of the events in one display
+          $scope.committmentTableData=response.data.records;
+        }
       })
+    };
+
+    $scope.findEvent(record) {
+      return record.event_id;
+    };
+
+    $scope.tableFilter(record) {
+      // Return only the records for the selected event;
+      return record.event_id==$scope.filter;
     };
 
     $scope.loadTableData();
