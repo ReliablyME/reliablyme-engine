@@ -21,8 +21,8 @@
         // Create the list of event_ids 
         var i;
         for( i=0; i<response.data.records.length; i++) {
-          if($scope.eventList.indexOf(response.data.records.event_id)==-1) {
-            $scope.eventList.push(response.data.records.event_id);
+          if($scope.eventList.indexOf(response.data.records[i].event_id)==-1) {
+            $scope.eventList.push(response.data.records[i].event_id);
           }
         }
         // Check to see if a filter is set
