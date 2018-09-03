@@ -503,6 +503,7 @@ module.exports = {
 		var commitmentQuery = `
 			SELECT 
 					commit.id AS commitment_id, 
+					event.id AS event_id,
 					commit.commitmentDueDate AS dueDate, 
 					volunteer.prefFirstName AS firstName, 
 					volunteer.prefLastName AS lastName,
@@ -515,6 +516,7 @@ module.exports = {
 				JOIN reliablyme.user AS volunteer ON commit.helper_id=volunteer.messengerUserId 
 			    JOIN reliablyme.commitmentstatus AS comStat ON comStat.id=commit.commitmentStatus_id
 			    JOIN reliablyme.event AS events ON events.id=commit.event_id
+			    JOIN reliablyme.eventorganizer AS eventorg ON eventorg.event_id=commit.event_id AND eventorg.organizer_id=' + loggedInUser +'
 			    ORDER BY commit.commitmentDueDate, comStat.commitmentStatusName DESC, volunteer.prefFirstName; `;
 		
 		var params = [];
