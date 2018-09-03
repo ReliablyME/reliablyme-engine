@@ -20,6 +20,6 @@ module.exports = {
       required: true,
       description: 'event id of the event the organizer can look at',
     },
-
+   }
 };
 
