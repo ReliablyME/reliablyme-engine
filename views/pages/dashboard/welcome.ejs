@@ -19,7 +19,7 @@
       <p>Here is a list of the people who have committed to your event.  Click on commitment fullfiled beside the persons row to identify that they have fulfilled their commitment!!</p>
       <p>
       <select name="filter" id="filter" ng-model="eventList">
-        <option value="{{eventList.id}}">{{eventList.event_name}}</option>
+        <option ng-repeat="event in eventList" value="{{event.event_id}}">{{event.event_name}}</option>
       </select>
       <div class="col-lg-6 col-md-12">
         <div ba-panel ba-panel-title="Commitments" ba-panel-class="with-scroll table-panel">
