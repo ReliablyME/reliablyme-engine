@@ -28,7 +28,7 @@
         // Check to see if a filter is set
         if($scope.filter>0) {
           // Only return the table rows that match the event_id filter
-          $scope.committmentTableData=response.data.records.tableFilter();  
+          $scope.committmentTableData=response.data.records.filter(tableFilter);  
         }
         else {
           // No filter, show all of the events in one display
