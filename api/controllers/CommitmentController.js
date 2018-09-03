@@ -503,7 +503,7 @@ module.exports = {
 		var commitmentQuery = `
 			SELECT 
 					commit.id AS commitment_id, 
-					event.id AS event_id,
+					events.id AS event_id,
 					commit.commitmentDueDate AS dueDate, 
 					volunteer.prefFirstName AS firstName, 
 					volunteer.prefLastName AS lastName,
