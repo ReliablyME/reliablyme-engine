@@ -19,6 +19,7 @@
     $scope.loadTableData = function() { 
       $http.post('/CommittmentList').then(function(response) {
         // Create the list of event_ids 
+        var i;
         for( i=0; i++; i<response.data.records.length) {
           if($scope.eventList.indexOf(response.data.records.event_id)==-1) {
             $scope.eventList.push(response.data.records.event_id);
