@@ -36,11 +36,11 @@
       })
     };
 
-    $scope.findEvent(record) {
+    $scope.findEvent = function(record) {
       return record.event_id;
     };
 
-    $scope.tableFilter(record) {
+    $scope.tableFilter = function(record) {
       // Return only the records for the selected event;
       return record.event_id==$scope.filter;
     };
