@@ -27,6 +27,18 @@ module.exports = {
       description: 'Text description of location to display',
     },
 
+    eventDescription: {
+      type: 'string',
+      //required: true,
+      description: 'Text description of event',
+    },
+
+    eventLogo: {
+      type: 'string',
+      //required: true,
+      description: 'URL of logo to display',
+    },
+
     eventDate: {
       type: 'ref',
       description: 'Date of event',

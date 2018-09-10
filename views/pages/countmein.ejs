@@ -1,8 +1,13 @@
 <div id="countMein" v-cloak>
   <div class="container">
-    <h1>Signup for event</h1>
+    <h1>Signup for event {{eventName}}</h1>
+    <h3>{{eventLocation}}</h3>
+    <h3>{{eventDate}}</h3>
+    <p>{{eventDescription}}</p>
+    <img :src="eventLogo">
     <hr/>
     <ajax-form action="registerCommitment" @submitted="submittedForm()" :handle-parsing="handleParsingForm">
+      <input id="event" name="event" type="hidden" v-model.trim="formData.event">
       <div class="row">
         <div class="col-sm-6">
           <div class="form-group">

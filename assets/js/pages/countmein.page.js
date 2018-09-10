@@ -15,6 +15,12 @@ parasails.registerPage('countMein', {
 
     // Server error state for the form
     cloudError: '',
+    eventID: 0,
+    eventName: "",
+    eventLocation: "",
+    eventDescription: "",
+    eventLogo: "",
+    eventDate: "",
   },
 
   //  ╦  ╦╔═╗╔═╗╔═╗╦ ╦╔═╗╦  ╔═╗
@@ -22,12 +28,14 @@ parasails.registerPage('countMein', {
   //  ╩═╝╩╚  ╚═╝╚═╝ ╩ ╚═╝╩═╝╚═╝
   beforeMount: function() {
     // Attach raw data exposed by the server.
-    //_.extend(this, SAILS_LOCALS);
-
+    _.extend(this, SAILS_LOCALS);
+    this.eventID = this.eventid;
+    this.loadEventData();
 
   },
   mounted: async function() {
     //…
+    this.formData.event=this.eventid;
   },
 
   //  ╦╔╗╔╔╦╗╔═╗╦═╗╔═╗╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
@@ -39,6 +47,7 @@ parasails.registerPage('countMein', {
       // Redirect to the account page on success.
       // > (Note that we re-enable the syncing state here.  This is on purpose--
       // > to make sure the spinner stays there until the page navigation finishes.)
+
       window.location = '/';
     },
 
@@ -47,7 +56,23 @@ parasails.registerPage('countMein', {
 
     },
 
-    
+    loadEventData: async function() {
+      var eventParam = {"event": parseInt(this.eventID)};
+      var self = this;
+      axios.post('/event-lookup', eventParam)
+        .then(response => {
+          // JSON responses are automatically parsed.
+          console.log("Called event-lookup", response.data);
+          self.eventName = response.data.eventName;
+          self.eventLocation = response.data.eventLocation;
+          self.eventDescription = response.data.eventDescription;
+          self.eventLogo = response.data.eventLogo;
+          self.eventDate = response.data.eventDate;
+        })
+        .catch(e => {
+          console.log(e);
+        })
+    },    
 
     handleParsingForm: function() {
       // Clear out any pre-existing error messages.
