@@ -1,0 +1,61 @@
+<script type="text/x-template" id="grid-template">
+  <table>
+    <thead>
+      <tr>
+        <th v-for="key in columns"
+          @click="sortBy(key)"
+          :class="{ active: sortKey == key }">
+          {{key}}
+          <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
+          </span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="entry in filteredData">
+        <td v-for="key in columns">
+          {{entry[key]}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</script>
+
+<!--
+
+-->
+
+<div id="score" v-cloak>
+	<h1 class="top">My Reliability Record</h1>
+	<img class="center" src="http://countmein.club/wp-content/uploads/2018/06/PoweredBy_10.jpg">
+	<div class="para">
+		<p>This is your reliability record. A reliability record measures how well a person honours their commitments.</p>
+		<p>The highest rating is 1000.</p>
+		<p>All commmitments are tracked and recorded on the Etheruem blockchain network.</p>
+    </div>
+
+	<div class="numberCircle">{{rating}}</div>
+	<h1 class="my">My Commitments</h1>
+ 
+ 	<div class="mainTable">
+	    <div class="tab1">
+			<demo-grid
+			    :data="fullfilled"
+			    :columns="gridColumns"
+			    :filter-key="searchQuery">
+			  </demo-grid>
+			  <button class="but1">Refresh Table</button>
+		    </div>
+
+	 	    <div class="tab2">	     	
+			  <demo-grid
+			    :data="fullfilled"
+			    :columns="gridColumns"
+			    :filter-key="searchQuery">
+			  </demo-grid>
+	     	<button class="but2">Refresh Table</button>
+		</div>
+	</div>  <!-- closing main table -->
+
+</div>
+<%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>

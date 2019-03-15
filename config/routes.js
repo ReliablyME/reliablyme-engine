@@ -23,6 +23,7 @@ module.exports.routes = {
   'GET /legal/terms':        { view:   'pages/legal/terms' },
   'GET /legal/privacy':      { view:   'pages/legal/privacy' },
   'GET /contact':            { view:   'pages/contact' },
+  'GET /score':              { action: 'view-score' },
 
   'GET /signup':             { action: 'entrance/view-signup' },
   'GET /email/confirm':      { action: 'entrance/confirm-email' },
@@ -54,6 +55,7 @@ module.exports.routes = {
   'POST  /api/v1/entrance/send-password-recovery-email': { action: 'entrance/send-password-recovery-email' },
   'POST  /api/v1/entrance/update-password-and-login':    { action: 'entrance/update-password-and-login' },
   'POST  /api/v1/deliver-contact-form-message':          { action: 'deliver-contact-form-message' },
+  'POST  /api/v1/fulfilledlist':                         { action: 'fulfilledlist' },
 
   'POST  /registerFacebookIndividual': 'CommitmentController.registerFacebookIndividual' ,
   'POST  /captureEmail': 'CommitmentController.captureEmail',
