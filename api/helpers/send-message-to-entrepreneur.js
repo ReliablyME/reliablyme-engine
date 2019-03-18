@@ -46,16 +46,6 @@ module.exports = {
   },
 
 
-  exits: {
-
-    success: {
-      outputFriendlyName: 'Chat message sent',
-	  responseType: 'ok'
-    }
-
-  },
-
-
   fn: async function(inputs, exits) {
     console.log('sendMessageToEntrepreneur inputs=:',inputs);
   	var fullpath='/bots/'+inputs.botID+'/users/'+inputs.entID+'/send?chatfuel_token=mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD&chatfuel_block_name=ReceiveHelperOffer&commitmentID='+inputs.comID+'&helperName='+encodeURI(inputs.helperName)+'&commitmentOffer='+encodeURI(inputs.comOffer);
@@ -105,7 +95,7 @@ module.exports = {
 
 
     console.log('ReceiveHelperOffer returned');
-    return exits.success();
+    return exits.success("Chat message sent");
   },
 
 };

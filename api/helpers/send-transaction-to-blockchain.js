@@ -26,25 +26,6 @@ module.exports = {
   },
 
 
-  exits: {
-
-    success: {
-      outputFriendlyName: 'Blockchain recorded',
-	  responseType: 'ok'
-    },
-
-    notfound: {
-      outputFriendlyName: 'Cant find commitment record',
-	  responseType: 'ok'
-    },
-
-    errBlochchain: {
-      outputFriendlyName: 'Error recording to blockchain',
-	  responseType: 'ok'
-    },
-  },
-
-
   fn: async function(inputs, exits) {
 
 		console.log("Called send-transaction-to-blockchain", inputs);
@@ -53,7 +34,7 @@ module.exports = {
 	    var commitment = await Commitment.find({where: {id: inputs.commitmentID}});
 
 	    if (!commitment) {
-  			return exits.notFound();
+  			return exits.success();
 		};
 
 		const userID = commitment[0].id;

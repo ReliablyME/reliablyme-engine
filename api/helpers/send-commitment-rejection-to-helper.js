@@ -39,16 +39,6 @@ module.exports = {
   },
 
 
-  exits: {
-
-    success: {
-      outputFriendlyName: 'Chat message sent',
-	  responseType: 'ok'
-    }
-
-  },
-
-
   fn: async function(inputs, exits) {
   	var fullpath='/bots/'+inputs.botID+'/users/'+inputs.helperID+'/send?chatfuel_token=qwYLsCSz8hk4ytd6CPKP4C0oalstMnGdpDjF8YFHPHCieKNc0AfrnjVs91fGuH74&chatfuel_block_name=CommitmentOfferRejected&commitmentID='+inputs.comID+'&entrepreneurName='+encodeURI(inputs.entName);
 	var results = ""; 
@@ -97,7 +87,7 @@ module.exports = {
 
 
     console.log('CommitmentOfferAccepted returned');
-    return exits.success();
+    return exits.success("Chat message sent");
   },
 
 };

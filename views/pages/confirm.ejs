@@ -1,0 +1,44 @@
+<script type="text/x-template" id="grid-template">
+  <table>
+    <thead>
+      <tr>
+        <th v-for="key in columns"
+          @click="sortBy(key)"
+          :class="{ active: sortKey == key }">
+          {{key}}
+          <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
+          </span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="entry in filteredData">
+        <td v-for="key in columns">
+          <div v-if="key == 'Offer'">
+          	<div v-if="entry[key] != 'Closed'">
+          		<button type='button' @click="confirmCommitment(entry['commitment_id'])">Confirm</button>
+          	</div>
+          	<div v-else>
+          		Accepted
+						</div>
+					</div>
+					<div v-else>
+						{{entry[key]}}
+					</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</script>
+
+<div id="confirm" style="margin: auto; width: 1024px;">
+
+			  <demo-grid
+			    :data="commitments"
+			    :columns="gridColumns"
+			    :filter-key="searchQuery">
+			  </demo-grid>
+	     	<button>Refresh Table</button>
+
+</div>
+<%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>

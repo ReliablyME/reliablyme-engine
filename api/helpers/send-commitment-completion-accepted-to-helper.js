@@ -32,14 +32,6 @@ module.exports = {
   },
 
 
-  exits: {
-
-    success: {
-      outputFriendlyName: 'Chat message sent',
-	  responseType: 'ok'
-    }
-
-  },
 
 
   fn: async function(inputs, exits) {
@@ -89,7 +81,7 @@ module.exports = {
 
 
     console.log('SendCommitmentCompletionAcceptanceToHelper returned');
-    return exits.success();
+    return exits.success("Chat message sent");
   },
 
 };

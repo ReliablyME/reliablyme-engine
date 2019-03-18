@@ -24,11 +24,12 @@ module.exports.routes = {
   'GET /legal/privacy':      { view:   'pages/legal/privacy' },
   'GET /contact':            { view:   'pages/contact' },
   'GET /score':              { action: 'view-score' },
+  'GET /confirm':              { action: 'view-confirm' },
 
   'GET /signup':             { action: 'entrance/view-signup' },
   'GET /email/confirm':      { action: 'entrance/confirm-email' },
   'GET /email/confirmed':    { view:   'pages/entrance/confirmed-email' },
-  'GET /welcome/getusername':{ action: 'welcome/get-user-name' },
+  'GET /getusername':        { action: 'dashboard/get-user-name' },
 
   'GET /login':              { action: 'entrance/view-login' },
   'GET /password/forgot':    { action: 'entrance/view-forgot-password' },
@@ -56,6 +57,8 @@ module.exports.routes = {
   'POST  /api/v1/entrance/update-password-and-login':    { action: 'entrance/update-password-and-login' },
   'POST  /api/v1/deliver-contact-form-message':          { action: 'deliver-contact-form-message' },
   'POST  /api/v1/fulfilledlist':                         { action: 'fulfilledlist' },
+  'POST  /api/v1/commitmentlist':                         { action: 'commitmentlist' },
+  'POST  /api/v1/acceptoffer':                            { action: 'acceptoffer' },
 
   'POST  /registerFacebookIndividual': 'CommitmentController.registerFacebookIndividual' ,
   'POST  /captureEmail': 'CommitmentController.captureEmail',

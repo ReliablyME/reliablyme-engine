@@ -71,7 +71,20 @@ parasails.registerComponent('demo-grid', {
     sortBy: function (key) {
       this.sortKey = key
       this.sortOrders[key] = this.sortOrders[key] * -1
-    }
+    },
+
+    confirmCommitment: async function(commitmentID) {
+    	// Call server to set status to 5
+    	console.log("confirm", commitmentID);
+    	var offeraccepted = await Cloud.acceptoffer(commitmentID);
+    	// Update data for display to remove button
+    	for(i=0; i<this.data.length; i++) {
+    		if(this.data[i].commitment_id==commitmentID) {
+    			this.data[i].Offer = 'Closed';
+    		}
+    	}
+    },
+
   }
 
 });
