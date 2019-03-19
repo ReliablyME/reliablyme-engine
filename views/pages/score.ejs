@@ -25,9 +25,10 @@
 
 -->
 
-<div id="score" v-cloak>
+<div id="score" style="background-image: linear-gradient(white, #DDDDDD);">
+
 	<h1 class="top">My Reliability Record</h1>
-	<img class="center" src="http://countmein.club/wp-content/uploads/2018/06/PoweredBy_10.jpg">
+	<img class="center" src="/images/Reliablyme_logo.png">
 	<div class="para">
 		<p>This is your reliability record. A reliability record measures how well a person honours their commitments.</p>
 		<p>The highest rating is 1000.</p>
@@ -38,22 +39,22 @@
 	<h1 class="my">My Commitments</h1>
  
  	<div class="mainTable">
-	    <div class="tab1">
+    <div class="tab1">
+	    Fulfilled Commitments
 			<demo-grid
-			    :data="fullfilled"
-			    :columns="gridColumns"
-			    :filter-key="searchQuery">
-			  </demo-grid>
-			  <button class="but1">Refresh Table</button>
-		    </div>
+		    :data="fulfilled"
+		    :columns="gridColumns"
+		    :filter-key="searchQuery">
+		  </demo-grid>
+	  </div>
 
-	 	    <div class="tab2">	     	
-			  <demo-grid
-			    :data="fullfilled"
-			    :columns="gridColumns"
-			    :filter-key="searchQuery">
-			  </demo-grid>
-	     	<button class="but2">Refresh Table</button>
+ 	  <div class="tab2">	   
+ 	    Due Commitments  	
+		  <demo-grid
+		    :data="incomplete"
+		    :columns="gridColumns"
+		    :filter-key="searchQuery">
+		  </demo-grid>
 		</div>
 	</div>  <!-- closing main table -->
 
