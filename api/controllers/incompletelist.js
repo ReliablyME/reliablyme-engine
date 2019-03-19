@@ -38,7 +38,7 @@ module.exports = {
       FROM reliablyme.commitment AS commit 
         JOIN reliablyme.commitmentstatus AS comStat ON comStat.id=commit.commitmentStatus_id
         JOIN reliablyme.event AS comEvent ON comEvent.id=commit.event_id
-        WHERE commit.commitmentStatus_id=2 AND helper_id = '` + inputs.messengeruserid + `' AND commit.commitmentDueDate <= CURDATE() 
+        WHERE commit.commitmentStatus_id=2 AND helper_id = '` + inputs.messengeruserid + `' AND commit.commitmentDueDate > CURDATE() 
         ORDER BY commit.commitmentDueDate; 
       `;
 
