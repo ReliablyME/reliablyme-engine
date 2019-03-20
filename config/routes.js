@@ -59,6 +59,7 @@ module.exports.routes = {
   'POST  /api/v1/fulfilledlist':                         { action: 'fulfilledlist' },
   'POST  /api/v1/commitmentlist':                         { action: 'commitmentlist' },
   'POST  /api/v1/incompletelist':                         { action: 'incompletelist' },
+  'POST  /api/v1/pendinglist':                            { action: 'pendinglist' },
   'POST  /api/v1/reliabilityrating':                      { action: 'reliabilityrating' },
   'POST  /api/v1/acceptoffer':                            { action: 'acceptoffer' },
 

@@ -40,7 +40,7 @@
  
  	<div class="mainTable">
     <div class="tab1">
-	    Fulfilled Commitments
+	    Fulfilled 
 			<demo-grid
 		    :data="fulfilled"
 		    :columns="gridColumns"
@@ -49,9 +49,18 @@
 	  </div>
 
  	  <div class="tab2">	   
- 	    Pending Commitments  	
+ 	    Closed
 		  <demo-grid
-		    :data="incomplete"
+		    :data="closed"
+		    :columns="gridColumns"
+		    :filter-key="searchQuery">
+		  </demo-grid>
+		</div>
+
+ 	  <div class="tab3">	   
+ 	    Pending
+		  <demo-grid
+		    :data="pending"
 		    :columns="gridColumns"
 		    :filter-key="searchQuery">
 		  </demo-grid>

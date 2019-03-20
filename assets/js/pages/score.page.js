@@ -6,7 +6,8 @@ parasails.registerPage('score', {
     //…
     rating: 0,
     fulfilled: [],
-    incomplete: [],
+    closed: [],
+    pending: [],
     index: 0,
     entry: 0,
     key: 0,
@@ -28,6 +29,7 @@ parasails.registerPage('score', {
     this.route=qarray[1];
     this.loadComplete();
     this.loadIncomplete();
+    this.loadPending();
     this.loadRating();
   },
   mounted: async function() {
@@ -49,6 +51,17 @@ parasails.registerPage('score', {
       this.fulfilled = complete;
     },
 
+    loadPending: async function() {
+
+      var list = await Cloud.pendinglist(this.route);
+      var pending = list.records;
+      // Fix date formats
+      for(var i in pending) {
+        pending[i].DueDate = pending[i].DueDate.toString().substring(0,10);
+      }
+      this.pending = pending;
+    },
+
     loadIncomplete: async function() {
 
       var list = await Cloud.incompletelist(this.route);
@@ -57,7 +70,7 @@ parasails.registerPage('score', {
       for(var i in incomplete) {
         incomplete[i].DueDate = incomplete[i].DueDate.toString().substring(0,10);
       }
-      this.incomplete = incomplete;
+      this.closed = incomplete;
     },
 
     loadRating: async function() {

@@ -76,13 +76,13 @@ parasails.registerComponent('demo-grid', {
     confirmCommitment: async function(commitmentID) {
     	// Call server to set status to 5
     	console.log("confirm", commitmentID);
+      // Update data for display to remove button
+      for(i=0; i<this.data.length; i++) {
+        if(this.data[i].commitment_id==commitmentID) {
+          this.data[i].Offer = 'Closed';
+        }
+      }
     	var offeraccepted = await Cloud.acceptoffer(commitmentID);
-    	// Update data for display to remove button
-    	for(i=0; i<this.data.length; i++) {
-    		if(this.data[i].commitment_id==commitmentID) {
-    			this.data[i].Offer = 'Closed';
-    		}
-    	}
     },
 
   }

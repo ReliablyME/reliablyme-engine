@@ -45,7 +45,7 @@ module.exports = {
       }
     );
 
-/*
+
     // Record into blockchain
     await sails.helpers.sendTransactionToBlockchain.with(
       {
@@ -53,7 +53,7 @@ module.exports = {
         statusID: 5,
       }
     );
-*/
+
     //return exits.success();
 
 

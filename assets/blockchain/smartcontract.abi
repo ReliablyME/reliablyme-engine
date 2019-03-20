@@ -1,0 +1,158 @@
+[
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "userId",
+				"type": "uint256"
+			},
+			{
+				"name": "eventId",
+				"type": "uint256"
+			}
+		],
+		"name": "setComplete",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "userId",
+				"type": "uint256"
+			},
+			{
+				"name": "eventId",
+				"type": "uint256"
+			}
+		],
+		"name": "setOffer",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "byPerson",
+		"outputs": [
+			{
+				"name": "offerDate",
+				"type": "uint256"
+			},
+			{
+				"name": "completeDate",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "userId",
+				"type": "uint256"
+			},
+			{
+				"name": "eventId",
+				"type": "uint256"
+			}
+		],
+		"name": "getCommitment",
+		"outputs": [
+			{
+				"name": "offerDate",
+				"type": "uint256"
+			},
+			{
+				"name": "completeDate",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "userId",
+				"type": "uint256"
+			},
+			{
+				"name": "eventId",
+				"type": "uint256"
+			}
+		],
+		"name": "getComplete",
+		"outputs": [
+			{
+				"name": "completeDate",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "userId",
+				"type": "uint256"
+			},
+			{
+				"name": "eventId",
+				"type": "uint256"
+			}
+		],
+		"name": "getOffer",
+		"outputs": [
+			{
+				"name": "offerDate",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
+]

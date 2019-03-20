@@ -1,10 +1,10 @@
 module.exports = {
 
 
-  friendlyName: 'Incompletelist',
+  friendlyName: 'Pendinglist',
 
 
-  description: 'Incompletelist something.',
+  description: 'Pendinglist something.',
 
 
   inputs: {
@@ -13,6 +13,7 @@ module.exports = {
       description: 'Facebook messenger id for user and bot',
       required: true
     },
+
   },
 
 
@@ -23,11 +24,11 @@ module.exports = {
 
   fn: async function (inputs) {
 
-    console.log("Called Incompletelist for ", inputs.messengeruserid);
+    console.log("Called Pendinglist for ", inputs.messengeruserid);
 
     //var commits = Commitment.find({helper_id: inputs.messengeruserid}).populate(Event)
   
-    var incompleteQuery = `
+    var commitmentQuery = `
       SELECT 
         commit.id AS commitment_id, 
         comStat.commitmentStatusName AS statusName, 
@@ -38,15 +39,15 @@ module.exports = {
       FROM reliablyme.commitment AS commit 
         JOIN reliablyme.commitmentstatus AS comStat ON comStat.id=commit.commitmentStatus_id
         JOIN reliablyme.event AS comEvent ON comEvent.id=commit.event_id
-        WHERE (commit.commitmentStatus_id=5 OR ( commit.commitmentStatus_id=2 AND commit.commitmentDueDate < CURDATE() )) AND helper_id = '` + inputs.messengeruserid + `' 
+        WHERE commit.commitmentStatus_id=2 AND commit.commitmentDueDate > CURDATE() AND helper_id = '` + inputs.messengeruserid + `'
         ORDER BY commit.commitmentDueDate; 
       `;
 
-    console.log(incompleteQuery);
+    console.log(commitmentQuery);
     var params = [];
 
     try {
-      var qResult = await sails.sendNativeQuery(incompleteQuery, params);
+      var qResult = await sails.sendNativeQuery(commitmentQuery, params);
     }
     catch(err) {
       console.log('Error', err);
@@ -55,7 +56,8 @@ module.exports = {
     
     //console.log(qResult);
     return this.res.json({records: qResult.rows});
-
+ 
   }
+
 
 };
