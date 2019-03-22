@@ -36,6 +36,7 @@ module.exports = {
     var event = await Event.find({where: {id:commitment[0].event_id}});
     console.log("updated commitmentStatus_id:5");
 
+/*
     // Send back through ChatFuel
     await sails.helpers.sendCommitmentCompletionAcceptedToHelper.with(
       {
@@ -44,7 +45,7 @@ module.exports = {
         botID: event[0].botID,
       }
     );
-
+*/
 
     // Record into blockchain
     await sails.helpers.sendTransactionToBlockchain.with(

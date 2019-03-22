@@ -31,74 +31,146 @@ module.exports = {
 		console.log("Called send-transaction-to-blockchain", inputs);
 
 		// Get the commitment record so we can get the user and event IDs
-	    var commitment = await Commitment.find({where: {id: inputs.commitmentID}});
-
-	    if (!commitment) {
+    var commitment = await Commitment.find({where: {id: inputs.commitmentID}});
+    if (!commitment) {
   			return exits.success();
 		};
-
 		const userID = commitment[0].id;
 		const eventID = commitment[0].event_id;
-
 		console.log("For user: ", userID, " and event: ", eventID);
 
 
 		// Get the web3 interface module
 		const Web3 = require('web3');
-
 		// Use the Infura.io open node for recording transactions
 		const Web3Interface = new Web3(new Web3.providers.HttpProvider('https://rinkeby.infura.io/v3/2a0b6c4ab3cd4eb2bf180900545224d8'));
 
+		// Get the private key
 		var settings = await Settings.find({});
 		var privateKey = settings[0].privKey;
-		console.log('Private key : ',privateKey);
 
+		// Get the contract info
 		var fs = require("fs");
 	  var contract = JSON.parse(fs.readFileSync(__dirname+"/../../assets/blockchain/smartcontract.abi"));
-		//console.log('Contract ABI: ',contract);
+	  const contractAddress = '0x97a2bc4e8b554c8abac97a04e6c849a15e5c0f17';
 
-	  const contractAddress = '0xde1277edfee54d6392a3a1b48cd2a281c92d9647';
-		console.log('Contract    : ',contractAddress);
+		// Get account and check the urrent balance
+	  var userAddress = "0x0cC0437855833E8b0ddD85fAE4b97C5C675D0194";
+	  Web3Interface.eth.defaultAccount = userAddress;
+		var balance = await Web3Interface.eth.getBalance(userAddress);
 
-	  var userAddress = "0x5aB5E52245Fd4974499aa625709EE1F5A81c8157";
-		console.log('Account     : ',userAddress);
-
-		// Check the current balance - more for debugging
-		const account = Web3Interface.eth.accounts.privateKeyToAccount(privateKey);
-		Web3Interface.eth.getBalance(userAddress).then(console.log);
-
-
+		// Make the contract object and get the call to contract
 	  const SimpleContract = new Web3Interface.eth.Contract(contract, contractAddress);
-	  console.log("Contract obj: ", SimpleContract.options.address);
-
 		var methodCall;
 		if(inputs.statusID==2) {
 			// Create a transaction object of the contract setOffer method
 			methodCall = SimpleContract.methods.setOffer(userID,eventID);
+			console.log('Methodcall setOffer');
 		}
 		else {
 			// Create a transaction object of the contract setComplete method
 			methodCall = SimpleContract.methods.setComplete(userID,eventID);
+			console.log('Methodcall setComplete');
 		}
-		console.log('Methodcall set');
-
-		Web3Interface.eth.net.getId().then(console.log);
-
 		const encodedABI = methodCall.encodeABI();
+
+		// Set gas and gas price
+		var gas = Web3Interface.utils.toHex("300000").toString();
+		var price = Web3Interface.utils.toHex(Web3Interface.utils.toWei('20', 'gwei')).toString();
+
+		// get the next nonce
+		var count = await Web3Interface.eth.getTransactionCount(userAddress, 'pending');
+
+		// Build the transaction record
 	  const tx = {
 	    from: userAddress,   // This is the default wallet account to use
-	    to: SimpleContract.options.address,   // This is the contract instance
-	    gas: Web3Interface.utils.toHex("30000").toString(),
-	    gasPrice: Web3Interface.utils.toHex(Web3Interface.utils.toWei('2', 'gwei')).toString(),
-	    value: '0x00',
-	    nonce: '0x00',
+	    to: contractAddress,   // This is the contract instance
+	    gas: gas,
+	    gasPrice: price,
 	    data: encodedABI,
-	    chainid: 4,
 	  };
-	  console.log('TX: ', tx);
 
-	  Web3Interface.eth.accounts.signTransaction(tx, privateKey).then(signed => {
-	  	console.log('Signed transaction: ', signed);
+	  // Sign the transation
+	  var signed = await Web3Interface.eth.accounts.signTransaction(tx, privateKey);
+
+	  // Dump out for debugging
+		console.log('Account    : ',userAddress);
+		console.log('Private key: ',privateKey);
+		console.log('Contract   : ',contractAddress);
+		console.log("Nonce        : ", count);
+		console.log("Gas        : ", gas);
+		console.log("Price      : ", price);
+		console.log("encodedABI : ", encodedABI);
+	  console.log('TX: ', tx);
+		console.log("Account balance = ", balance);
+	  console.log("signed: ", signed.rawTransaction);
+
+		var sigObj = await Web3Interface.eth.accounts.sign('Some data', userAddress);
+		var sigAccount = await Web3Interface.eth.accounts.recover(sigObj);
+		console.log("Account signed = ", sigAccount);
+
+
+
+		const eTx = require('ethereumjs-tx');
+		const pKey = Buffer.alloc(32, privateKey, 'hex');
+
+		const rawTx = {
+			nonce: count + 1,
+		  gasPrice: '0x09184e72a000',
+		  gasLimit: '0x27100',
+		  from: userAddress,
+		  to: contractAddress,
+		  value: '0x00',
+		  data: encodedABI
+		};
+
+		const stx = new eTx(rawTx);
+		stx.sign(pKey);
+
+		const serializedTx = stx.serialize();
+
+		// console.log(serializedTx.toString('hex'));
+		// 0xf889808609184e72a00082271094000000000000000000000000000000000000000080a47f74657374320000000000000000000000000000000000000000000000000000006000571ca08a8bbf888cfa37bbf0bb965423625641fc956967b81d12e23709cead01446075a01ce999b56a8a88504be365442ea61239198e23d1fce7d00fcfc5cd3b44b7215f
+
+		Web3Interface.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'))
+      .on('confirmation', (confirmationNumber, receipt) => {
+        console.log('confirmation: ' + confirmationNumber);
+      })
+      .on('transactionHash', hash => {
+        console.log('hash: ' + hash);
+        // Write hash to database 
+				if(inputs.statusID==2) {
+					//Write to offerTransaction
+					Commitment.update({id:inputs.commitmentID}).set({offerTransaction:hash}).exec(function(err, items){});
+				}
+				else {
+					Commitment.update({id:inputs.commitmentID}).set({completionTransaction:hash}).exec(function(err, items){});
+				}
+      })
+      .on('receipt', receipt => {
+        console.log('reciept ' + receipt);
+      })
+      .on('error', console.error);
+
+
+/*
+
+  	Web3Interface.eth.accounts.signTransaction(tx, privateKey, function (error, signedTx) {
+      if (error) {
+      	console.log("TX sign error: ", error);
+  		} else {
+				Web3Interface.eth.sendSignedTransaction(signedTx.rawTransaction)
+      		.on('receipt', function (receipt) {
+	          	console.log("Tx signed receipt: ", reciept);
+   			});
+  		}
+    });
+
+
+
+	  // Send the signed transaction
+	  console.log("sendSignedTransaction");
+	  try {
 	    const tran = Web3Interface.eth.sendSignedTransaction(signed.rawTransaction)
 	      .on('confirmation', (confirmationNumber, receipt) => {
 	        console.log('confirmation: ' + confirmationNumber);
@@ -110,263 +182,13 @@ module.exports = {
 	        console.log('reciept ' + receipt);
 	      })
 	      .on('error', console.error);
-	  });
-
-	  return exits.success();
-
-/*
-		var ABI = [
-			{
-				"constant": false,
-				"inputs": [
-					{
-						"name": "userId",
-						"type": "uint256"
-					},
-					{
-						"name": "eventId",
-						"type": "uint256"
-					}
-				],
-				"name": "setComplete",
-				"outputs": [],
-				"payable": false,
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"constant": false,
-				"inputs": [
-					{
-						"name": "userId",
-						"type": "uint256"
-					},
-					{
-						"name": "eventId",
-						"type": "uint256"
-					}
-				],
-				"name": "setOffer",
-				"outputs": [],
-				"payable": false,
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"payable": false,
-				"stateMutability": "nonpayable",
-				"type": "constructor"
-			},
-			{
-				"constant": true,
-				"inputs": [
-					{
-						"name": "",
-						"type": "uint256"
-					},
-					{
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"name": "byPerson",
-				"outputs": [
-					{
-						"name": "offerDate",
-						"type": "uint256"
-					},
-					{
-						"name": "completeDate",
-						"type": "uint256"
-					}
-				],
-				"payable": false,
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"constant": true,
-				"inputs": [
-					{
-						"name": "userId",
-						"type": "uint256"
-					},
-					{
-						"name": "eventId",
-						"type": "uint256"
-					}
-				],
-				"name": "getCommitment",
-				"outputs": [
-					{
-						"name": "offerDate",
-						"type": "uint256"
-					},
-					{
-						"name": "completeDate",
-						"type": "uint256"
-					}
-				],
-				"payable": false,
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"constant": true,
-				"inputs": [
-					{
-						"name": "userId",
-						"type": "uint256"
-					},
-					{
-						"name": "eventId",
-						"type": "uint256"
-					}
-				],
-				"name": "getComplete",
-				"outputs": [
-					{
-						"name": "completeDate",
-						"type": "uint256"
-					}
-				],
-				"payable": false,
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"constant": true,
-				"inputs": [
-					{
-						"name": "userId",
-						"type": "uint256"
-					},
-					{
-						"name": "eventId",
-						"type": "uint256"
-					}
-				],
-				"name": "getOffer",
-				"outputs": [
-					{
-						"name": "offerDate",
-						"type": "uint256"
-					}
-				],
-				"payable": false,
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"constant": true,
-				"inputs": [],
-				"name": "owner",
-				"outputs": [
-					{
-						"name": "",
-						"type": "address"
-					}
-				],
-				"payable": false,
-				"stateMutability": "view",
-				"type": "function"
-			}
-		];
-
-		// Get the web3 interface module
-		const Web3 = require('web3');
-
-		// Use the Infura.io open node for recording transactions
-		const Web3Interface = new Web3(new Web3.providers.HttpProvider('https://rinkeby.infura.io/Oi8SElNW8FHvmOFIzVUs'));
-
-		// Create the contract object
-		const ReliablyMEcommitments = new Web3Interface.eth.Contract(ABI,'0xde1277EdFEe54d6392a3A1b48Cd2A281c92D9647');
-
-		// Get the private key from database
-		var settings = await Settings.find({});
-		console.log(settings[0].privKey);
-
-		// Get the method to call from the ABI
-		var methodCall;
-		if(inputs.statusID==2) {
-			// Create a transaction object of the contract setOffer method
-			methodCall = ReliablyMEcommitments.methods.setOffer(userID,eventID);
-		}
-		else {
-			// Create a transaction object of the contract setComplete method
-			methodCall = ReliablyMEcommitments.methods.setComplete(userID,eventID);
-		}
-
-		// Get the ABI
-	 	const encodedABI = methodCall.encodeABI();
-
-	 	// Find out the most recent nonce (nextr transaction number)
-	 	var nonceNext = 0;
-	 	var nonceComplete = await Web3Interface.eth.getTransactionCount('0x5aB5E52245Fd4974499aa625709EE1F5A81c8157');
-			
-			
-	 	var noncePending = await Web3Interface.eth.getTransactionCount('0x5aB5E52245Fd4974499aa625709EE1F5A81c8157', "pending");
-	 	if(noncePending>nonceComplete) {
-	 		nonceNext = noncePending + 1;
-	 	}
-	 	else {
-	 		nonceNext = nonceComplete + 1;
-	 	}
-
-		// Create the raw transaction
-		const tx = {
-		  from: '0x5aB5E52245Fd4974499aa625709EE1F5A81c8157', 	// This is the default wallet account to use
-		  to: '0xde1277EdFEe54d6392a3A1b48Cd2A281c92D9647',		// This is the contract instance
-		  gas: Web3Interface.utils.toHex(1000000), //1m, also tried string '1000000'
-    	gasPrice: Web3Interface.utils.toHex(20000000000), //20gwei, also tried string '20000000000'
-		  data: encodedABI,
-		  nonce: nonceNext,
-		};
-
-		// Get the account object from the private key
-		const account = Web3Interface.eth.accounts.privateKeyToAccount(settings[0].privKey);
-		console.log(account);
-
-		// Check the current balance - more for debugging
-		Web3Interface.eth.getBalance('0x5aB5E52245Fd4974499aa625709EE1F5A81c8157').then(console.log);
-
-		// Sign the transaction and send it
-		console.log('Priv key', settings[0].privKey);
-		console.log('Tx      ', tx);
-		
-		Web3Interface.eth.accounts.signTransaction(tx, settings[0].privKey).then(signed => {
-			console.log("Signed=:", signed);
-	    const tran = Web3Interface.eth.sendSignedTransaction(signed.rawTransaction)
-		    .on('confirmation', (confirmationNumber, receipt) => {
-		      console.log('confirmation: ' + confirmationNumber);
-		    })
-		    .on('transactionHash', hash => {
-		      console.log('hash');
-		      console.log(hash);
-		      // Save this tx hash to commitment table to display as proof
-		      if(inputs.statusID==2) {
-		      	// offer accepted
-	    	  	Commitment.update({id:inputs.commitmentID}).set({offerTransaction:hash}).exec(function(err, items){});	
-	    	  }
-	    	  else {
-	    	  	// completion accepted
-	    	  	Commitment.update({id:inputs.commitmentID}).set({completionTransaction:hash}).exec(function(err, items){}); 
-	    	  }
-		    })
-		    .on('receipt', receipt => {
-		      console.log('reciept');
-		      console.log(receipt);
-		    })
-		    .on('error', console.error);
-		});
-
-		console.log('Blockchain in action');
-
-
-    console.log('CommitmentOfferAccepted returned');
-    return exits.success();
+	  }
+	  catch (error) {
+      console.log("TX error: ",error.message);
+    }
+	  console.log("sendSignedTransaction - sent");
 */
+	  return exits.success();
   },
 
 };
