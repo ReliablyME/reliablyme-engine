@@ -12,7 +12,7 @@ parasails.registerPage('score', {
     entry: 0,
     key: 0,
     searchQuery: '',
-    gridColumns: ['Event', 'DueDate'],
+    gridColumns: ['Event', 'DueDate', 'Verify'],
     route: '',
     
   },
@@ -47,6 +47,7 @@ parasails.registerPage('score', {
       // Fix date formats
       for(var i in complete) {
         complete[i].DueDate = complete[i].DueDate.toString().substring(0,10);
+        complete[i].Verify = "https://rinkeby.etherscan.io/tx/" + complete[i].Verify;
       }
       this.fulfilled = complete;
     },

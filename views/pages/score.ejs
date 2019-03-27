@@ -14,7 +14,12 @@
     <tbody>
       <tr v-for="entry in filteredData">
         <td v-for="key in columns">
-          {{entry[key]}}
+          <div v-if="key == 'Verify'">
+          	<a :href="entry[key]" target="_blank">TX</a>
+					</div>
+					<div v-else>
+						{{entry[key]}}
+					</div>
         </td>
       </tr>
     </tbody>

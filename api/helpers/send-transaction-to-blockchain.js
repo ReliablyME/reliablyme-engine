@@ -115,9 +115,9 @@ module.exports = {
 		const pKey = Buffer.alloc(32, privateKey, 'hex');
 
 		const rawTx = {
-			nonce: count + 1,
-		  gasPrice: '0x09184e72a000',
-		  gasLimit: '0x27100',
+			nonce: count,
+		  gasPrice: price,
+		  gasLimit: gas,
 		  from: userAddress,
 		  to: contractAddress,
 		  value: '0x00',

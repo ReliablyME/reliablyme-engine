@@ -33,7 +33,7 @@ module.exports = {
         comStat.commitmentStatusName AS statusName, 
         commit.commitmentOffer AS offer, 
         commit.commitmentDueDate AS DueDate,
-        commit.completionTransaction as Blockchain,
+        commit.offerTransaction as Verify,
         comEvent.eventName AS Event
       FROM reliablyme.commitment AS commit 
         JOIN reliablyme.commitmentstatus AS comStat ON comStat.id=commit.commitmentStatus_id
