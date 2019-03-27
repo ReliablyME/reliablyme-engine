@@ -59,6 +59,7 @@ parasails.registerPage('score', {
       // Fix date formats
       for(var i in pending) {
         pending[i].DueDate = pending[i].DueDate.toString().substring(0,10);
+        pending[i].Verify = "https://rinkeby.etherscan.io/tx/" + pending[i].Verify;
       }
       this.pending = pending;
     },
@@ -70,6 +71,7 @@ parasails.registerPage('score', {
       // Fix date formats
       for(var i in incomplete) {
         incomplete[i].DueDate = incomplete[i].DueDate.toString().substring(0,10);
+        incomplete[i].Verify = "https://rinkeby.etherscan.io/tx/" + incomplete[i].Verify;
       }
       this.closed = incomplete;
     },
