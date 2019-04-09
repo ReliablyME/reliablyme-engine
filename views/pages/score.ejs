@@ -17,6 +17,9 @@
           <div v-if="key == 'Verify'">
           	<a :href="entry[key]" target="_blank">TX</a>
 					</div>
+					<div v-else-if ="key == 'Badge'">
+							<img :src="entry[key]" />
+					</div>
 					<div v-else>
 						{{entry[key]}}
 					</div>

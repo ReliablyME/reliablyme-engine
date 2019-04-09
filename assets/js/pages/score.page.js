@@ -12,7 +12,7 @@ parasails.registerPage('score', {
     entry: 0,
     key: 0,
     searchQuery: '',
-    gridColumns: ['Event', 'DueDate', 'Verify'],
+    gridColumns: ['Event', 'DueDate', 'Verify', 'Badge'],
     route: '',
     
   },

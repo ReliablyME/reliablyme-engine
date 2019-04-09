@@ -50,6 +50,12 @@ module.exports = {
       description: 'ChatFuel bot instance id',
     },
 
+    eventBadgeURL: {
+      type: 'string',
+      //required: true,
+      description: 'URL of badge to display',
+    },
+
   }
 };
 
