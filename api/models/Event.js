@@ -56,6 +56,12 @@ module.exports = {
       description: 'URL of badge to display',
     },
 
+    eventURL: {
+      type: 'string',
+      //required: true,
+      description: 'URL of event to display',
+    },
+
   }
 };
 

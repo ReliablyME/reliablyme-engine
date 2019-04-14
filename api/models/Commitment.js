@@ -53,6 +53,11 @@ module.exports = {
       description: 'Blockchain tx hash for completion accepted transaction',
     },
 
+    chatbotBlock: {
+      type: 'string',
+      description: 'chatbotBlock of commitment',
+    },
+
   }
 };
 

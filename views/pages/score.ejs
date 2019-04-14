@@ -4,8 +4,13 @@
       <tr>
         <th v-for="key in columns"
           @click="sortBy(key)"
-          :class="{ active: sortKey == key }">
-          {{key}}
+					:class="{ active: sortKey == key }">
+					<div v-if="key == 'Verify'">
+					Blockchain
+					</div>
+					<div v-else>
+					{{key}}
+					</div>
           <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
           </span>
         </th>
@@ -18,8 +23,13 @@
           	<a :href="entry[key]" target="_blank">TX</a>
 					</div>
 					<div v-else-if ="key == 'Badge'">
-							<img :src="entry[key]" />
+							<div v-if ="entry[key] != ''">
+									<a :href="entry['EventURL']" target="_blank"><img :src="entry[key]" /></a>
+							</div>
+					</div>					
+					<div v-else-if ="key == 'EventURL'">
 					</div>
+
 					<div v-else>
 						{{entry[key]}}
 					</div>
@@ -45,10 +55,21 @@
 
 	<div class="numberCircle">{{rating}}</div>
 	<h1 class="my">My Commitments</h1>
- 
+	
+	<div class="mainTable">
+	
+	<div class="tab1">	   
+		<h5>Pending</h5>
+	 <demo-grid
+		 :data="pending"
+		 :columns="gridColumns"
+		 :filter-key="searchQuery">
+	 </demo-grid>
+ </div>
+</div>
  	<div class="mainTable">
     <div class="tab1">
-	    Fulfilled 
+	    <h5>Fulfilled </h5>
 			<demo-grid
 		    :data="fulfilled"
 		    :columns="gridColumns1"
@@ -57,23 +78,15 @@
 	  </div>
 
  	  <div class="tab2">	   
- 	    Closed
+ 	    <h5>Closed</h5>
 		  <demo-grid
 		    :data="closed"
-		    :columns="gridColumns"
+		    :columns="gridColumns1"
 		    :filter-key="searchQuery">
 		  </demo-grid>
 		</div>
 
- 	  <div class="tab3">	   
- 	    Pending
-		  <demo-grid
-		    :data="pending"
-		    :columns="gridColumns"
-		    :filter-key="searchQuery">
-		  </demo-grid>
-		</div>
 	</div>  <!-- closing main table -->
-
+	
 </div>
 <%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>

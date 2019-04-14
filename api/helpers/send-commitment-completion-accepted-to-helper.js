@@ -29,6 +29,12 @@ module.exports = {
       required: true
     },
 
+    chatbotBlock: {
+      description: 'chatbotBlock to display.',
+      type: 'string',
+      required: true
+    },
+
   },
 
 
@@ -46,7 +52,7 @@ module.exports = {
         method: 'POST',
         headers: {
         	'chatfuel_token': 'mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD',
-        	'chatfuel_block_name': 'CompletionAccepted',
+        	'chatfuel_block_name': encodeURI(inputs.chatbotBlock),
         	'eventName': encodeURI(inputs.eventName),
         }
     };
