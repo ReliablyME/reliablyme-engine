@@ -42,7 +42,7 @@ module.exports = {
         helperID: commitment[0].helper_id,
         eventName: event[0].eventName,
         botID: event[0].botID,
-        chatbotBlock: commitment[0].chatbotBlock,
+        ChatbotBlock: commitment[0].ChatbotBlock,
       }
     );
 

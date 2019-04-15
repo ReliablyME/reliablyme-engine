@@ -36,7 +36,7 @@ module.exports = {
         commit.offerTransaction as Verify,
         comEvent.eventName AS Event,
         comEvent.eventBadgeURL as Badge,
-        comEvent.eventURL as eventURL
+        comEvent.eventURL as EventURL
       FROM reliablyme.commitment AS commit 
         JOIN reliablyme.commitmentstatus AS comStat ON comStat.id=commit.commitmentStatus_id
         JOIN reliablyme.event AS comEvent ON comEvent.id=commit.event_id

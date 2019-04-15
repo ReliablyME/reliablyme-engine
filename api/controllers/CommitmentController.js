@@ -187,7 +187,7 @@ module.exports = {
 			    		helper_id: req.param("messenger user id"),
 			      		entreprenuer_id: req.param("entrepreneurID"),
 								commitmentOffer: req.param("commitmentOffer"),
-								chatbotBlock: req.param("chatbotBlock"),
+								ChatbotBlock: req.param("ChatbotBlock"),
 			      		commitmentDueDate: inDate,
 			      		commitmentStatus_id: 2,
 			      		event_id: req.param("eventID")
@@ -204,6 +204,7 @@ module.exports = {
 					await sails.helpers.sendMessageToEntrepreneur.with(
 						{
 							helperName: helper[0].fullName,
+
 							comID: newCommitment.id,
 							comOffer: newCommitment.commitmentOffer,
 							entID: newCommitment.entreprenuer_id,
