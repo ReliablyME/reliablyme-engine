@@ -15,7 +15,9 @@ parasails.registerPage('score', {
     gridColumns: ['Event', 'DueDate', 'Verify'],
     gridColumns1: ['Event', 'DueDate', 'Verify', 'Badge'],
     route: '',
-    
+    completedNum: '',
+    prefFirstName: '',
+    prefLastName: '',
   },
 
   //  ╦  ╦╔═╗╔═╗╔═╗╦ ╦╔═╗╦  ╔═╗
@@ -80,6 +82,9 @@ parasails.registerPage('score', {
     loadRating: async function() {
       var rating = await Cloud.reliabilityrating(this.route);
       this.rating = rating.Reliabilityrating;
+      this.completedNum = rating.completedNum;
+      this.prefFirstName = rating.prefFirstName;
+      this.prefLastName =rating.prefLastName;
     },
 
   }

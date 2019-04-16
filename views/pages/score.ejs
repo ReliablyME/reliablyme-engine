@@ -45,15 +45,19 @@
 
 <div id="score" style="background-image: linear-gradient(white, #DDDDDD);">
 
-	<h1 class="top">My Reliability Record</h1>
+	<h1 class="top">{{prefFirstName}} {{prefLastName}}'s Social Credit Profile</h1>
 	<img class="center" src="/images/Reliablyme_logo.png">
 	<div class="para">
-		<p>This is your reliability record. A reliability record measures how well a person honours their commitments.</p>
-		<p>The highest rating is 1000.</p>
-		<p>All commmitments are tracked and recorded on the Etheruem blockchain network.</p>
+		<p></p>
+		<p>This is your Social Credit Profile. It consists of a reliability record that measures your ratio of fulfilled commitments (100% = 1,000) and the badges your earned every time you showed up on time.</p>
+
     </div>
 
 	<div class="numberCircle">{{rating}}</div>
+	<div class="para">
+		<p>Your current Reliability Record is {{rating}}  after completing {{completedNum}} commitments! </p>
+		<p>All commitments are tracked and recorded on the Etheruem blockchain network which you can verify by clicking on the Tx link next to each commitment. </p>
+	</div>
 	<h1 class="my">My Commitments</h1>
 	
 	<div class="mainTable">
