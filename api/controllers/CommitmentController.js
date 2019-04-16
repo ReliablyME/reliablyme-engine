@@ -160,16 +160,21 @@ module.exports = {
 	CreateCommitment: async function (req, res) {
 		console.log("Called CreateCommitment", req.allParams());
 
-		var inArray = req.param("inputDate").trim().split("#");
-		//input format 2019#04#10#23:49 as 2019-04-10 23:49:00 ?
+	//var inputDate = req.param("inputDate").trim();
+	var inputDate = req.param("inputDate").trim();
+	//var inputDate = '2019#04#10#23:59';
+	var DateArray = inputDate.split(":");
+	var dateMinute = DateArray[1].trim();
+	var inArray = DateArray[0].split("#");
 
-		if ((inArray[4]!=undefined) && (inArray[3]!=undefined) ){
-			console.log("Date=", inArray[0], inArray[1] - 1, inArray[2], inArray[3], inArray[4]);
-			var inDate = new Date(inArray[0], inArray[1] - 1, inArray[2], inArray[3], inArray[4]);
-		} else {
-			console.log("Date=", inArray[0], inArray[1] - 1, inArray[2]);
-			var inDate = new Date(inArray[0], inArray[1] - 1, inArray[2]);
-		}
+	if ((dateMinute!=undefined) && (inArray[3]!=undefined) ){
+		console.log("Date=", inArray[0], inArray[1] - 1, inArray[2], inArray[3], dateMinute);
+		var inDate = new Date(inArray[0], inArray[1] - 1, inArray[2], inArray[3], dateMinute);
+	} else {
+		console.log("Date=", inArray[0], inArray[1] - 1, inArray[2]);
+		var inDate = new Date(inArray[0], inArray[1] - 1, inArray[2]);
+	}
+
 		var today = new Date();
 		
 		console.log("This is the Current Date: " + today);

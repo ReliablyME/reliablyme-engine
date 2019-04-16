@@ -42,7 +42,7 @@ module.exports = {
 
   fn: async function(inputs, exits) {
     console.log('SendCommitmentCompletionAcceptanceToHelper inputs=:',inputs);
-  	var fullpath='/bots/'+inputs.botID+'/users/'+inputs.helperID+'/send?chatfuel_token=mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD&chatfuel_block_name=CompletionAccepted&eventName='+encodeURI(inputs.eventName);
+  	var fullpath='/bots/'+inputs.botID+'/users/'+inputs.helperID+'/send?chatfuel_token=mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD&chatfuel_block_name='+encodeURI(inputs.ChatbotBlock)+'&eventName='+encodeURI(inputs.eventName);
 	  var results = ""; 
 	  var path = '/bots/'+inputs.botID+'/users/'+inputs.helperID+'/send'; 
     var options = {
