@@ -8,6 +8,11 @@ module.exports = {
 
 
   inputs: {
+    eventid: {
+      type: "number",
+      description: 'Event ID',
+      required: true
+    },
 
   },
 
@@ -17,14 +22,18 @@ module.exports = {
   },
 
 
-  fn: async function (inputs) {
-
+  fn: async function (inputs, exits) {
     console.log("Called Commitmentlist Action", this.req.allParams());
     var loggedInUser = await User.findOne({ id: this.req.session.userId});
+    var eventSelect = '';
+    if (inputs.eventid>0)
+      eventSelect = ' AND events.id ='+inputs.eventid+' ';
     var commitmentQuery = `
       SELECT 
           commit.id AS commitment_id, 
-          events.id AS event_id,
+          events.id AS event_id,       
+          DATE_FORMAT(from_unixtime(commit.createdAt/1000),'%Y-%m-%d %h:%m') AS CommitmentDate,
+          IF(commit.commitmentStatus_id=5, DATE_FORMAT(from_unixtime(commit.updatedAt/1000),'%Y-%m-%d %h:%m'), "") AS FulfilledDate,
           commit.commitmentDueDate AS DueDate, 
           volunteer.prefFirstName AS First, 
           volunteer.prefLastName AS Last,
@@ -38,8 +47,9 @@ module.exports = {
           JOIN reliablyme.commitmentstatus AS comStat ON comStat.id=commit.commitmentStatus_id
           JOIN reliablyme.event AS events ON events.id=commit.event_id
           JOIN reliablyme.eventorganizer AS eventorg ON eventorg.event_id=commit.event_id AND eventorg.organizer_id=` + this.req.session.userId +`
+         `+eventSelect+` 
           ORDER BY commit.commitmentDueDate, comStat.commitmentStatusName DESC, volunteer.prefFirstName; `;
-    
+      
     var params = [];
 
     console.log("Database query:", commitmentQuery);

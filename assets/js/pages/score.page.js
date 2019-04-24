@@ -12,8 +12,8 @@ parasails.registerPage('score', {
     entry: 0,
     key: 0,
     searchQuery: '',
-    gridColumns: ['Event', 'DueDate', 'Verify'],
-    gridColumns1: ['Event', 'DueDate', 'Verify', 'Badge'],
+    gridColumns: ['Event', 'CommitmentDate', 'DueDate', 'Verify'],
+    gridColumns1: ['Event', 'CommitmentDate', 'DueDate', 'Verify', 'Badge','FulfilledDate'],
     route: '',
     completedNum: '',
     prefFirstName: '',
@@ -36,6 +36,9 @@ parasails.registerPage('score', {
     this.loadRating();
   },
   mounted: async function() {
+    $('div#Pending  > table > thead > tr > th:nth-child(2) ').click();
+    $('div#Fulfilled  > table > thead > tr > th:nth-child(6) ').click();
+    $('div#Closed  > table > thead > tr > th:nth-child(3) ').click();
     //…
   },
 
@@ -49,7 +52,7 @@ parasails.registerPage('score', {
       var complete = list.records;
       // Fix date formats
       for(var i in complete) {
-        complete[i].DueDate = complete[i].DueDate.toString().substring(0,10);
+        complete[i].DueDate = complete[i].DueDate.toString().substring(0,16).replace('T',' ');
         complete[i].Verify = "https://rinkeby.etherscan.io/tx/" + complete[i].Verify;
       }
       this.fulfilled = complete;
@@ -61,7 +64,7 @@ parasails.registerPage('score', {
       var pending = list.records;
       // Fix date formats
       for(var i in pending) {
-        pending[i].DueDate = pending[i].DueDate.toString().substring(0,10);
+        pending[i].DueDate = pending[i].DueDate.toString().substring(0,16).replace('T',' ');
         pending[i].Verify = "https://rinkeby.etherscan.io/tx/" + pending[i].Verify;
       }
       this.pending = pending;
@@ -73,7 +76,8 @@ parasails.registerPage('score', {
       var incomplete = list.records;
       // Fix date formats
       for(var i in incomplete) {
-        incomplete[i].DueDate = incomplete[i].DueDate.toString().substring(0,10);
+
+        incomplete[i].DueDate = incomplete[i].DueDate.toString().substring(0,16).replace('T',' ');
         incomplete[i].Verify = "https://rinkeby.etherscan.io/tx/" + incomplete[i].Verify;
       }
       this.closed = incomplete;

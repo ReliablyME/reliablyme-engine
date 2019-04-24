@@ -31,7 +31,9 @@ module.exports = {
       SELECT 
         commit.id AS commitment_id, 
         comStat.commitmentStatusName AS statusName, 
-        commit.commitmentOffer AS offer, 
+        commit.commitmentOffer AS offer,        
+        DATE_FORMAT(from_unixtime(commit.createdAt/1000),'%Y-%m-%d %h:%m') AS CommitmentDate,
+        IF(commit.commitmentStatus_id=5, DATE_FORMAT(from_unixtime(commit.updatedAt/1000),'%Y-%m-%d %h:%m'), "") AS FulfilledDate,
         commit.commitmentDueDate AS DueDate,
         commit.offerTransaction as Verify,
         comEvent.eventName AS Event,
@@ -41,7 +43,7 @@ module.exports = {
         JOIN reliablyme.commitmentstatus AS comStat ON comStat.id=commit.commitmentStatus_id
         JOIN reliablyme.event AS comEvent ON comEvent.id=commit.event_id
         WHERE (commit.commitmentStatus_id=5 OR ( commit.commitmentStatus_id=2 AND commit.commitmentDueDate < CURDATE() )) AND helper_id = '` + inputs.messengeruserid + `' 
-        ORDER BY commit.commitmentDueDate; 
+        ORDER BY commit.commitmentDueDate DESC; 
       `;
 
     console.log(incompleteQuery);

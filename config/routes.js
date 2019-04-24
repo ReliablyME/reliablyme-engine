@@ -62,6 +62,7 @@ module.exports.routes = {
   'POST  /api/v1/pendinglist':                            { action: 'pendinglist' },
   'POST  /api/v1/reliabilityrating':                      { action: 'reliabilityrating' },
   'POST  /api/v1/acceptoffer':                            { action: 'acceptoffer' },
+  'POST  /api/v1/eventlist':                         { action: 'eventlist' },
 
   'POST  /registerFacebookIndividual': 'CommitmentController.registerFacebookIndividual' ,
   'POST  /captureEmail': 'CommitmentController.captureEmail',

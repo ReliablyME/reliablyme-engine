@@ -45,15 +45,13 @@
 
 <div id="score" style="background-image: linear-gradient(white, #DDDDDD);">
 
-	<h1 class="top">{{prefFirstName}} {{prefLastName}}'s Social Credit Profile</h1>
+	<h1 class="top">{{prefFirstName}} {{prefLastName}}'s Commitment Portfolio</h1>
 	<img class="center" src="/images/Reliablyme_logo.png">
 	<div class="para">
 		<p></p>
-		<p>This is your Social Credit Profile. It consists of a reliability record that measures your ratio of fulfilled commitments (100% = 1,000) and the badges your earned every time you showed up on time.</p>
-
+		<p>This is your Commitment Portfolio. It consists of a reliability record that measures your ratio of fulfilled commitments (100% = 1,000) and the badges your earned every time you showed up on time.</p>
     </div>
-
-	<div class="numberCircle">{{rating}}</div>
+    <div class="numberCircle">{{rating}}</div>
 	<div class="para">
 		<p>Your current Reliability Record is {{rating}}  after completing {{completedNum}} commitments! </p>
 		<p>All commitments are tracked and recorded on the Etheruem blockchain network which you can verify by clicking on the Tx link next to each commitment. </p>
@@ -62,7 +60,7 @@
 	
 	<div class="mainTable">
 	
-	<div class="tab1">	   
+	<div class="tab1" id="Pending">	   
 		<h5>Pending</h5>
 	 <demo-grid
 		 :data="pending"
@@ -72,7 +70,7 @@
  </div>
 </div>
  	<div class="mainTable">
-    <div class="tab1">
+    <div class="tab1" id="Fulfilled">
 	    <h5>Fulfilled </h5>
 			<demo-grid
 		    :data="fulfilled"
@@ -81,7 +79,7 @@
 		  </demo-grid>
 	  </div>
 
- 	  <div class="tab2">	   
+ 	  <div class="tab2" id="Closed">	   
  	    <h5>Closed</h5>
 		  <demo-grid
 		    :data="closed"

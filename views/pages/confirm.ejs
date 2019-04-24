@@ -14,7 +14,7 @@
     <tbody>
       <tr v-for="entry in filteredData">
         <td v-for="key in columns">
-          <div v-if="key == 'Offer'">
+          <div v-if="key == 'Status'">
           	<div v-if="entry[key] != 'Closed'">
           		<button type='button' @click="confirmCommitment(entry['commitment_id'])">Done</button>
           	</div>
@@ -32,6 +32,7 @@
 </script>
 
 <div id="confirm" style="margin: auto; width: 1024px;">
+  <span id="searchEventSpan" ></span>
 	<div>
 		Responses to your event:
 	</div>
