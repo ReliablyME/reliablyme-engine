@@ -25,15 +25,23 @@ module.exports = {
   fn: async function (inputs, exits) {
     console.log("Called Commitmentlist Action", this.req.allParams());
     var loggedInUser = await User.findOne({ id: this.req.session.userId});
-    var eventSelect = '';
+    console.log(loggedInUser);
+    console.log(loggedInUser.isSuperAdmin);
+    
+    var organizerWhere = '';
+    var eventWhere = '';
     if (inputs.eventid>0)
-      eventSelect = ' AND events.id ='+inputs.eventid+' ';
+        eventWhere += ' AND events.id ='+inputs.eventid+' ';
+    if (!loggedInUser.isSuperAdmin) {
+      organizerWhere =' AND eventorg.organizer_id=' + this.req.session.userId +' ';
+    }
+
     var commitmentQuery = `
       SELECT 
           commit.id AS commitment_id, 
           events.id AS event_id,       
-          DATE_FORMAT(from_unixtime(commit.createdAt/1000),'%Y-%m-%d %h:%m') AS CommitmentDate,
-          IF(commit.commitmentStatus_id=5, DATE_FORMAT(from_unixtime(commit.updatedAt/1000),'%Y-%m-%d %h:%m'), "") AS FulfilledDate,
+          DATE_FORMAT(convert_tz(from_unixtime(commit.createdAt/1000), '+00:00','-04:00'),'%Y-%m-%d %H:%i') AS CommitmentDate,
+          IF(commit.commitmentStatus_id=5, DATE_FORMAT(convert_tz(from_unixtime(commit.updatedAt/1000), '+00:00','-04:00'),'%Y-%m-%d %H:%i'), "") AS FulfilledDate,
           commit.commitmentDueDate AS DueDate, 
           volunteer.prefFirstName AS First, 
           volunteer.prefLastName AS Last,
@@ -46,8 +54,10 @@ module.exports = {
         JOIN reliablyme.user AS volunteer ON commit.helper_id=volunteer.messengerUserId 
           JOIN reliablyme.commitmentstatus AS comStat ON comStat.id=commit.commitmentStatus_id
           JOIN reliablyme.event AS events ON events.id=commit.event_id
-          JOIN reliablyme.eventorganizer AS eventorg ON eventorg.event_id=commit.event_id AND eventorg.organizer_id=` + this.req.session.userId +`
-         `+eventSelect+` 
+          JOIN reliablyme.eventorganizer AS eventorg ON eventorg.event_id=commit.event_id
+          `+organizerWhere+`
+          `+eventWhere+`
+          GROUP BY commit.id
           ORDER BY commit.commitmentDueDate, comStat.commitmentStatusName DESC, volunteer.prefFirstName; `;
       
     var params = [];

@@ -33,7 +33,7 @@ module.exports = {
         commit.id AS commitment_id, 
         comStat.commitmentStatusName AS statusName, 
         commit.commitmentOffer AS offer, 
-        DATE_FORMAT(from_unixtime(commit.createdAt/1000),'%Y-%m-%d %h:%m') AS CommitmentDate,
+        DATE_FORMAT(convert_tz(from_unixtime(commit.createdAt/1000), '+00:00','-04:00'),'%Y-%m-%d %H:%i') AS CommitmentDate,
         commit.commitmentDueDate AS DueDate,
         commit.offerTransaction as Verify,
         comEvent.eventName AS Event
