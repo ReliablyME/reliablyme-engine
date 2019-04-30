@@ -22,7 +22,7 @@ module.exports = {
     var loggedInUser = await User.findOne({ id: this.req.session.userId});
     var eventWhere = '';
     if (!loggedInUser.isSuperAdmin) {
-        eventWhere = ' WHERE id in (SELECT event_id FROM reliablyme.eventorgainzer WHERE organizer_id = '+this.req.session.userId +') ';
+        eventWhere = ' WHERE id in (SELECT event_id FROM reliablyme.eventorganizer WHERE organizer_id = '+this.req.session.userId +') ';
     }
 
     var eventQuery = `

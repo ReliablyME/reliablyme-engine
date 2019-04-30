@@ -391,7 +391,7 @@ module.exports = {
 						var jcomp =jcompletes.rows;
 						var jcomps = jcomp[0].complete;
 						var rating = Math.round(Number(jcomps)/Number(jtot)* 1000);
-						var total = Number(jtot);
+						var total = Number(jcomps);
 						return res.ok({"set_attributes": {"Reliabilityrating": rating, "completedNumCommitments": total }});
 					}
 					else {

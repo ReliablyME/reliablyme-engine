@@ -37,7 +37,7 @@ module.exports = {
         commit.commitmentDueDate AS DueDate,
         commit.offerTransaction as Verify,
         comEvent.eventName AS Event,
-        comEvent.eventBadgeURL as Badge,
+        IF(commit.commitmentStatus_id=5,comEvent.eventBadgeURL,'') as Badge,
         comEvent.eventURL as EventURL
       FROM reliablyme.commitment AS commit 
         JOIN reliablyme.commitmentstatus AS comStat ON comStat.id=commit.commitmentStatus_id

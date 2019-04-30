@@ -43,8 +43,8 @@ module.exports = {
           DATE_FORMAT(convert_tz(from_unixtime(commit.createdAt/1000), '+00:00','-04:00'),'%Y-%m-%d %H:%i') AS CommitmentDate,
           IF(commit.commitmentStatus_id=5, DATE_FORMAT(convert_tz(from_unixtime(commit.updatedAt/1000), '+00:00','-04:00'),'%Y-%m-%d %H:%i'), "") AS FulfilledDate,
           commit.commitmentDueDate AS DueDate, 
-          volunteer.prefFirstName AS First, 
-          volunteer.prefLastName AS Last,
+	  (select fu.prefFirstName from reliablyme.user fu where fu.messengerUserId =commit.helper_id) AS First,
+          (select lu.prefLastName from reliablyme.user lu where lu.messengerUserId =commit.helper_id) AS Last,
           volunteer.messengerUserId AS messenger_id, 
           comStat.id AS comStat_id, 
           comStat.commitmentStatusName AS Status, 
@@ -58,7 +58,7 @@ module.exports = {
           `+organizerWhere+`
           `+eventWhere+`
           GROUP BY commit.id
-          ORDER BY commit.commitmentDueDate, comStat.commitmentStatusName DESC, volunteer.prefFirstName; `;
+          ORDER BY commit.commitmentDueDate, comStat.commitmentStatusName DESC; `;
       
     var params = [];
 
